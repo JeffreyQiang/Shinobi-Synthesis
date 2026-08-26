@@ -132,6 +132,157 @@
         }
         .scroll-footer span { color: #d4a85488; }
 
+        /* ===== 规则书（模态框） ===== */
+        #rulebook-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(10,8,6,0.95);
+            backdrop-filter: blur(8px);
+            padding: 30px 20px;
+            overflow-y: auto;
+        }
+        #rulebook-overlay .rulebook-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #1f1814;
+            border-radius: 40px;
+            padding: 40px 45px 50px;
+            border: 1px solid #d4a85455;
+            box-shadow: 0 0 80px rgba(212,168,84,0.05);
+            position: relative;
+        }
+        #rulebook-overlay .close-btn {
+            position: sticky;
+            top: 0;
+            float: right;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid #d4a85466;
+            color: #d0c0a8;
+            border-radius: 40px;
+            padding: 6px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Noto Serif SC', serif;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        #rulebook-overlay .close-btn:hover {
+            background: rgba(212,168,84,0.1);
+            border-color: #d4a854;
+            color: #f5e7b3;
+        }
+        #rulebook-overlay h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            color: #f5e7b3;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #d4a85433;
+            padding-bottom: 12px;
+        }
+        #rulebook-overlay .version {
+            text-align: center;
+            color: #8a7a6a;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        #rulebook-overlay h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            color: #f5e7b3;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            border-left: 3px solid #d4a854;
+            padding-left: 14px;
+            letter-spacing: 2px;
+        }
+        #rulebook-overlay h3 {
+            font-size: 18px;
+            color: #d0c0a8;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-left: 6px;
+            font-weight: 600;
+        }
+        #rulebook-overlay p {
+            color: #b0a090;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            padding-left: 12px;
+            text-align: justify;
+        }
+        #rulebook-overlay ul {
+            padding-left: 36px;
+            margin: 6px 0 14px 0;
+            color: #b0a090;
+            font-size: 15px;
+            line-height: 1.8;
+            list-style-type: disc;
+        }
+        #rulebook-overlay ul li {
+            margin-bottom: 4px;
+        }
+        #rulebook-overlay .highlight {
+            color: #ffd966;
+            font-weight: 600;
+        }
+        #rulebook-overlay .damage {
+            color: #ff7b7b;
+        }
+        #rulebook-overlay .heal {
+            color: #7bff7b;
+        }
+        #rulebook-overlay .chakra {
+            color: #7ab8ff;
+            font-weight: 600;
+        }
+        #rulebook-overlay .card-example {
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 8px 0 12px 12px;
+            border-left: 3px solid #d4a85444;
+        }
+        #rulebook-overlay .card-example .emoji {
+            font-size: 20px;
+            margin-right: 6px;
+        }
+        #rulebook-overlay table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 18px 12px;
+            color: #b0a090;
+            font-size: 14px;
+        }
+        #rulebook-overlay table th {
+            background: rgba(212,168,84,0.08);
+            color: #f5e7b3;
+            padding: 8px 12px;
+            text-align: left;
+            border: 1px solid #3a2a1a;
+        }
+        #rulebook-overlay table td {
+            padding: 6px 12px;
+            border: 1px solid #3a2a1a;
+        }
+        #rulebook-overlay table .role-name {
+            font-weight: 600;
+            color: #f0e6d0;
+        }
+        #rulebook-overlay .rulebook-footer {
+            margin-top: 30px;
+            padding-top: 16px;
+            border-top: 1px solid #3a2a1a;
+            text-align: center;
+            color: #6a5a4a;
+            font-size: 13px;
+        }
+
         /* ===== 角色选择界面 ===== */
         #role-select-screen {
             display: none;
@@ -507,6 +658,7 @@
 
         .action-bar {
             display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px;
+            align-items: center;
         }
         .btn {
             background: rgba(255,255,255,0.04);
@@ -545,6 +697,15 @@
         .btn-substitute:hover:not(:disabled) {
             background: #b88a6a;
             border-color: #d4a854;
+        }
+        .btn-rulebook {
+            background: #4a4a6a;
+            border-color: #6a6a8a;
+            color: #f0e6d0;
+        }
+        .btn-rulebook:hover:not(:disabled) {
+            background: #6a6a8a;
+            border-color: #8a8aaa;
         }
 
         .battle-log {
@@ -591,6 +752,8 @@
             .btn-back-home { bottom: 16px; right: 16px; font-size: 12px; padding: 6px 14px; }
             .role-select-container { flex-direction: column; align-items: center; gap: 20px; }
             .role-select-column { min-width: 200px; width: 100%; max-width: 300px; }
+            #rulebook-overlay .rulebook-container { padding: 24px 20px; }
+            #rulebook-overlay h1 { font-size: 26px; }
         }
     </style>
 </head>
@@ -610,9 +773,140 @@
                     <button class="btn-start" id="btn-pvp">👥 双人模式</button>
                     <button class="btn-start" id="btn-ai">🤖 单人模式 (VS AI)</button>
                 </div>
+                <div style="margin-top: 12px;">
+                    <button class="btn-start" id="btn-rulebook-home" style="font-size:16px; padding:12px 28px; min-width:120px; border-color:#6a6a8a;">📖 规则书</button>
+                </div>
                 <div class="scroll-footer">
                     <span>✦</span> 随时返回卷轴 · 重开对局 <span>✦</span>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 规则书模态框 ===== -->
+    <div id="rulebook-overlay">
+        <div class="rulebook-container">
+            <button class="close-btn" id="rulebook-close">✕ 关闭</button>
+            <h1>📜 忍界大战 · 完整规则书</h1>
+            <div class="version">版本 1.0 · 最后更新 2026年8月</div>
+
+            <h2>1. 游戏目标</h2>
+            <p>玩家操控忍者，通过打出卡牌攻击对手或治疗自己，将对手的生命值降至 0 即可获胜。游戏融合了卡牌合成、查克拉管理、角色技能等策略元素，每局对战胜负取决于牌序、资源分配和战术决策。</p>
+
+            <h2>2. 游戏准备</h2>
+            <h3>2.1 选择模式</h3>
+            <p>在主页卷轴中，玩家可以选择 <span class="highlight">双人模式</span>（两名玩家轮流操作）或 <span class="highlight">单人模式</span>（玩家 vs AI）。</p>
+            <h3>2.2 选择角色</h3>
+            <p>每位玩家从 5 个忍者角色中选择一个（可重复）。每个角色拥有独特的 <span class="highlight">被动技能</span>，影响战斗风格。角色一旦选定，整局游戏不可更改。</p>
+            <ul>
+                <li><strong>鸣人</strong>（🍥）：影分身 —— 每回合第一次受到伤害时，30%概率完全闪避。</li>
+                <li><strong>佐助</strong>（⚡）：写轮眼 —— 每回合第一次打出伤害牌时，伤害 +2。</li>
+                <li><strong>小樱</strong>（🌸）：医疗天赋 —— 每回合回血额外 +1（即回 2 点）。</li>
+                <li><strong>鼬</strong>（👁️）：万花筒 —— 每回合第一张牌打出后，额外抽 1 张牌。</li>
+                <li><strong>鬼鲛</strong>（🦈）：鲛肌·饕餮 —— 每次造成伤害时，40%概率吸收对手 1 点查克拉；若对手查克拉为 0，则该次伤害 +1。</li>
+            </ul>
+
+            <h2>3. 游戏流程</h2>
+            <h3>3.1 回合结构</h3>
+            <p>游戏采用回合制，玩家轮流进行自己的回合。每个回合包含以下阶段（按顺序执行）：</p>
+            <ol style="padding-left: 36px; color: #b0a090; line-height: 1.8;">
+                <li><strong>回合开始</strong>：当前玩家恢复生命值（基础 1 点，若角色为小樱则恢复 2 点），然后抽 1 张牌（手牌上限 4 张）。</li>
+                <li><strong>行动阶段</strong>：玩家可以任意顺序执行以下操作（次数不限，但需遵循各自限制）：
+                    <ul>
+                        <li>打出卡牌（点击手牌）</li>
+                        <li>合成进阶牌（点击“忍术合成”按钮）</li>
+                        <li>换牌（点击“换牌”按钮进入模式，点击牌上的 ✕ 弃掉并抽 1 张，每回合限一次）</li>
+                        <li>使用忍术强化（点击“忍术强化”按钮，消耗 2 点查克拉，使下一张伤害牌 +5）</li>
+                        <li>使用替身术（被冻结时点击“解除冻结”按钮，消耗 1 点查克拉）</li>
+                    </ul>
+                </li>
+                <li><strong>回合结束</strong>：玩家点击“结束回合”按钮，触发灼烧结算，然后将回合交给对手。</li>
+            </ol>
+
+            <h3>3.2 先后手</h3>
+            <p>游戏由玩家一先手。第一回合玩家二不抽牌，以平衡先后手优势。</p>
+
+            <h2>4. 卡牌系统</h2>
+            <h3>4.1 卡牌类型</h3>
+            <ul>
+                <li><span class="highlight">基础牌</span>：共有 5 种，分别为螺旋丸（🌀，攻击 5）、千杀水翔（❄️，攻击 4）、掌仙术（🌿，治疗 6）、千鸟（⚡，攻击 8）、影手里剑（🌑，攻击 6）。基础牌不附带任何额外效果。</li>
+                <li><span class="highlight">进阶牌</span>：由两张同元素的基础牌合成而来，拥有更高的数值和特殊效果。进阶牌不能再次合成。</li>
+            </ul>
+
+            <h3>4.2 进阶牌一览</h3>
+            <table>
+                <tr><th>合成基础</th><th>进阶牌</th><th>攻击/治疗</th><th>特殊效果</th></tr>
+                <tr><td>🌀 + 🌀</td><td>🌪️ 风遁·螺旋手里剑</td><td>攻击 10</td><td>施加 2 层灼烧</td></tr>
+                <tr><td>❄️ + ❄️</td><td>🧊 冰遁·魔镜冰晶</td><td>攻击 8</td><td>冻结对手 1 回合</td></tr>
+                <tr><td>🌿 + 🌿</td><td>💫 创造再生</td><td>治疗 12</td><td>净化自身所有灼烧和冻结</td></tr>
+                <tr><td>⚡ + ⚡</td><td>⚡⚡ 麒麟</td><td>攻击 16</td><td>抽 1 张牌</td></tr>
+                <tr><td>🌑 + 🌑</td><td>🔥👁️ 天照</td><td>攻击 12</td><td>吸血 60%（恢复伤害的 60%）</td></tr>
+            </table>
+
+            <h3>4.3 卡牌费用</h3>
+            <p>打出卡牌不需要消耗查克拉，但合成需要消耗两张基础牌。忍术强化和替身术需要消耗查克拉。</p>
+
+            <h2>5. 查克拉系统</h2>
+            <p><span class="chakra">查克拉</span> 是执行特殊行动的资源，上限为 3 点。获取方式：</p>
+            <ul>
+                <li>每成功合成一张进阶牌，获得 1 点查克拉。</li>
+                <li>鬼鲛的鲛肌技能有概率吸收对手查克拉。</li>
+            </ul>
+            <p>查克拉的用途：</p>
+            <ul>
+                <li><span class="highlight">替身术</span>（消耗 1 点）：在自身被冻结时，点击“解除冻结”按钮，消耗 1 点查克拉立即解除冻结。</li>
+                <li><span class="highlight">忍术强化</span>（消耗 2 点）：点击“忍术强化”按钮后，下一张打出的伤害牌伤害 +5（仅对伤害牌有效，治疗牌不受影响）。</li>
+            </ul>
+
+            <h2>6. 状态效果</h2>
+            <ul>
+                <li><span class="highlight">灼烧</span>（🔥）：每回合开始时，受到 2 点伤害，然后层数减 1（持续 2 回合）。由风遁·螺旋手里剑施加。</li>
+                <li><span class="highlight">冻结</span>（❄️）：被冻结的玩家在其回合内无法打出任何卡牌、合成或使用其他行动（但可以使用替身术解除）。冻结持续 1 回合，回合结束时自动解除。由冰遁·魔镜冰晶施加。</li>
+                <li><span class="highlight">净化</span>：创造再生可以移除自身所有灼烧和冻结层数。</li>
+                <li><span class="highlight">吸血</span>：天照造成伤害时，恢复伤害值 60% 的生命。</li>
+                <li><span class="highlight">护盾</span>：（当前版本未实装，但保留字段）</li>
+            </ul>
+
+            <h2>7. 特殊操作</h2>
+            <h3>7.1 合成（进阶）</h3>
+            <p>点击“忍术合成”按钮，系统自动检测手牌中是否存在两张相同元素的基础牌。若有，则移除这两张牌，加入对应的进阶牌，并增加 1 点查克拉。合成不消耗行动次数。</p>
+
+            <h3>7.2 换牌</h3>
+            <p>点击“换牌”按钮进入换牌模式，此时每张手牌右上角会出现 ✕ 按钮。点击 ✕ 可弃掉该牌并立即抽 1 张新牌。换牌每回合限一次，换牌结束后按钮恢复。</p>
+
+            <h3>7.3 忍术强化</h3>
+            <p>点击“忍术强化”按钮（消耗 2 点查克拉），激活强化状态。此后打出的第一张伤害牌将获得 +5 伤害加成。强化效果仅对下一张伤害牌有效，若打出治疗牌或其他牌则无效且强化状态消失。</p>
+
+            <h3>7.4 替身术</h3>
+            <p>当玩家被冻结时，“替身术”按钮会亮起（前提是有至少 1 点查克拉）。点击后消耗 1 点查克拉，立即解除冻结状态，该回合可正常行动。</p>
+
+            <h2>8. AI 对手行为</h2>
+            <p>在单人模式中，AI 对手会按照以下策略行动：</p>
+            <ul>
+                <li><strong>治疗优先</strong>：当 AI 生命值低于 35 时，会优先打出手中所有治疗牌（木系），直到生命恢复或手牌耗尽。</li>
+                <li><strong>合成</strong>：AI 会优先合成非木系基础牌；如果生命低于 30 且手中有两张木系基础牌，也会合成为创造再生。</li>
+                <li><strong>替身术</strong>：AI 被冻结时会立刻消耗 1 点查克拉解除冻结。</li>
+                <li><strong>忍术强化</strong>：AI 在查克拉 ≥ 2 时，会为高伤害牌（攻击 ≥ 8 或进阶牌）使用强化。</li>
+                <li><strong>出牌顺序</strong>：AI 每回合最多出 3 张牌，优先治疗，其次高伤害。</li>
+            </ul>
+
+            <h2>9. 游戏结束条件</h2>
+            <p>当任意一方生命值降至 0 或以下时，游戏立即结束，另一方获得胜利。胜利信息会显示在日志中，并弹出提示。</p>
+
+            <h2>10. 常见术语</h2>
+            <ul>
+                <li><strong>手牌上限</strong>：4 张，抽牌时若手牌已满则无法抽取。</li>
+                <li><strong>回合</strong>：从一方开始到其结束的完整过程。</li>
+                <li><strong>伤害</strong>：直接减少对手当前生命值。</li>
+                <li><strong>治疗</strong>：增加自身生命值，不得超过最大生命值（50）。</li>
+                <li><strong>抽牌</strong>：从牌堆随机抽取一张基础牌加入手牌。</li>
+            </ul>
+
+            <h2>11. 版本与更新</h2>
+            <p>本规则书涵盖游戏当前所有机制，后续若有新增内容（如新角色、新卡牌、新模式）将同步更新。</p>
+
+            <div class="rulebook-footer">
+                🍥 木叶 vs 晓 · 查克拉与策略 · 祝你好运！
             </div>
         </div>
     </div>
@@ -691,6 +985,7 @@
                     <button class="btn btn-primary" id="btn-end-turn">⏭️ 结束回合</button>
                     <button class="btn btn-danger" id="btn-restart">🔄 重启</button>
                     <button class="btn btn-substitute" id="btn-substitute" disabled>🪵 解除冻结 (1查克拉)</button>
+                    <button class="btn btn-rulebook" id="btn-rulebook-game">📖 规则书</button>
                 </div>
             </div>
 
@@ -731,10 +1026,33 @@
 
     <script>
         // ============================================================
-        //  强化AI · 优先治疗 · 忍术强化
+        //  完整游戏逻辑（包含规则书）
         // ============================================================
 
-        // ----- 角色数据（5个被动角色） -----
+        // ----- 规则书切换 -----
+        function openRulebook() {
+            document.getElementById('rulebook-overlay').style.display = 'block';
+        }
+        function closeRulebook() {
+            document.getElementById('rulebook-overlay').style.display = 'none';
+        }
+
+        // 绑定规则书按钮
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('btn-rulebook-home').addEventListener('click', openRulebook);
+            document.getElementById('btn-rulebook-game').addEventListener('click', openRulebook);
+            document.getElementById('rulebook-close').addEventListener('click', closeRulebook);
+            // 点击遮罩也可关闭（点击容器外部）
+            document.getElementById('rulebook-overlay').addEventListener('click', function(e) {
+                if (e.target === this) closeRulebook();
+            });
+        });
+
+        // ============================================================
+        //  以下为完整游戏代码（与之前一致）
+        // ============================================================
+
+        // ----- 角色数据 -----
         const ROLES = {
             naruto: {
                 id: 'naruto',
@@ -783,7 +1101,6 @@
             }
         };
 
-        // ----- 基础牌池和进阶映射 -----
         const BASE_POOL = [
             { name: '螺旋丸', element: '🌀', atk: 5, heal: 0, level: 'base' },
             { name: '千杀水翔', element: '❄️', atk: 4, heal: 0, level: 'base' },
@@ -988,7 +1305,7 @@
             else state.p2.hand = hand;
         }
 
-        // ----- 应用卡牌效果（含被动角色技能） -----
+        // ----- 应用卡牌效果 -----
         function applyCard(card, owner, target, isEnhanced = false) {
             let dmg = card.atk || 0;
             let heal = card.heal || 0;
@@ -1060,8 +1377,6 @@
                 }
             }
 
-            // ★ 鼬 · 万花筒（出牌后抽牌）—— 在打出卡牌时处理，这里不做
-
             // 伤害计算
             let actual = 0;
             if (dmg > 0) {
@@ -1072,7 +1387,7 @@
                 owner.hp = Math.min(owner.maxHp, owner.hp + heal);
             }
 
-            // ★ 鬼鲛 · 鲛肌（偷查克拉/增伤）
+            // ★ 鬼鲛 · 鲛肌
             let samehadaExtra = '';
             if (actual > 0 && hasSkill(ownerId, 'samehada')) {
                 if (Math.random() < 0.4) {
@@ -1096,7 +1411,7 @@
             return { log: msg };
         }
 
-        // ----- 打出卡牌（含鼬的万花筒） -----
+        // ----- 打出卡牌 -----
         function playCardFromDOM(playerId, cardElement) {
             const player = getPlayer(playerId);
             const opponent = playerId === 1 ? state.p2 : state.p1;
@@ -1116,7 +1431,6 @@
             const res = applyCard(card, player, opponent);
             log(`🧙 玩家${playerId} 打出 <span class="highlight">${card.element} ${card.name}</span> → ${res.log}`);
 
-            // ★ 鼬 · 万花筒（第一张牌后抽牌）
             if (hasSkill(playerId, 'mangekyo')) {
                 const key = playerId === 1 ? 'p1' : 'p2';
                 if (!skillState.itachiTriggered[key]) {
@@ -1227,7 +1541,7 @@
             render();
         }
 
-        // ----- 替身术 -----
+        // ----- 替身术（玩家手动） -----
         function useSubstitute() {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             const player = getPlayer(state.turn);
@@ -1333,9 +1647,7 @@
             }
         }
 
-        // ============================================================
-        //  ★★★ 强化版 AI 逻辑 ★★★
-        // ============================================================
+        // ----- AI 逻辑 -----
         function aiAction() {
             if (state.gameOver || state.turn !== 2 || !state.aiMode) {
                 state.aiThinking = false;
@@ -1346,61 +1658,89 @@
             const opponent = state.p1;
             log('🤖 AI 正在思考...');
 
-            // 1. 合成（优先）
-            const hand = player.hand;
-            const baseMap = {};
-            hand.forEach(c => { if (c.level === 'base') { baseMap[c.element] = (baseMap[c.element] || 0) + 1; } });
-            let targetElem = null;
-            for (let [elem, cnt] of Object.entries(baseMap)) {
-                if (cnt >= 2) { targetElem = elem; break; }
-            }
-            if (targetElem) {
-                synthesize();
+            // 替身术
+            if (player.freeze > 0 && player.chakra >= 1) {
+                player.chakra -= 1;
+                player.freeze = 0;
+                log(`🪵 AI 使用替身术解除冻结！消耗1查克拉。`);
             }
 
-            // 重新获取手牌
+            // 合成（非木系优先）
+            const hand = player.hand;
+            const nonWoodBase = hand.filter(c => c.level === 'base' && c.element !== '🌿');
+            const woodBase = hand.filter(c => c.level === 'base' && c.element === '🌿');
+            let targetElem = null;
+            const nonWoodMap = {};
+            nonWoodBase.forEach(c => { nonWoodMap[c.element] = (nonWoodMap[c.element] || 0) + 1; });
+            for (let [elem, cnt] of Object.entries(nonWoodMap)) {
+                if (cnt >= 2) { targetElem = elem; break; }
+            }
+            if (!targetElem && player.hp < 30 && woodBase.length >= 2) {
+                targetElem = '🌿';
+            }
+            if (targetElem) {
+                const cards = p2HandEl.querySelectorAll('.card');
+                let removed = 0;
+                const toRemove = [];
+                cards.forEach(c => {
+                    if (removed < 2 && c.dataset.element === targetElem && c.dataset.level === 'base') {
+                        toRemove.push(c);
+                        removed++;
+                    }
+                });
+                toRemove.forEach(c => c.remove());
+                const adv = ADV_MAP[targetElem];
+                if (adv) {
+                    addCardToDOM(2, adv);
+                    syncHandFromDOM(2);
+                    if (player.chakra < 3) player.chakra++;
+                    log(`🔮 AI 合成！${targetElem} → ${adv.element} ${adv.name}`);
+                }
+            }
+
             syncHandFromDOM(2);
             const currentHand = state.p2.hand;
 
-            // 2. 出牌循环（最多3张）
             let actions = 0;
             const maxActions = 3;
             while (actions < maxActions && currentHand.length > 0 && player.freeze === 0 && !state.gameOver) {
-                // 选择策略：如果生命低于20，优先找治疗牌（木系）
                 let selectedIndex = -1;
                 let isHeal = false;
-                if (player.hp < 20) {
+
+                if (player.hp < 35) {
                     const healIndex = currentHand.findIndex(c => c.element === '🌿');
                     if (healIndex !== -1) {
                         selectedIndex = healIndex;
                         isHeal = true;
                     }
                 }
-                // 如果没有治疗或生命不低，选攻击最高的
+
                 if (selectedIndex === -1) {
-                    let maxAtk = -1;
-                    currentHand.forEach((c, i) => {
-                        let atk = c.atk;
-                        if (c.level === 'advanced') atk += 5; // 进阶加成
-                        if (atk > maxAtk) { maxAtk = atk;
-                            selectedIndex = i; }
-                    });
-                    if (selectedIndex === -1) selectedIndex = 0;
+                    const nonHeal = currentHand.filter(c => c.element !== '🌿');
+                    if (nonHeal.length > 0) {
+                        let maxAtk = -1;
+                        nonHeal.forEach((c, i) => {
+                            let atk = c.atk;
+                            if (c.level === 'advanced') atk += 5;
+                            if (atk > maxAtk) { maxAtk = atk;
+                                selectedIndex = currentHand.indexOf(c); }
+                        });
+                        if (selectedIndex === -1) selectedIndex = 0;
+                    } else {
+                        selectedIndex = 0;
+                        isHeal = true;
+                    }
                 }
 
                 const cardEl = p2HandEl.querySelectorAll('.card')[selectedIndex];
                 if (!cardEl) break;
 
-                // 从手牌中移除该牌（出牌）
                 const cardData = currentHand.splice(selectedIndex, 1)[0];
-                // 更新DOM（移除对应的卡牌元素）
                 cardEl.remove();
                 syncHandFromDOM(2);
 
-                // 判断是否使用忍术强化（查克拉>=2，且是攻击牌，且攻击>8或进阶）
                 let enhanced = false;
-                if (player.chakra >= 2 && cardData.atk > 0) {
-                    // 如果是进阶牌或攻击较高，使用强化
+                if (player.chakra >= 2 && cardData.atk > 0 && !isHeal) {
                     if (cardData.level === 'advanced' || cardData.atk >= 8) {
                         player.chakra -= 2;
                         cardData.atk += 5;
@@ -1409,15 +1749,9 @@
                     }
                 }
 
-                // 打出牌（直接调用 playCardData，它会应用所有效果）
                 const res = applyCard(cardData, player, opponent, enhanced);
                 log(`🤖 AI 打出 <span class="highlight">${cardData.element} ${cardData.name}</span> → ${res.log}`);
 
-                // 记录最后一张牌（供卡卡西复制，但这里已删除）
-                state.lastPlayedCard = cardData;
-                state.lastPlayedPlayer = 2;
-
-                // 鼬的万花筒（AI也能触发）
                 if (hasSkill(2, 'mangekyo')) {
                     const key = 'p2';
                     if (!skillState.itachiTriggered[key]) {
@@ -1438,17 +1772,10 @@
                     render();
                     return;
                 }
-                // 更新当前手牌（用于下一轮循环）
-                // 但 currentHand 已经被修改，而 player.hand 已同步，可以继续
             }
 
-            // AI 行动结束
             state.aiThinking = false;
             if (!state.gameOver) {
-                // 直接结束AI回合（切换到玩家一）
-                // 但我们要确保回血和抽牌在切换前完成，且不要重复触发AI
-                // 这里直接调用 endTurn 会再次触发AI，所以我们手动切换
-                // 复制 endTurn 的部分逻辑，但避免递归
                 applyBurns();
                 if (checkGameOver()) { render(); return; }
                 state.turn = 1;
@@ -1460,14 +1787,12 @@
                 } else {
                     log(`💚 玩家一 生命已满 (${p1.hp})`);
                 }
-                // 玩家一抽牌
                 drawOne(p1);
                 const newCard = p1.hand[p1.hand.length - 1];
                 if (newCard) addCardToDOM(1, newCard);
                 state.round++;
                 log(`🔄 轮到玩家一的回合`);
                 render();
-                // 注意：玩家一回合结束时，endTurn会再次触发AI，这是正常的
             }
             render();
         }
@@ -1798,6 +2123,7 @@
                 }
             });
 
+            // 规则书按钮已经在上面绑定了
             restartGame();
         });
     </script>
