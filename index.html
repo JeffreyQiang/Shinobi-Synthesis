@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=shinobi-synthesis.html">
-    <title>Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在进入忍界...</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #1a1410;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: #d0c0a8;
+            flex-direction: column;
+        }
+        .loader {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px #d4a85444;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .sub {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #8a7a6a;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+    </style>
 </head>
 <body>
-    <p>Redirecting to <a href="shinobi-synthesis.html">shinobi-synthesis.html</a>...</p>
+    <div class="loader">🍥 忍术传送中...</div>
+    <div class="sub">正在进入 <span style="color:#ffd966;">Shinobi Synthesis</span></div>
+
+    <script>
+        // 页面加载后立即跳转到游戏文件
+        // 如果浏览器不支持自动跳转，点击页面也会跳转
+        function goToGame() {
+            window.location.replace("shinobi-synthesis.html");
+        }
+        // 立即执行跳转
+        goToGame();
+        // 保险：如果上面没跳转成功（极少情况），点击页面任意位置触发
+        document.body.addEventListener('click', goToGame);
+        // 3秒后如果还没跳转，强制跳转
+        setTimeout(goToGame, 3000);
+    </script>
 </body>
 </html>
