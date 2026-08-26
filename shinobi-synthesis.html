@@ -944,12 +944,12 @@
         </div>
     </div>
 
-    <!-- ===== 规则书模态框（简化版） ===== -->
+    <!-- ===== 规则书模态框 ===== -->
     <div id="rulebook-overlay">
         <div class="rulebook-container">
             <button class="close-btn" id="rulebook-close">✕ 关闭</button>
             <h1>📜 忍界大战 · 完整规则书</h1>
-            <div class="version">版本 1.0 · 最后更新 2026年8月</div>
+            <div class="version">版本 1.1 · 最后更新 2026年8月</div>
             <h2>🎯 游戏目标</h2>
             <p>将对手的生命值（HP）削减至 0，即可获胜。双方初始生命值为 50。</p>
             <h2>🃏 卡牌系统</h2>
@@ -1059,6 +1059,7 @@
 
                 <div class="turn-indicator" id="turn-indicator">
                     <span>🎯 玩家一的回合</span>
+                    <span style="font-size:16px; color:#f5e7b3; background:rgba(0,0,0,0.3); padding:2px 16px; border-radius:30px; border:1px solid #d4a85444;">📊 第 0 回合</span>
                     <span class="chakra-display">💠 查克拉 <span id="p1-chakra">0</span> / 3</span>
                     <span class="chakra-display" style="margin-left:8px;">💠 查克拉 <span id="p2-chakra">0</span> / 3</span>
                 </div>
@@ -1285,7 +1286,8 @@
             aiMode:false, aiThinking:false, roleMap:{p1:null,p2:null}, lastPlayedCard:null, lastPlayedPlayer:null,
             totalDamage: { p1: 0, p2: 0 },
             totalHeal: { p1: 0, p2: 0 },
-            totalBurnDamage: { p1: 0, p2: 0 }
+            totalBurnDamage: { p1: 0, p2: 0 },
+            roundCounter: 0
         };
         let skillState = {
             narutoTriggered: {p1:false,p2:false},
@@ -1768,6 +1770,11 @@
             skillState.itachiTriggered[key] = false;
 
             const nextTurn = state.turn === 1 ? 2 : 1;
+            if (state.turn === 2) {
+                state.roundCounter++;
+                log(`📊 ===== 第 ${state.roundCounter} 回合结束 =====`);
+            }
+
             state.turn = nextTurn;
             const newPlayer = getPlayer(state.turn);
 
@@ -1981,6 +1988,7 @@
             state.totalDamage = { p1: 0, p2: 0 };
             state.totalHeal = { p1: 0, p2: 0 };
             state.totalBurnDamage = { p1: 0, p2: 0 };
+            state.roundCounter = 0;
             skillState.narutoTriggered={p1:false,p2:false};
             skillState.sasukeTriggered={p1:false,p2:false};
             skillState.itachiTriggered={p1:false,p2:false};
@@ -2019,8 +2027,10 @@
 
             const turnName = state.turn === 1 ? '玩家一' : (state.aiMode ? 'AI' : '玩家二');
             const thinking = state.aiMode && state.aiThinking ? ' (思考中...)' : '';
+            const displayRound = state.roundCounter + (state.turn === 2 ? 1 : 0);
             turnIndicator.innerHTML = `
                 <span>🎯 ${turnName}的回合${thinking}</span>
+                <span style="font-size:16px; color:#f5e7b3; background:rgba(0,0,0,0.3); padding:2px 16px; border-radius:30px; border:1px solid #d4a85444;">📊 第 ${displayRound} 回合</span>
                 <span class="chakra-display">💠 查克拉 <span id="p1-chakra">${state.p1.chakra}</span> / 3</span>
                 <span class="chakra-display" style="margin-left:8px;">💠 查克拉 <span id="p2-chakra">${state.p2.chakra}</span> / 3</span>
             `;
