@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shinobi Synthesis · 忍界大战</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* 样式与之前完全相同，省略以节省篇幅，实际代码包含完整样式 */
+        /* ===== 重置 & 基础 ===== */
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         body {
             background: #0a0806;
@@ -18,6 +21,8 @@
             background-image: radial-gradient(ellipse at center, #1a1410 0%, #0a0806 100%);
             margin: 0;
         }
+
+        /* ===== 主页卷轴 ===== */
         #home-screen {
             position: fixed;
             inset: 0;
@@ -126,6 +131,120 @@
             margin-top: 8px;
         }
         .scroll-footer span { color: #d4a85488; }
+
+        /* ===== 角色选择界面 ===== */
+        #role-select-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 900;
+            background: rgba(10,8,6,0.95);
+            backdrop-filter: blur(8px);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .role-select-title {
+            text-align: center;
+            color: #f5e7b3;
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+        .role-select-sub {
+            text-align: center;
+            color: #8a7a6a;
+            font-size: 14px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .role-select-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+        .role-select-column {
+            background: rgba(0,0,0,0.3);
+            border-radius: 24px;
+            padding: 20px;
+            min-width: 240px;
+            border: 1px solid rgba(212,168,84,0.2);
+            max-width: 340px;
+            flex: 1;
+        }
+        .role-select-column h3 {
+            color: #f5e7b3;
+            text-align: center;
+            margin-bottom: 16px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+        .role-btn {
+            display: block;
+            width: 100%;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(212,168,84,0.15);
+            border-radius: 12px;
+            color: #d0c0a8;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 14px;
+            font-family: 'Noto Serif SC', serif;
+        }
+        .role-btn:hover {
+            background: rgba(212,168,84,0.08);
+            border-color: #d4a85466;
+        }
+        .role-btn.selected {
+            background: rgba(212,168,84,0.15);
+            border-color: #d4a854;
+            box-shadow: 0 0 20px rgba(212,168,84,0.1);
+            color: #f5e7b3;
+        }
+        .role-btn .role-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .role-btn .role-skill {
+            font-size: 12px;
+            color: #8a7a6a;
+            margin-top: 2px;
+        }
+        .role-btn .role-skill span {
+            color: #ffd966;
+        }
+        .role-confirm-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 48px;
+            background: #d4a854;
+            border: none;
+            border-radius: 60px;
+            color: #1a1410;
+            font-size: 18px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 2px;
+        }
+        .role-confirm-btn:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(212,168,84,0.3);
+        }
+        .role-confirm-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== 返回按钮 ===== */
         .btn-back-home {
             position: fixed;
             bottom: 24px;
@@ -152,6 +271,8 @@
             transform: scale(1.05);
         }
         .btn-back-home.show { display: block; }
+
+        /* ===== 游戏样式 ===== */
         .app-wrapper {
             display: flex;
             gap: 24px;
@@ -232,6 +353,7 @@
             border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 12px;
         }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -256,6 +378,8 @@
         .hp-bar .bar-fill { height: 100%; border-radius: 10px; transition: width 0.3s; }
         .hp-bar.p1 .bar-fill { background: linear-gradient(90deg, #f74a5e, #ff7b7b); }
         .hp-bar.p2 .bar-fill { background: linear-gradient(90deg, #4a7cf7, #7ba8ff); }
+        .role-avatar { font-size: 24px; margin-right: 4px; }
+
         .turn-indicator {
             text-align: center;
             color: #ffd966;
@@ -283,6 +407,7 @@
             box-shadow: 0 0 16px #4a8aff33;
         }
         .chakra-display span { color: #ffd966; }
+
         .player-area {
             margin: 12px 0;
             padding: 12px;
@@ -302,6 +427,7 @@
             padding: 0 4px;
         }
         .player-area .label .status { color: #c0b09a; font-size: 12px; }
+
         .hand-area {
             display: flex;
             flex-wrap: wrap;
@@ -340,6 +466,7 @@
             border: 1px solid rgba(212,168,84,0.2);
             color: #8a7a6a;
         }
+
         .card {
             width: 90px; height: 126px; border-radius: 16px;
             background: linear-gradient(145deg, #2a221e, #1a1410);
@@ -377,6 +504,7 @@
         .card.enemy-card { cursor: default; opacity: 0.6; }
         .card.enemy-card:hover { transform: none; }
         .card.advanced-card { border-color: #d4a85488; box-shadow: 0 0 20px #d4a85422; }
+
         .action-bar {
             display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px;
         }
@@ -418,6 +546,7 @@
             background: #b88a6a;
             border-color: #d4a854;
         }
+
         .battle-log {
             background: #0f0c0a;
             border-radius: 18px;
@@ -445,7 +574,9 @@
         .battle-log::-webkit-scrollbar { width: 4px; }
         .battle-log::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
         .battle-log::-webkit-scrollbar-thumb { background: #5a4a3a; border-radius: 10px; }
+
         .status-effects { display: flex; gap: 10px; color: #b0a090; font-size: 14px; margin-top: 4px; }
+
         @media (max-width: 800px) {
             .app-wrapper { flex-direction: column; align-items: stretch; }
             .guide-panel { max-width: none; }
@@ -458,6 +589,8 @@
             .btn-start { font-size: 16px; padding: 14px 24px; min-width: 150px; }
             .scroll-container { padding: 32px 20px 28px; }
             .btn-back-home { bottom: 16px; right: 16px; font-size: 12px; padding: 6px 14px; }
+            .role-select-container { flex-direction: column; align-items: center; gap: 20px; }
+            .role-select-column { min-width: 200px; width: 100%; max-width: 300px; }
         }
     </style>
 </head>
@@ -484,6 +617,27 @@
         </div>
     </div>
 
+    <!-- ===== 角色选择界面 ===== -->
+    <div id="role-select-screen">
+        <div style="max-width:900px; margin:0 auto;">
+            <div class="role-select-title">🎭 选择你的忍者</div>
+            <div class="role-select-sub">每个角色拥有独特的被动技能，影响战斗策略</div>
+            <div class="role-select-container" id="role-select-container">
+                <div class="role-select-column" id="p1-role-column">
+                    <h3>👹 玩家一</h3>
+                    <div id="p1-role-list"></div>
+                </div>
+                <div class="role-select-column" id="p2-role-column">
+                    <h3 id="p2-role-title">🧙 玩家二</h3>
+                    <div id="p2-role-list"></div>
+                </div>
+            </div>
+            <div style="text-align:center;">
+                <button class="role-confirm-btn" id="role-confirm-btn" disabled>⚔️ 确认出战</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ===== 游戏界面 ===== -->
     <div id="game-screen">
         <button class="btn-back-home" id="btn-back-home">🏠 返回卷轴</button>
@@ -492,12 +646,12 @@
             <div class="game-container">
                 <div class="header">
                     <div class="hp-bar p1">
-                        <span class="label">👹 玩家一</span>
+                        <span class="label"><span class="role-avatar" id="p1-avatar">👹</span> <span id="p1-name">玩家一</span></span>
                         <span class="value" id="p1-hp">50</span>
                         <div class="bar-bg"><div class="bar-fill" id="p1-hp-bar" style="width:100%"></div></div>
                     </div>
                     <div class="hp-bar p2">
-                        <span class="label" id="p2-label">🧙 玩家二</span>
+                        <span class="label"><span class="role-avatar" id="p2-avatar">🧙</span> <span id="p2-name">玩家二</span></span>
                         <span class="value" id="p2-hp">50</span>
                         <div class="bar-bg"><div class="bar-fill" id="p2-hp-bar" style="width:100%"></div></div>
                     </div>
@@ -569,7 +723,7 @@
                     </div>
                 </div>
                 <div class="guide-note">
-                    🍥 查克拉与策略
+                    🍥 角色技能 · 查克拉与策略
                 </div>
             </div>
         </div>
@@ -577,10 +731,59 @@
 
     <script>
         // ============================================================
-        //  双人 + AI 模式（合成权重降低）
+        //  强化AI · 优先治疗 · 忍术强化
         // ============================================================
 
-        // ----- 基础忍术 -----
+        // ----- 角色数据（5个被动角色） -----
+        const ROLES = {
+            naruto: {
+                id: 'naruto',
+                name: '鸣人',
+                emoji: '🍥',
+                faction: '木叶',
+                skillName: '影分身',
+                skillDesc: '每回合第一次受到伤害时，30%概率完全闪避',
+                skill: 'shadow_clone'
+            },
+            sasuke: {
+                id: 'sasuke',
+                name: '佐助',
+                emoji: '⚡',
+                faction: '木叶',
+                skillName: '写轮眼',
+                skillDesc: '每回合第一次打出伤害牌时，伤害 +2',
+                skill: 'sharingan'
+            },
+            sakura: {
+                id: 'sakura',
+                name: '小樱',
+                emoji: '🌸',
+                faction: '木叶',
+                skillName: '医疗天赋',
+                skillDesc: '每回合回血额外 +1（回2点）',
+                skill: 'medical'
+            },
+            itachi: {
+                id: 'itachi',
+                name: '鼬',
+                emoji: '👁️',
+                faction: '晓',
+                skillName: '万花筒',
+                skillDesc: '每回合第一张牌打出后，额外抽1张牌',
+                skill: 'mangekyo'
+            },
+            kisame: {
+                id: 'kisame',
+                name: '鬼鲛',
+                emoji: '🦈',
+                faction: '晓',
+                skillName: '鲛肌·饕餮',
+                skillDesc: '每次造成伤害时，40%概率吸1查克拉；若对手查克拉为0，则伤害+1',
+                skill: 'samehada'
+            }
+        };
+
+        // ----- 基础牌池和进阶映射 -----
         const BASE_POOL = [
             { name: '螺旋丸', element: '🌀', atk: 5, heal: 0, level: 'base' },
             { name: '千杀水翔', element: '❄️', atk: 4, heal: 0, level: 'base' },
@@ -596,45 +799,11 @@
             '⚡': { name: '麒麟', element: '⚡⚡', atk: 16, heal: 0, level: 'advanced' },
             '🌑': { name: '天照', element: '🔥👁️', atk: 12, heal: 0, level: 'advanced' },
         };
+        const ADV_KEYS = Object.keys(ADV_MAP);
 
-        // ★★★ 修改点：降低合成倾向权重 ★★★
-        function drawOne(player) {
-            if (player.hand.length >= 4) {
-                return null;
-            }
-            const elementCount = {};
-            player.hand.forEach(card => {
-                if (card.level === 'base') {
-                    const elem = card.element;
-                    elementCount[elem] = (elementCount[elem] || 0) + 1;
-                }
-            });
-            const weightedPool = BASE_POOL.map(card => {
-                let weight = 1;
-                // 已有同元素基础牌 → 权重 +1（原为 +3）
-                if (elementCount[card.element] && elementCount[card.element] > 0) {
-                    weight += 1;
-                }
-                // 生命低于20时木系 +4（保留紧急回复机制）
-                if (player.hp < 20 && card.element === '🌿') {
-                    weight += 4;
-                }
-                return { card, weight };
-            });
-            const totalWeight = weightedPool.reduce((sum, item) => sum + item.weight, 0);
-            let rand = Math.random() * totalWeight;
-            let selected = weightedPool[0].card;
-            for (const item of weightedPool) {
-                rand -= item.weight;
-                if (rand <= 0) { selected = item.card; break; }
-            }
-            const card = { ...selected };
-            if (card.level !== 'base') {
-                Object.assign(card, { name: '螺旋丸', element: '🌀', atk: 5, heal: 0, level: 'base' });
-            }
-            player.hand.push(card);
-            return card;
-        }
+        // ----- 选择状态 -----
+        let selectedRoles = { p1: null, p2: null };
+        let gameMode = null;
 
         // ----- 游戏状态 -----
         let state = {
@@ -647,8 +816,18 @@
             enhancePending: false,
             aiMode: false,
             aiThinking: false,
+            roleMap: { p1: null, p2: null },
+            lastPlayedCard: null,
+            lastPlayedPlayer: null,
         };
 
+        let skillState = {
+            narutoTriggered: { p1: false, p2: false },
+            sasukeTriggered: { p1: false, p2: false },
+            itachiTriggered: { p1: false, p2: false },
+        };
+
+        // ----- DOM 引用 -----
         const $ = id => document.getElementById(id);
         const logArea = $('log-area');
         const p1HandEl = $('p1-hand');
@@ -669,8 +848,12 @@
         const btnEnd = $('btn-end-turn');
         const btnRestart = $('btn-restart');
         const btnSubstitute = $('btn-substitute');
-        const p2Label = $('p2-label');
+        const p1Avatar = $('p1-avatar');
+        const p1Name = $('p1-name');
+        const p2Avatar = $('p2-avatar');
+        const p2Name = $('p2-name');
 
+        // ----- 日志 -----
         function log(html) {
             const entry = document.createElement('div');
             entry.className = 'log-entry';
@@ -678,13 +861,45 @@
             logArea.prepend(entry);
             while (logArea.children.length > 30) logArea.removeChild(logArea.lastChild);
         }
-
         function clearLog() {
             logArea.innerHTML = '';
             log('🍥 忍界大战开始！');
         }
 
+        // ----- 工具函数 -----
         function getPlayer(id) { return id === 1 ? state.p1 : state.p2; }
+        function getRoleId(id) { return id === 1 ? state.roleMap.p1 : state.roleMap.p2; }
+        function getRoleObj(id) { const rid = getRoleId(id); return rid ? ROLES[rid] : null; }
+        function hasSkill(id, skillId) { const r = getRoleObj(id); return r && r.skill === skillId; }
+
+        // ----- 抽牌（带权重） -----
+        function drawOne(player) {
+            if (player.hand.length >= 4) return null;
+            const elementCount = {};
+            player.hand.forEach(card => {
+                if (card.level === 'base') {
+                    const elem = card.element;
+                    elementCount[elem] = (elementCount[elem] || 0) + 1;
+                }
+            });
+            const weightedPool = BASE_POOL.map(card => {
+                let weight = 1;
+                if (elementCount[card.element] && elementCount[card.element] > 0) weight += 1;
+                if (player.hp < 20 && card.element === '🌿') weight += 4;
+                return { card, weight };
+            });
+            const totalWeight = weightedPool.reduce((s, i) => s + i.weight, 0);
+            let rand = Math.random() * totalWeight;
+            let selected = weightedPool[0].card;
+            for (const item of weightedPool) {
+                rand -= item.weight;
+                if (rand <= 0) { selected = item.card; break; }
+            }
+            const card = { ...selected };
+            if (card.level !== 'base') Object.assign(card, { name: '螺旋丸', element: '🌀', atk: 5, heal: 0, level: 'base' });
+            player.hand.push(card);
+            return card;
+        }
 
         // ----- DOM 操作 -----
         function addCardToDOM(playerId, card) {
@@ -773,11 +988,13 @@
             else state.p2.hand = hand;
         }
 
-        // ----- 应用卡牌效果 -----
+        // ----- 应用卡牌效果（含被动角色技能） -----
         function applyCard(card, owner, target, isEnhanced = false) {
             let dmg = card.atk || 0;
             let heal = card.heal || 0;
             let extra = '';
+            const ownerId = (owner === state.p1) ? 1 : 2;
+            const targetId = (target === state.p1) ? 1 : 2;
 
             if (card.level === 'advanced') {
                 if (card.element === '🌪️') {
@@ -800,11 +1017,11 @@
                         extra += ' ✨已净化（无负面状态）';
                     }
                 } else if (card.element === '⚡⚡') {
-                    const playerId = (owner === state.p1) ? 1 : 2;
+                    const pid = (owner === state.p1) ? 1 : 2;
                     if (owner.hand.length < 4) {
                         const newCard = drawOne(owner);
                         if (newCard) {
-                            addCardToDOM(playerId, newCard);
+                            addCardToDOM(pid, newCard);
                             extra += ' 📜忍术连携：抽1张牌';
                         } else {
                             extra += ' ⚠️手牌已满，无法抽牌';
@@ -821,6 +1038,31 @@
                 }
             }
 
+            // ★ 鸣人 · 影分身（闪避）
+            if (dmg > 0 && hasSkill(targetId, 'shadow_clone')) {
+                const key = targetId === 1 ? 'p1' : 'p2';
+                if (!skillState.narutoTriggered[key]) {
+                    if (Math.random() < 0.3) {
+                        dmg = 0;
+                        extra += ' 🍥 影分身闪避！';
+                    }
+                    skillState.narutoTriggered[key] = true;
+                }
+            }
+
+            // ★ 佐助 · 写轮眼（伤害+2）
+            if (dmg > 0 && hasSkill(ownerId, 'sharingan')) {
+                const key = ownerId === 1 ? 'p1' : 'p2';
+                if (!skillState.sasukeTriggered[key]) {
+                    dmg += 2;
+                    extra += ' ⚡ 写轮眼！';
+                    skillState.sasukeTriggered[key] = true;
+                }
+            }
+
+            // ★ 鼬 · 万花筒（出牌后抽牌）—— 在打出卡牌时处理，这里不做
+
+            // 伤害计算
             let actual = 0;
             if (dmg > 0) {
                 actual = dmg;
@@ -830,14 +1072,31 @@
                 owner.hp = Math.min(owner.maxHp, owner.hp + heal);
             }
 
+            // ★ 鬼鲛 · 鲛肌（偷查克拉/增伤）
+            let samehadaExtra = '';
+            if (actual > 0 && hasSkill(ownerId, 'samehada')) {
+                if (Math.random() < 0.4) {
+                    if (target.chakra > 0) {
+                        target.chakra -= 1;
+                        owner.chakra = Math.min(3, owner.chakra + 1);
+                        samehadaExtra = ' 🦈 鲛肌吞噬！吸收对手1查克拉';
+                    } else {
+                        actual += 1;
+                        target.hp = Math.max(0, target.hp - 1);
+                        samehadaExtra = ' 🦈 鲛肌·饕餮！对手查克拉为0，伤害+1';
+                    }
+                }
+            }
+
             let msg = '';
             if (dmg > 0) msg += ` ⚔️造成 <span class="damage">${actual}</span> 伤害`;
             if (heal > 0) msg += ` 💚恢复 <span class="heal">${heal}</span> 生命`;
             if (extra) msg += ` ${extra}`;
+            if (samehadaExtra) msg += ` ${samehadaExtra}`;
             return { log: msg };
         }
 
-        // ----- 打出卡牌 -----
+        // ----- 打出卡牌（含鼬的万花筒） -----
         function playCardFromDOM(playerId, cardElement) {
             const player = getPlayer(playerId);
             const opponent = playerId === 1 ? state.p2 : state.p1;
@@ -856,6 +1115,24 @@
             syncHandFromDOM(playerId);
             const res = applyCard(card, player, opponent);
             log(`🧙 玩家${playerId} 打出 <span class="highlight">${card.element} ${card.name}</span> → ${res.log}`);
+
+            // ★ 鼬 · 万花筒（第一张牌后抽牌）
+            if (hasSkill(playerId, 'mangekyo')) {
+                const key = playerId === 1 ? 'p1' : 'p2';
+                if (!skillState.itachiTriggered[key]) {
+                    skillState.itachiTriggered[key] = true;
+                    if (player.hand.length < 4) {
+                        const newCard = drawOne(player);
+                        if (newCard) {
+                            addCardToDOM(playerId, newCard);
+                            log(`👁️ 鼬 万花筒发动！额外抽1张牌`);
+                        }
+                    } else {
+                        log('👁️ 鼬 手牌已满，无法抽牌');
+                    }
+                }
+            }
+
             if (checkGameOver()) { render(); return; }
             render();
         }
@@ -867,6 +1144,21 @@
             if (player.freeze > 0) { log('❄️ 你被冰牢冻结，无法行动'); return; }
             const res = applyCard(cardData, player, opponent, enhanced);
             log(`🧙 玩家${playerId} 打出 <span class="highlight">${cardData.element} ${cardData.name}</span> → ${res.log}`);
+            if (hasSkill(playerId, 'mangekyo')) {
+                const key = playerId === 1 ? 'p1' : 'p2';
+                if (!skillState.itachiTriggered[key]) {
+                    skillState.itachiTriggered[key] = true;
+                    if (player.hand.length < 4) {
+                        const newCard = drawOne(player);
+                        if (newCard) {
+                            addCardToDOM(playerId, newCard);
+                            log(`👁️ 鼬 万花筒发动！额外抽1张牌`);
+                        }
+                    } else {
+                        log('👁️ 鼬 手牌已满，无法抽牌');
+                    }
+                }
+            }
             if (checkGameOver()) { render(); return; }
             render();
         }
@@ -893,7 +1185,7 @@
             render();
         }
 
-        // ----- 合成（无日志）-----
+        // ----- 合成 -----
         function synthesize() {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             const player = getPlayer(state.turn);
@@ -929,7 +1221,6 @@
             if (!adv) { log('❌ 合成错误'); return; }
             addCardToDOM(playerId, adv);
             syncHandFromDOM(playerId);
-
             if (player.chakra < 3) {
                 player.chakra++;
             }
@@ -938,19 +1229,10 @@
 
         // ----- 替身术 -----
         function useSubstitute() {
-            if (state.gameOver) {
-                log('⛔ 游戏已结束');
-                return;
-            }
+            if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             const player = getPlayer(state.turn);
-            if (player.freeze <= 0) {
-                log('💡 你没有处于冻结状态，无需替身');
-                return;
-            }
-            if (player.chakra < 1) {
-                log('⛔ 查克拉不足 (需要1点)');
-                return;
-            }
+            if (player.freeze <= 0) { log('💡 你没有处于冻结状态，无需替身'); return; }
+            if (player.chakra < 1) { log('⛔ 查克拉不足 (需要1点)'); return; }
             player.chakra -= 1;
             player.freeze = 0;
             log(`🪵 玩家${state.turn} 使用替身术解除冻结！消耗1查克拉。`);
@@ -989,16 +1271,10 @@
             return false;
         }
 
-        // ----- 结束回合（回血1） -----
+        // ----- 结束回合 -----
         function endTurn() {
-            if (state.gameOver) {
-                log('⛔ 游戏已结束，请重启');
-                return;
-            }
-            if (state.aiMode && state.aiThinking) {
-                log('⏳ AI 正在思考...');
-                return;
-            }
+            if (state.gameOver) { log('⛔ 游戏已结束'); return; }
+            if (state.aiMode && state.aiThinking) { log('⏳ AI 正在思考...'); return; }
             state.enhancePending = false;
             const currentPlayer = getPlayer(state.turn);
             if (currentPlayer.freeze > 0) {
@@ -1015,14 +1291,25 @@
             applyBurns();
             if (checkGameOver()) { render(); return; }
 
+            const pid = state.turn;
+            const key = pid === 1 ? 'p1' : 'p2';
+            skillState.narutoTriggered[key] = false;
+            skillState.sasukeTriggered[key] = false;
+            skillState.itachiTriggered[key] = false;
+
             const nextTurn = state.turn === 1 ? 2 : 1;
             state.turn = nextTurn;
             const newPlayer = getPlayer(state.turn);
 
+            let healAmount = 1;
+            if (hasSkill(state.turn, 'medical')) {
+                healAmount = 2;
+                log(`🌸 小樱 医疗天赋：回血+1`);
+            }
             const oldHp = newPlayer.hp;
-            newPlayer.hp = Math.min(newPlayer.maxHp, newPlayer.hp + 1);
+            newPlayer.hp = Math.min(newPlayer.maxHp, newPlayer.hp + healAmount);
             if (newPlayer.hp > oldHp) {
-                log(`💚 玩家${state.turn} 回合开始，恢复1点生命 (当前 ${newPlayer.hp})`);
+                log(`💚 玩家${state.turn} 回合开始，恢复${healAmount}点生命 (当前 ${newPlayer.hp})`);
             } else {
                 log(`💚 玩家${state.turn} 生命已满 (${newPlayer.hp})`);
             }
@@ -1042,13 +1329,13 @@
 
             if (state.aiMode && state.turn === 2 && !state.gameOver) {
                 state.aiThinking = true;
-                setTimeout(() => {
-                    aiAction();
-                }, 600);
+                setTimeout(() => { aiAction(); }, 600);
             }
         }
 
-        // ----- AI 逻辑 -----
+        // ============================================================
+        //  ★★★ 强化版 AI 逻辑 ★★★
+        // ============================================================
         function aiAction() {
             if (state.gameOver || state.turn !== 2 || !state.aiMode) {
                 state.aiThinking = false;
@@ -1059,6 +1346,7 @@
             const opponent = state.p1;
             log('🤖 AI 正在思考...');
 
+            // 1. 合成（优先）
             const hand = player.hand;
             const baseMap = {};
             hand.forEach(c => { if (c.level === 'base') { baseMap[c.element] = (baseMap[c.element] || 0) + 1; } });
@@ -1070,41 +1358,116 @@
                 synthesize();
             }
 
+            // 重新获取手牌
             syncHandFromDOM(2);
             const currentHand = state.p2.hand;
-            if (currentHand.length > 0 && player.freeze === 0) {
+
+            // 2. 出牌循环（最多3张）
+            let actions = 0;
+            const maxActions = 3;
+            while (actions < maxActions && currentHand.length > 0 && player.freeze === 0 && !state.gameOver) {
+                // 选择策略：如果生命低于20，优先找治疗牌（木系）
                 let selectedIndex = -1;
+                let isHeal = false;
                 if (player.hp < 20) {
                     const healIndex = currentHand.findIndex(c => c.element === '🌿');
-                    if (healIndex !== -1) selectedIndex = healIndex;
+                    if (healIndex !== -1) {
+                        selectedIndex = healIndex;
+                        isHeal = true;
+                    }
                 }
+                // 如果没有治疗或生命不低，选攻击最高的
                 if (selectedIndex === -1) {
                     let maxAtk = -1;
                     currentHand.forEach((c, i) => {
                         let atk = c.atk;
-                        if (c.level === 'advanced') atk += 5;
+                        if (c.level === 'advanced') atk += 5; // 进阶加成
                         if (atk > maxAtk) { maxAtk = atk;
                             selectedIndex = i; }
                     });
                     if (selectedIndex === -1) selectedIndex = 0;
                 }
+
                 const cardEl = p2HandEl.querySelectorAll('.card')[selectedIndex];
-                if (cardEl) {
-                    playCardFromDOM(2, cardEl);
-                } else {
-                    log('🤖 AI 无法出牌（DOM 元素丢失）');
+                if (!cardEl) break;
+
+                // 从手牌中移除该牌（出牌）
+                const cardData = currentHand.splice(selectedIndex, 1)[0];
+                // 更新DOM（移除对应的卡牌元素）
+                cardEl.remove();
+                syncHandFromDOM(2);
+
+                // 判断是否使用忍术强化（查克拉>=2，且是攻击牌，且攻击>8或进阶）
+                let enhanced = false;
+                if (player.chakra >= 2 && cardData.atk > 0) {
+                    // 如果是进阶牌或攻击较高，使用强化
+                    if (cardData.level === 'advanced' || cardData.atk >= 8) {
+                        player.chakra -= 2;
+                        cardData.atk += 5;
+                        enhanced = true;
+                        log(`💠 AI 使用忍术强化，${cardData.name} 伤害+5`);
+                    }
                 }
-            } else {
-                if (player.freeze > 0) {
-                    log('❄️ AI 被冻结，无法出牌');
-                } else {
-                    log('🤖 AI 没有手牌，跳过出牌');
+
+                // 打出牌（直接调用 playCardData，它会应用所有效果）
+                const res = applyCard(cardData, player, opponent, enhanced);
+                log(`🤖 AI 打出 <span class="highlight">${cardData.element} ${cardData.name}</span> → ${res.log}`);
+
+                // 记录最后一张牌（供卡卡西复制，但这里已删除）
+                state.lastPlayedCard = cardData;
+                state.lastPlayedPlayer = 2;
+
+                // 鼬的万花筒（AI也能触发）
+                if (hasSkill(2, 'mangekyo')) {
+                    const key = 'p2';
+                    if (!skillState.itachiTriggered[key]) {
+                        skillState.itachiTriggered[key] = true;
+                        if (player.hand.length < 4) {
+                            const newCard = drawOne(player);
+                            if (newCard) {
+                                addCardToDOM(2, newCard);
+                                log(`👁️ AI 鼬 万花筒发动！额外抽1张牌`);
+                            }
+                        }
+                    }
                 }
+
+                actions++;
+                if (checkGameOver()) {
+                    state.aiThinking = false;
+                    render();
+                    return;
+                }
+                // 更新当前手牌（用于下一轮循环）
+                // 但 currentHand 已经被修改，而 player.hand 已同步，可以继续
             }
 
+            // AI 行动结束
             state.aiThinking = false;
             if (!state.gameOver) {
-                endTurn();
+                // 直接结束AI回合（切换到玩家一）
+                // 但我们要确保回血和抽牌在切换前完成，且不要重复触发AI
+                // 这里直接调用 endTurn 会再次触发AI，所以我们手动切换
+                // 复制 endTurn 的部分逻辑，但避免递归
+                applyBurns();
+                if (checkGameOver()) { render(); return; }
+                state.turn = 1;
+                const p1 = state.p1;
+                const oldHp = p1.hp;
+                p1.hp = Math.min(p1.maxHp, p1.hp + 2);
+                if (p1.hp > oldHp) {
+                    log(`💚 玩家一 回合开始，恢复2点生命 (当前 ${p1.hp})`);
+                } else {
+                    log(`💚 玩家一 生命已满 (${p1.hp})`);
+                }
+                // 玩家一抽牌
+                drawOne(p1);
+                const newCard = p1.hand[p1.hand.length - 1];
+                if (newCard) addCardToDOM(1, newCard);
+                state.round++;
+                log(`🔄 轮到玩家一的回合`);
+                render();
+                // 注意：玩家一回合结束时，endTurn会再次触发AI，这是正常的
             }
             render();
         }
@@ -1131,7 +1494,7 @@
             render();
         }
 
-        // ----- 忍术强化 -----
+        // ----- 忍术强化（玩家手动） -----
         function toggleEnhance() {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             if (state.aiMode && state.aiThinking) { log('⏳ AI 正在思考...'); return; }
@@ -1178,6 +1541,12 @@
             state.round = 0;
             state.enhancePending = false;
             state.aiThinking = false;
+            state.lastPlayedCard = null;
+            state.lastPlayedPlayer = null;
+            skillState.narutoTriggered = { p1: false, p2: false };
+            skillState.sasukeTriggered = { p1: false, p2: false };
+            skillState.itachiTriggered = { p1: false, p2: false };
+
             btnDiscard.textContent = '🔄 换牌';
             btnDiscard.classList.remove('active');
             clearHandDOM(1);
@@ -1194,11 +1563,13 @@
                 state.p2.hand.push(c); });
             clearLog();
             log('🔄 忍界大战重启！');
-            if (state.aiMode) {
-                p2Label.textContent = '🤖 AI 对手';
-            } else {
-                p2Label.textContent = '🧙 玩家二';
-            }
+            const r1 = getRoleObj(1);
+            const r2 = getRoleObj(2);
+            if (r1) { p1Avatar.textContent = r1.emoji;
+                p1Name.textContent = r1.name; }
+            if (r2) { p2Avatar.textContent = r2.emoji;
+                p2Name.textContent = r2.name; }
+            document.getElementById('game-screen').style.display = 'block';
             render();
         }
 
@@ -1232,7 +1603,6 @@
                 <span class="chakra-display" style="margin-left:8px;">💠 查克拉 <span id="p2-chakra">${state.p2.chakra}</span> / 3</span>
             `;
 
-            // 牌背遮挡：AI模式始终遮挡AI，双人模式按回合
             if (state.aiMode) {
                 p1Overlay.classList.remove('show');
                 p2Overlay.classList.add('show');
@@ -1302,34 +1672,118 @@
             }
         }
 
-        // ----- 启动 -----
-        function startGame(mode) {
-            state.aiMode = (mode === 'ai');
-            if (state.aiMode) {
-                p2Label.textContent = '🤖 AI 对手';
+        // ============================================================
+        //  角色选择 UI
+        // ============================================================
+        function renderRoleSelection() {
+            const p1List = document.getElementById('p1-role-list');
+            const p2List = document.getElementById('p2-role-list');
+            p1List.innerHTML = '';
+            p2List.innerHTML = '';
+
+            Object.values(ROLES).forEach(role => {
+                const btn = document.createElement('button');
+                btn.className = 'role-btn' + (selectedRoles.p1 === role.id ? ' selected' : '');
+                btn.innerHTML = `
+                    <div class="role-name">${role.emoji} ${role.name} <span style="font-size:12px;color:#7a6a5a;">(${role.faction})</span></div>
+                    <div class="role-skill">技能：${role.skillName} — <span>${role.skillDesc}</span></div>
+                `;
+                btn.onclick = () => {
+                    if (selectedRoles.p1 === role.id) selectedRoles.p1 = null;
+                    else selectedRoles.p1 = role.id;
+                    renderRoleSelection();
+                    updateConfirmButton();
+                };
+                p1List.appendChild(btn);
+            });
+
+            if (gameMode === 'ai') {
+                if (!selectedRoles.p2) {
+                    const keys = Object.keys(ROLES);
+                    selectedRoles.p2 = keys[Math.floor(Math.random() * keys.length)];
+                }
+                const role = ROLES[selectedRoles.p2];
+                const div = document.createElement('div');
+                div.style.cssText =
+                    'padding:12px 16px; background:rgba(255,255,255,0.04); border-radius:12px; border:1px solid rgba(212,168,84,0.2); color:#d0c0a8;';
+                div.innerHTML = `
+                    <div class="role-name">${role.emoji} ${role.name} <span style="font-size:12px;color:#7a6a5a;">(AI 选择)</span></div>
+                    <div class="role-skill">技能：${role.skillName} — <span>${role.skillDesc}</span></div>
+                `;
+                p2List.appendChild(div);
             } else {
-                p2Label.textContent = '🧙 玩家二';
+                Object.values(ROLES).forEach(role => {
+                    const btn = document.createElement('button');
+                    btn.className = 'role-btn' + (selectedRoles.p2 === role.id ? ' selected' : '');
+                    btn.innerHTML = `
+                        <div class="role-name">${role.emoji} ${role.name} <span style="font-size:12px;color:#7a6a5a;">(${role.faction})</span></div>
+                        <div class="role-skill">技能：${role.skillName} — <span>${role.skillDesc}</span></div>
+                    `;
+                    btn.onclick = () => {
+                        if (selectedRoles.p2 === role.id) selectedRoles.p2 = null;
+                        else selectedRoles.p2 = role.id;
+                        renderRoleSelection();
+                        updateConfirmButton();
+                    };
+                    p2List.appendChild(btn);
+                });
             }
+            updateConfirmButton();
+        }
+
+        function updateConfirmButton() {
+            const btn = document.getElementById('role-confirm-btn');
+            if (selectedRoles.p1 && selectedRoles.p2) {
+                btn.disabled = false;
+                btn.textContent = `⚔️ ${gameMode === 'ai' ? '单人模式' : '双人模式'} · 确认出战`;
+            } else {
+                btn.disabled = true;
+                btn.textContent = '⚔️ 请双方选择角色';
+            }
+        }
+
+        // ----- 启动游戏流程 -----
+        function startGame(mode) {
+            gameMode = mode;
+            selectedRoles.p1 = null;
+            selectedRoles.p2 = null;
             document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('role-select-screen').style.display = 'block';
+            document.getElementById('p2-role-title').textContent = mode === 'ai' ? '🤖 AI 对手' : '🧙 玩家二';
+            renderRoleSelection();
+        }
+
+        function confirmRoles() {
+            if (!selectedRoles.p1 || !selectedRoles.p2) return;
+            document.getElementById('role-select-screen').style.display = 'none';
             document.getElementById('btn-back-home').classList.add('show');
+            state.roleMap.p1 = selectedRoles.p1;
+            state.roleMap.p2 = selectedRoles.p2;
+            state.aiMode = (gameMode === 'ai');
             restartGame();
         }
 
+        // ============================================================
+        //  初始化
+        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('game-screen').style.display = 'block';
+
             document.getElementById('btn-pvp').onclick = function() { startGame('pvp'); };
             document.getElementById('btn-ai').onclick = function() { startGame('ai'); };
+            document.getElementById('role-confirm-btn').onclick = confirmRoles;
 
-            btnSynth.onclick = function() { synthesize(); };
-            btnDiscard.onclick = function() { toggleDiscardMode(); };
-            btnEnd.onclick = function() { endTurn(); };
-            btnRestart.onclick = function() { restartGame(); };
-            btnSubstitute.onclick = function() { useSubstitute(); };
+            btnSynth.onclick = synthesize;
+            btnDiscard.onclick = toggleDiscardMode;
+            btnEnd.onclick = endTurn;
+            btnRestart.onclick = restartGame;
+            btnSubstitute.onclick = useSubstitute;
 
             document.getElementById('btn-back-home').onclick = function() {
                 document.getElementById('home-screen').classList.remove('hidden');
                 document.getElementById('btn-back-home').classList.remove('show');
+                document.getElementById('role-select-screen').style.display = 'none';
                 state.gameOver = true;
-                state.aiThinking = false;
                 clearLog();
                 log('🍥 返回忍界卷轴');
                 render();
@@ -1344,15 +1798,8 @@
                 }
             });
 
-            document.getElementById('game-screen').style.display = 'block';
             restartGame();
         });
-
-        window.restartGame = restartGame;
-        window.endTurn = endTurn;
-        window.synthesize = synthesize;
-        window.toggleDiscardMode = toggleDiscardMode;
-        window.useSubstitute = useSubstitute;
     </script>
 </body>
 </html>
