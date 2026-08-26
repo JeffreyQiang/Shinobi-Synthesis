@@ -132,7 +132,7 @@
         }
         .scroll-footer span { color: #d4a85488; }
 
-        /* ===== 规则书（模态框） ===== */
+        /* ===== 规则书模态框 ===== */
         #rulebook-overlay {
             display: none;
             position: fixed;
@@ -241,17 +241,6 @@
             color: #7ab8ff;
             font-weight: 600;
         }
-        #rulebook-overlay .card-example {
-            background: rgba(255,255,255,0.04);
-            border-radius: 12px;
-            padding: 12px 16px;
-            margin: 8px 0 12px 12px;
-            border-left: 3px solid #d4a85444;
-        }
-        #rulebook-overlay .card-example .emoji {
-            font-size: 20px;
-            margin-right: 6px;
-        }
         #rulebook-overlay table {
             width: 100%;
             border-collapse: collapse;
@@ -269,10 +258,6 @@
         #rulebook-overlay table td {
             padding: 6px 12px;
             border: 1px solid #3a2a1a;
-        }
-        #rulebook-overlay table .role-name {
-            font-weight: 600;
-            color: #f0e6d0;
         }
         #rulebook-overlay .rulebook-footer {
             margin-top: 30px;
@@ -738,6 +723,88 @@
 
         .status-effects { display: flex; gap: 10px; color: #b0a090; font-size: 14px; margin-top: 4px; }
 
+        /* ===== 视觉反馈样式 ===== */
+        .float-number {
+            position: fixed;
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 28px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatUp 1s ease-out forwards;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8), 0 0 10px currentColor;
+        }
+        .float-number.damage { color: #ff4444; }
+        .float-number.heal { color: #44ff44; }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-80px) scale(1.3); }
+        }
+        .flying-card {
+            position: fixed;
+            width: 90px;
+            height: 126px;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #2a221e, #1a1410);
+            border: 2px solid #d4a854;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #f0e6d0;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+            pointer-events: none;
+            z-index: 999;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 1;
+        }
+        .flying-card.fly-out {
+            opacity: 0;
+            transform: scale(1.5);
+        }
+        .synthesis-flash {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,215,0,0.15);
+            pointer-events: none;
+            z-index: 998;
+            animation: flashFade 0.6s ease-out forwards;
+        }
+        @keyframes flashFade {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .freeze-effect {
+            position: absolute;
+            inset: -6px;
+            border: 4px solid #6bc8ff;
+            border-radius: 24px;
+            box-shadow: 0 0 30px #6bc8ff66, inset 0 0 30px #6bc8ff33;
+            pointer-events: none;
+            animation: freezePulse 1s ease-in-out infinite alternate;
+            z-index: 4;
+            background: rgba(107,200,255,0.05);
+        }
+        @keyframes freezePulse {
+            0% { opacity: 0.4; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+        .burn-effect {
+            position: absolute;
+            inset: -4px;
+            border: 3px solid #ff6b6b;
+            border-radius: 24px;
+            box-shadow: 0 0 30px #ff6b6b66, inset 0 0 30px #ff6b6b33;
+            pointer-events: none;
+            animation: burnPulse 0.8s ease-in-out infinite alternate;
+            z-index: 4;
+            background: rgba(255,107,107,0.05);
+        }
+        @keyframes burnPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+
         @media (max-width: 800px) {
             .app-wrapper { flex-direction: column; align-items: stretch; }
             .guide-panel { max-width: none; }
@@ -789,10 +856,8 @@
             <button class="close-btn" id="rulebook-close">✕ 关闭</button>
             <h1>📜 忍界大战 · 完整规则书</h1>
             <div class="version">版本 1.0 · 最后更新 2026年8月</div>
-
             <h2>1. 游戏目标</h2>
             <p>玩家操控忍者，通过打出卡牌攻击对手或治疗自己，将对手的生命值降至 0 即可获胜。游戏融合了卡牌合成、查克拉管理、角色技能等策略元素，每局对战胜负取决于牌序、资源分配和战术决策。</p>
-
             <h2>2. 游戏准备</h2>
             <h3>2.1 选择模式</h3>
             <p>在主页卷轴中，玩家可以选择 <span class="highlight">双人模式</span>（两名玩家轮流操作）或 <span class="highlight">单人模式</span>（玩家 vs AI）。</p>
@@ -805,7 +870,6 @@
                 <li><strong>鼬</strong>（👁️）：万花筒 —— 每回合第一张牌打出后，额外抽 1 张牌。</li>
                 <li><strong>鬼鲛</strong>（🦈）：鲛肌·饕餮 —— 每次造成伤害时，40%概率吸收对手 1 点查克拉；若对手查克拉为 0，则该次伤害 +1。</li>
             </ul>
-
             <h2>3. 游戏流程</h2>
             <h3>3.1 回合结构</h3>
             <p>游戏采用回合制，玩家轮流进行自己的回合。每个回合包含以下阶段（按顺序执行）：</p>
@@ -822,17 +886,14 @@
                 </li>
                 <li><strong>回合结束</strong>：玩家点击“结束回合”按钮，触发灼烧结算，然后将回合交给对手。</li>
             </ol>
-
             <h3>3.2 先后手</h3>
             <p>游戏由玩家一先手。第一回合玩家二不抽牌，以平衡先后手优势。</p>
-
             <h2>4. 卡牌系统</h2>
             <h3>4.1 卡牌类型</h3>
             <ul>
                 <li><span class="highlight">基础牌</span>：共有 5 种，分别为螺旋丸（🌀，攻击 5）、千杀水翔（❄️，攻击 4）、掌仙术（🌿，治疗 6）、千鸟（⚡，攻击 8）、影手里剑（🌑，攻击 6）。基础牌不附带任何额外效果。</li>
                 <li><span class="highlight">进阶牌</span>：由两张同元素的基础牌合成而来，拥有更高的数值和特殊效果。进阶牌不能再次合成。</li>
             </ul>
-
             <h3>4.2 进阶牌一览</h3>
             <table>
                 <tr><th>合成基础</th><th>进阶牌</th><th>攻击/治疗</th><th>特殊效果</th></tr>
@@ -842,10 +903,8 @@
                 <tr><td>⚡ + ⚡</td><td>⚡⚡ 麒麟</td><td>攻击 16</td><td>抽 1 张牌</td></tr>
                 <tr><td>🌑 + 🌑</td><td>🔥👁️ 天照</td><td>攻击 12</td><td>吸血 60%（恢复伤害的 60%）</td></tr>
             </table>
-
             <h3>4.3 卡牌费用</h3>
             <p>打出卡牌不需要消耗查克拉，但合成需要消耗两张基础牌。忍术强化和替身术需要消耗查克拉。</p>
-
             <h2>5. 查克拉系统</h2>
             <p><span class="chakra">查克拉</span> 是执行特殊行动的资源，上限为 3 点。获取方式：</p>
             <ul>
@@ -857,7 +916,6 @@
                 <li><span class="highlight">替身术</span>（消耗 1 点）：在自身被冻结时，点击“解除冻结”按钮，消耗 1 点查克拉立即解除冻结。</li>
                 <li><span class="highlight">忍术强化</span>（消耗 2 点）：点击“忍术强化”按钮后，下一张打出的伤害牌伤害 +5（仅对伤害牌有效，治疗牌不受影响）。</li>
             </ul>
-
             <h2>6. 状态效果</h2>
             <ul>
                 <li><span class="highlight">灼烧</span>（🔥）：每回合开始时，受到 2 点伤害，然后层数减 1（持续 2 回合）。由风遁·螺旋手里剑施加。</li>
@@ -866,20 +924,15 @@
                 <li><span class="highlight">吸血</span>：天照造成伤害时，恢复伤害值 60% 的生命。</li>
                 <li><span class="highlight">护盾</span>：（当前版本未实装，但保留字段）</li>
             </ul>
-
             <h2>7. 特殊操作</h2>
             <h3>7.1 合成（进阶）</h3>
             <p>点击“忍术合成”按钮，系统自动检测手牌中是否存在两张相同元素的基础牌。若有，则移除这两张牌，加入对应的进阶牌，并增加 1 点查克拉。合成不消耗行动次数。</p>
-
             <h3>7.2 换牌</h3>
             <p>点击“换牌”按钮进入换牌模式，此时每张手牌右上角会出现 ✕ 按钮。点击 ✕ 可弃掉该牌并立即抽 1 张新牌。换牌每回合限一次，换牌结束后按钮恢复。</p>
-
             <h3>7.3 忍术强化</h3>
             <p>点击“忍术强化”按钮（消耗 2 点查克拉），激活强化状态。此后打出的第一张伤害牌将获得 +5 伤害加成。强化效果仅对下一张伤害牌有效，若打出治疗牌或其他牌则无效且强化状态消失。</p>
-
             <h3>7.4 替身术</h3>
             <p>当玩家被冻结时，“替身术”按钮会亮起（前提是有至少 1 点查克拉）。点击后消耗 1 点查克拉，立即解除冻结状态，该回合可正常行动。</p>
-
             <h2>8. AI 对手行为</h2>
             <p>在单人模式中，AI 对手会按照以下策略行动：</p>
             <ul>
@@ -889,10 +942,8 @@
                 <li><strong>忍术强化</strong>：AI 在查克拉 ≥ 2 时，会为高伤害牌（攻击 ≥ 8 或进阶牌）使用强化。</li>
                 <li><strong>出牌顺序</strong>：AI 每回合最多出 3 张牌，优先治疗，其次高伤害。</li>
             </ul>
-
             <h2>9. 游戏结束条件</h2>
             <p>当任意一方生命值降至 0 或以下时，游戏立即结束，另一方获得胜利。胜利信息会显示在日志中，并弹出提示。</p>
-
             <h2>10. 常见术语</h2>
             <ul>
                 <li><strong>手牌上限</strong>：4 张，抽牌时若手牌已满则无法抽取。</li>
@@ -901,10 +952,8 @@
                 <li><strong>治疗</strong>：增加自身生命值，不得超过最大生命值（50）。</li>
                 <li><strong>抽牌</strong>：从牌堆随机抽取一张基础牌加入手牌。</li>
             </ul>
-
             <h2>11. 版本与更新</h2>
             <p>本规则书涵盖游戏当前所有机制，后续若有新增内容（如新角色、新卡牌、新模式）将同步更新。</p>
-
             <div class="rulebook-footer">
                 🍥 木叶 vs 晓 · 查克拉与策略 · 祝你好运！
             </div>
@@ -1026,125 +1075,164 @@
 
     <script>
         // ============================================================
-        //  完整游戏逻辑（包含规则书）
+        //  视觉反馈模块（音效 + 动画）
         // ============================================================
-
-        // ----- 规则书切换 -----
-        function openRulebook() {
-            document.getElementById('rulebook-overlay').style.display = 'block';
-        }
-        function closeRulebook() {
-            document.getElementById('rulebook-overlay').style.display = 'none';
-        }
-
-        // 绑定规则书按钮
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('btn-rulebook-home').addEventListener('click', openRulebook);
-            document.getElementById('btn-rulebook-game').addEventListener('click', openRulebook);
-            document.getElementById('rulebook-close').addEventListener('click', closeRulebook);
-            // 点击遮罩也可关闭（点击容器外部）
-            document.getElementById('rulebook-overlay').addEventListener('click', function(e) {
-                if (e.target === this) closeRulebook();
-            });
-        });
-
-        // ============================================================
-        //  以下为完整游戏代码（与之前一致）
-        // ============================================================
-
-        // ----- 角色数据 -----
-        const ROLES = {
-            naruto: {
-                id: 'naruto',
-                name: '鸣人',
-                emoji: '🍥',
-                faction: '木叶',
-                skillName: '影分身',
-                skillDesc: '每回合第一次受到伤害时，30%概率完全闪避',
-                skill: 'shadow_clone'
-            },
-            sasuke: {
-                id: 'sasuke',
-                name: '佐助',
-                emoji: '⚡',
-                faction: '木叶',
-                skillName: '写轮眼',
-                skillDesc: '每回合第一次打出伤害牌时，伤害 +2',
-                skill: 'sharingan'
-            },
-            sakura: {
-                id: 'sakura',
-                name: '小樱',
-                emoji: '🌸',
-                faction: '木叶',
-                skillName: '医疗天赋',
-                skillDesc: '每回合回血额外 +1（回2点）',
-                skill: 'medical'
-            },
-            itachi: {
-                id: 'itachi',
-                name: '鼬',
-                emoji: '👁️',
-                faction: '晓',
-                skillName: '万花筒',
-                skillDesc: '每回合第一张牌打出后，额外抽1张牌',
-                skill: 'mangekyo'
-            },
-            kisame: {
-                id: 'kisame',
-                name: '鬼鲛',
-                emoji: '🦈',
-                faction: '晓',
-                skillName: '鲛肌·饕餮',
-                skillDesc: '每次造成伤害时，40%概率吸1查克拉；若对手查克拉为0，则伤害+1',
-                skill: 'samehada'
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+        function ensureAudio() {
+            if (!audioCtx) {
+                try { audioCtx = new AudioCtx(); } catch(e) {}
             }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+        function playTone(freq, duration, type = 'sine', volume = 0.15) {
+            try {
+                const ctx = ensureAudio();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.value = volume;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch (e) {}
+        }
+        function playSound(name) {
+            switch(name) {
+                case 'card': playTone(600,0.1,'sine',0.1); setTimeout(()=>playTone(800,0.08,'sine',0.08),100); break;
+                case 'damage': playTone(200,0.2,'sawtooth',0.12); break;
+                case 'heal': playTone(900,0.15,'sine',0.1); setTimeout(()=>playTone(1100,0.15,'sine',0.08),120); break;
+                case 'synthesis': playTone(400,0.15,'square',0.08); setTimeout(()=>playTone(600,0.15,'square',0.06),150); setTimeout(()=>playTone(800,0.2,'square',0.04),300); break;
+                case 'freeze': playTone(300,0.3,'sine',0.06); setTimeout(()=>playTone(200,0.3,'sine',0.04),200); break;
+                case 'burn': playTone(150,0.4,'sawtooth',0.05); break;
+                default: break;
+            }
+        }
+        function showFloatNumber(x, y, text, type) {
+            const el = document.createElement('div');
+            el.className = `float-number ${type}`;
+            el.textContent = text;
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1000);
+        }
+        function showDamageOnTarget(targetId, amount, isHeal) {
+            const hpEl = document.getElementById(targetId === 1 ? 'p1-hp' : 'p2-hp');
+            if (!hpEl) return;
+            const rect = hpEl.getBoundingClientRect();
+            const x = rect.left + rect.width/2 - 20;
+            const y = rect.top - 20;
+            const text = (isHeal ? '+' : '-') + Math.abs(amount);
+            showFloatNumber(x, y, text, isHeal ? 'heal' : 'damage');
+            playSound(isHeal ? 'heal' : 'damage');
+        }
+        function flyCard(fromEl, targetId, cb) {
+            const rect = fromEl.getBoundingClientRect();
+            const clone = fromEl.cloneNode(true);
+            clone.className = 'flying-card';
+            clone.style.left = rect.left + 'px';
+            clone.style.top = rect.top + 'px';
+            clone.style.width = rect.width + 'px';
+            clone.style.height = rect.height + 'px';
+            clone.textContent = fromEl.querySelector('.emoji-big')?.textContent || '🌀';
+            document.body.appendChild(clone);
+            const targetRect = document.getElementById(targetId)?.getBoundingClientRect();
+            if (targetRect) {
+                const dx = targetRect.left + targetRect.width/2 - rect.left - rect.width/2;
+                const dy = targetRect.top + targetRect.height/2 - rect.top - rect.height/2;
+                clone.style.transform = `translate(${dx}px, ${dy}px) scale(0.6) rotate(20deg)`;
+                clone.style.opacity = '0.5';
+            } else {
+                clone.style.transform = 'scale(0.1)';
+                clone.style.opacity = '0';
+            }
+            setTimeout(() => { clone.remove(); if(cb) cb(); }, 500);
+            playSound('card');
+        }
+        function showSynthesisEffect() {
+            const flash = document.createElement('div');
+            flash.className = 'synthesis-flash';
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 600);
+            playSound('synthesis');
+        }
+        function applyStateEffect(playerId, type) {
+            const area = document.getElementById(playerId === 1 ? 'p1-area' : 'p2-area');
+            if (!area) return;
+            area.querySelectorAll('.freeze-effect, .burn-effect').forEach(el => el.remove());
+            if (type === 'freeze') {
+                const el = document.createElement('div');
+                el.className = 'freeze-effect';
+                area.appendChild(el);
+                playSound('freeze');
+            } else if (type === 'burn') {
+                const el = document.createElement('div');
+                el.className = 'burn-effect';
+                area.appendChild(el);
+                playSound('burn');
+            }
+        }
+        function clearStateEffects(playerId) {
+            const area = document.getElementById(playerId === 1 ? 'p1-area' : 'p2-area');
+            if (!area) return;
+            area.querySelectorAll('.freeze-effect, .burn-effect').forEach(el => el.remove());
+        }
+
+        // ============================================================
+        //  规则书控制
+        // ============================================================
+        function openRulebook() { document.getElementById('rulebook-overlay').style.display = 'block'; }
+        function closeRulebook() { document.getElementById('rulebook-overlay').style.display = 'none'; }
+
+        // ============================================================
+        //  游戏核心逻辑（含视觉反馈钩子）
+        // ============================================================
+        const ROLES = {
+            naruto: { id:'naruto', name:'鸣人', emoji:'🍥', faction:'木叶', skillName:'影分身', skillDesc:'每回合第一次受到伤害时，30%概率完全闪避', skill:'shadow_clone' },
+            sasuke: { id:'sasuke', name:'佐助', emoji:'⚡', faction:'木叶', skillName:'写轮眼', skillDesc:'每回合第一次打出伤害牌时，伤害 +2', skill:'sharingan' },
+            sakura: { id:'sakura', name:'小樱', emoji:'🌸', faction:'木叶', skillName:'医疗天赋', skillDesc:'每回合回血额外 +1（回2点）', skill:'medical' },
+            itachi: { id:'itachi', name:'鼬', emoji:'👁️', faction:'晓', skillName:'万花筒', skillDesc:'每回合第一张牌打出后，额外抽1张牌', skill:'mangekyo' },
+            kisame: { id:'kisame', name:'鬼鲛', emoji:'🦈', faction:'晓', skillName:'鲛肌·饕餮', skillDesc:'每次造成伤害时，40%概率吸1查克拉；若对手查克拉为0，则伤害+1', skill:'samehada' }
         };
-
         const BASE_POOL = [
-            { name: '螺旋丸', element: '🌀', atk: 5, heal: 0, level: 'base' },
-            { name: '千杀水翔', element: '❄️', atk: 4, heal: 0, level: 'base' },
-            { name: '掌仙术', element: '🌿', atk: 0, heal: 6, level: 'base' },
-            { name: '千鸟', element: '⚡', atk: 8, heal: 0, level: 'base' },
-            { name: '影手里剑', element: '🌑', atk: 6, heal: 0, level: 'base' },
+            { name:'螺旋丸', element:'🌀', atk:5, heal:0, level:'base' },
+            { name:'千杀水翔', element:'❄️', atk:4, heal:0, level:'base' },
+            { name:'掌仙术', element:'🌿', atk:0, heal:6, level:'base' },
+            { name:'千鸟', element:'⚡', atk:8, heal:0, level:'base' },
+            { name:'影手里剑', element:'🌑', atk:6, heal:0, level:'base' }
         ];
-
         const ADV_MAP = {
-            '🌀': { name: '风遁·螺旋手里剑', element: '🌪️', atk: 10, heal: 0, level: 'advanced' },
-            '❄️': { name: '冰遁·魔镜冰晶', element: '🧊', atk: 8, heal: 0, level: 'advanced' },
-            '🌿': { name: '创造再生', element: '💫', atk: 0, heal: 12, level: 'advanced' },
-            '⚡': { name: '麒麟', element: '⚡⚡', atk: 16, heal: 0, level: 'advanced' },
-            '🌑': { name: '天照', element: '🔥👁️', atk: 12, heal: 0, level: 'advanced' },
+            '🌀': { name:'风遁·螺旋手里剑', element:'🌪️', atk:10, heal:0, level:'advanced' },
+            '❄️': { name:'冰遁·魔镜冰晶', element:'🧊', atk:8, heal:0, level:'advanced' },
+            '🌿': { name:'创造再生', element:'💫', atk:0, heal:12, level:'advanced' },
+            '⚡': { name:'麒麟', element:'⚡⚡', atk:16, heal:0, level:'advanced' },
+            '🌑': { name:'天照', element:'🔥👁️', atk:12, heal:0, level:'advanced' }
         };
         const ADV_KEYS = Object.keys(ADV_MAP);
 
-        // ----- 选择状态 -----
         let selectedRoles = { p1: null, p2: null };
         let gameMode = null;
 
-        // ----- 游戏状态 -----
         let state = {
-            p1: { hp: 50, maxHp: 50, hand: [], burn: 0, freeze: 0, shield: 0, discarded: false, chakra: 0 },
-            p2: { hp: 50, maxHp: 50, hand: [], burn: 0, freeze: 0, shield: 0, discarded: false, chakra: 0 },
-            turn: 1,
-            gameOver: false,
-            discardMode: false,
-            round: 0,
-            enhancePending: false,
-            aiMode: false,
-            aiThinking: false,
-            roleMap: { p1: null, p2: null },
-            lastPlayedCard: null,
-            lastPlayedPlayer: null,
+            p1: { hp:50, maxHp:50, hand:[], burn:0, freeze:0, shield:0, discarded:false, chakra:0 },
+            p2: { hp:50, maxHp:50, hand:[], burn:0, freeze:0, shield:0, discarded:false, chakra:0 },
+            turn:1, gameOver:false, discardMode:false, round:0, enhancePending:false,
+            aiMode:false, aiThinking:false, roleMap:{p1:null,p2:null}, lastPlayedCard:null, lastPlayedPlayer:null
         };
-
         let skillState = {
-            narutoTriggered: { p1: false, p2: false },
-            sasukeTriggered: { p1: false, p2: false },
-            itachiTriggered: { p1: false, p2: false },
+            narutoTriggered: {p1:false,p2:false},
+            sasukeTriggered: {p1:false,p2:false},
+            itachiTriggered: {p1:false,p2:false}
         };
 
-        // ----- DOM 引用 -----
         const $ = id => document.getElementById(id);
         const logArea = $('log-area');
         const p1HandEl = $('p1-hand');
@@ -1170,7 +1258,6 @@
         const p2Avatar = $('p2-avatar');
         const p2Name = $('p2-name');
 
-        // ----- 日志 -----
         function log(html) {
             const entry = document.createElement('div');
             entry.className = 'log-entry';
@@ -1178,47 +1265,36 @@
             logArea.prepend(entry);
             while (logArea.children.length > 30) logArea.removeChild(logArea.lastChild);
         }
-        function clearLog() {
-            logArea.innerHTML = '';
-            log('🍥 忍界大战开始！');
-        }
+        function clearLog() { logArea.innerHTML = ''; log('🍥 忍界大战开始！'); }
 
-        // ----- 工具函数 -----
         function getPlayer(id) { return id === 1 ? state.p1 : state.p2; }
         function getRoleId(id) { return id === 1 ? state.roleMap.p1 : state.roleMap.p2; }
         function getRoleObj(id) { const rid = getRoleId(id); return rid ? ROLES[rid] : null; }
         function hasSkill(id, skillId) { const r = getRoleObj(id); return r && r.skill === skillId; }
 
-        // ----- 抽牌（带权重） -----
         function drawOne(player) {
             if (player.hand.length >= 4) return null;
             const elementCount = {};
-            player.hand.forEach(card => {
-                if (card.level === 'base') {
-                    const elem = card.element;
-                    elementCount[elem] = (elementCount[elem] || 0) + 1;
-                }
+            player.hand.forEach(c => { if (c.level === 'base') { elementCount[c.element] = (elementCount[c.element]||0)+1; } });
+            const weightedPool = BASE_POOL.map(c => {
+                let w = 1;
+                if (elementCount[c.element] && elementCount[c.element] > 0) w += 1;
+                if (player.hp < 20 && c.element === '🌿') w += 4;
+                return { card: c, weight: w };
             });
-            const weightedPool = BASE_POOL.map(card => {
-                let weight = 1;
-                if (elementCount[card.element] && elementCount[card.element] > 0) weight += 1;
-                if (player.hp < 20 && card.element === '🌿') weight += 4;
-                return { card, weight };
-            });
-            const totalWeight = weightedPool.reduce((s, i) => s + i.weight, 0);
-            let rand = Math.random() * totalWeight;
+            const total = weightedPool.reduce((s,i) => s + i.weight, 0);
+            let rand = Math.random() * total;
             let selected = weightedPool[0].card;
             for (const item of weightedPool) {
                 rand -= item.weight;
                 if (rand <= 0) { selected = item.card; break; }
             }
             const card = { ...selected };
-            if (card.level !== 'base') Object.assign(card, { name: '螺旋丸', element: '🌀', atk: 5, heal: 0, level: 'base' });
+            if (card.level !== 'base') Object.assign(card, { name:'螺旋丸', element:'🌀', atk:5, heal:0, level:'base' });
             player.hand.push(card);
             return card;
         }
 
-        // ----- DOM 操作 -----
         function addCardToDOM(playerId, card) {
             const container = playerId === 1 ? p1HandEl : p2HandEl;
             const div = document.createElement('div');
@@ -1305,8 +1381,7 @@
             else state.p2.hand = hand;
         }
 
-        // ----- 应用卡牌效果 -----
-        function applyCard(card, owner, target, isEnhanced = false) {
+        function applyCard(card, owner, target, isEnhanced) {
             let dmg = card.atk || 0;
             let heal = card.heal || 0;
             let extra = '';
@@ -1317,35 +1392,22 @@
                 if (card.element === '🌪️') {
                     target.burn += 2;
                     extra += ' 🔥黑炎灼烧2层';
+                    applyStateEffect(targetId, 'burn');
                 } else if (card.element === '🧊') {
                     target.freeze += 1;
                     extra += ' ❄️冰牢冻结1回合';
+                    applyStateEffect(targetId, 'freeze');
                     log('💡 你被冰牢冻结！点击「替身术」按钮消耗1查克拉解除。');
                 } else if (card.element === '💫') {
-                    if (owner.burn > 0) {
-                        extra += ` ✨医疗解除灼烧${owner.burn}层`;
-                        owner.burn = 0;
-                    }
-                    if (owner.freeze > 0) {
-                        extra += ` ✨医疗解除冻结${owner.freeze}层`;
-                        owner.freeze = 0;
-                    }
-                    if (owner.burn === 0 && owner.freeze === 0) {
-                        extra += ' ✨已净化（无负面状态）';
-                    }
+                    if (owner.burn > 0) { extra += ` ✨医疗解除灼烧${owner.burn}层`; owner.burn = 0; clearStateEffects(ownerId); }
+                    if (owner.freeze > 0) { extra += ` ✨医疗解除冻结${owner.freeze}层`; owner.freeze = 0; clearStateEffects(ownerId); }
+                    if (owner.burn === 0 && owner.freeze === 0) { extra += ' ✨已净化（无负面状态）'; }
                 } else if (card.element === '⚡⚡') {
-                    const pid = (owner === state.p1) ? 1 : 2;
                     if (owner.hand.length < 4) {
                         const newCard = drawOne(owner);
-                        if (newCard) {
-                            addCardToDOM(pid, newCard);
-                            extra += ' 📜忍术连携：抽1张牌';
-                        } else {
-                            extra += ' ⚠️手牌已满，无法抽牌';
-                        }
-                    } else {
-                        extra += ' ⚠️手牌已满，无法抽牌';
-                    }
+                        if (newCard) { addCardToDOM(ownerId, newCard); extra += ' 📜忍术连携：抽1张牌'; }
+                        else { extra += ' ⚠️手牌已满，无法抽牌'; }
+                    } else { extra += ' ⚠️手牌已满，无法抽牌'; }
                 } else if (card.element === '🔥👁️') {
                     if (dmg > 0) {
                         let h = Math.floor(dmg * 0.6);
@@ -1355,29 +1417,18 @@
                 }
             }
 
-            // ★ 鸣人 · 影分身（闪避）
             if (dmg > 0 && hasSkill(targetId, 'shadow_clone')) {
                 const key = targetId === 1 ? 'p1' : 'p2';
                 if (!skillState.narutoTriggered[key]) {
-                    if (Math.random() < 0.3) {
-                        dmg = 0;
-                        extra += ' 🍥 影分身闪避！';
-                    }
+                    if (Math.random() < 0.3) { dmg = 0; extra += ' 🍥 影分身闪避！'; }
                     skillState.narutoTriggered[key] = true;
                 }
             }
-
-            // ★ 佐助 · 写轮眼（伤害+2）
             if (dmg > 0 && hasSkill(ownerId, 'sharingan')) {
                 const key = ownerId === 1 ? 'p1' : 'p2';
-                if (!skillState.sasukeTriggered[key]) {
-                    dmg += 2;
-                    extra += ' ⚡ 写轮眼！';
-                    skillState.sasukeTriggered[key] = true;
-                }
+                if (!skillState.sasukeTriggered[key]) { dmg += 2; extra += ' ⚡ 写轮眼！'; skillState.sasukeTriggered[key] = true; }
             }
 
-            // 伤害计算
             let actual = 0;
             if (dmg > 0) {
                 actual = dmg;
@@ -1387,7 +1438,7 @@
                 owner.hp = Math.min(owner.maxHp, owner.hp + heal);
             }
 
-            // ★ 鬼鲛 · 鲛肌
+            // 鬼鲛
             let samehadaExtra = '';
             if (actual > 0 && hasSkill(ownerId, 'samehada')) {
                 if (Math.random() < 0.4) {
@@ -1403,6 +1454,10 @@
                 }
             }
 
+            // 视觉反馈：伤害/治疗数字
+            if (actual > 0) showDamageOnTarget(targetId, actual, false);
+            else if (heal > 0) showDamageOnTarget(ownerId, heal, true);
+
             let msg = '';
             if (dmg > 0) msg += ` ⚔️造成 <span class="damage">${actual}</span> 伤害`;
             if (heal > 0) msg += ` 💚恢复 <span class="heal">${heal}</span> 生命`;
@@ -1411,7 +1466,6 @@
             return { log: msg };
         }
 
-        // ----- 打出卡牌 -----
         function playCardFromDOM(playerId, cardElement) {
             const player = getPlayer(playerId);
             const opponent = playerId === 1 ? state.p2 : state.p1;
@@ -1426,6 +1480,10 @@
                 heal: parseInt(cardElement.dataset.heal) || 0,
                 level: cardElement.dataset.level || 'base'
             };
+            // 飞行动画：从手牌飞向对手区域
+            const targetId = playerId === 1 ? 'p2-area' : 'p1-area';
+            flyCard(cardElement, targetId);
+            // 从DOM移除
             cardElement.remove();
             syncHandFromDOM(playerId);
             const res = applyCard(card, player, opponent);
@@ -1437,16 +1495,10 @@
                     skillState.itachiTriggered[key] = true;
                     if (player.hand.length < 4) {
                         const newCard = drawOne(player);
-                        if (newCard) {
-                            addCardToDOM(playerId, newCard);
-                            log(`👁️ 鼬 万花筒发动！额外抽1张牌`);
-                        }
-                    } else {
-                        log('👁️ 鼬 手牌已满，无法抽牌');
-                    }
+                        if (newCard) { addCardToDOM(playerId, newCard); log(`👁️ 鼬 万花筒发动！额外抽1张牌`); }
+                    } else { log('👁️ 鼬 手牌已满，无法抽牌'); }
                 }
             }
-
             if (checkGameOver()) { render(); return; }
             render();
         }
@@ -1464,20 +1516,14 @@
                     skillState.itachiTriggered[key] = true;
                     if (player.hand.length < 4) {
                         const newCard = drawOne(player);
-                        if (newCard) {
-                            addCardToDOM(playerId, newCard);
-                            log(`👁️ 鼬 万花筒发动！额外抽1张牌`);
-                        }
-                    } else {
-                        log('👁️ 鼬 手牌已满，无法抽牌');
-                    }
+                        if (newCard) { addCardToDOM(playerId, newCard); log(`👁️ 鼬 万花筒发动！额外抽1张牌`); }
+                    } else { log('👁️ 鼬 手牌已满，无法抽牌'); }
                 }
             }
             if (checkGameOver()) { render(); return; }
             render();
         }
 
-        // ----- 换牌 -----
         function discardCardFromDOM(playerId, cardElement) {
             const player = getPlayer(playerId);
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
@@ -1488,9 +1534,7 @@
             cardElement.remove();
             syncHandFromDOM(playerId);
             const newCard = drawOne(player);
-            if (newCard) {
-                addCardToDOM(playerId, newCard);
-            }
+            if (newCard) { addCardToDOM(playerId, newCard); }
             player.discarded = true;
             state.discardMode = false;
             btnDiscard.textContent = '🔄 换牌';
@@ -1499,7 +1543,6 @@
             render();
         }
 
-        // ----- 合成 -----
         function synthesize() {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             const player = getPlayer(state.turn);
@@ -1538,10 +1581,11 @@
             if (player.chakra < 3) {
                 player.chakra++;
             }
+            // 合成特效
+            showSynthesisEffect();
             render();
         }
 
-        // ----- 替身术（玩家手动） -----
         function useSubstitute() {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             const player = getPlayer(state.turn);
@@ -1549,43 +1593,32 @@
             if (player.chakra < 1) { log('⛔ 查克拉不足 (需要1点)'); return; }
             player.chakra -= 1;
             player.freeze = 0;
+            clearStateEffects(state.turn);
             log(`🪵 玩家${state.turn} 使用替身术解除冻结！消耗1查克拉。`);
             render();
         }
 
-        // ----- 灼烧 -----
         function applyBurns() {
             if (state.p1.burn > 0) {
                 state.p1.hp = Math.max(0, state.p1.hp - 2);
                 state.p1.burn--;
                 log(`🔥 玩家一灼烧 -2`);
+                if (state.p1.burn === 0) clearStateEffects(1);
             }
             if (state.p2.burn > 0) {
                 state.p2.hp = Math.max(0, state.p2.hp - 2);
                 state.p2.burn--;
                 log(`🔥 玩家二灼烧 -2`);
+                if (state.p2.burn === 0) clearStateEffects(2);
             }
         }
 
         function checkGameOver() {
-            if (state.p1.hp <= 0) {
-                state.p1.hp = 0;
-                state.gameOver = true;
-                log('💀 玩家一被击败！玩家二胜利！');
-                render();
-                return true;
-            }
-            if (state.p2.hp <= 0) {
-                state.p2.hp = 0;
-                state.gameOver = true;
-                log('💀 玩家二被击败！玩家一胜利！');
-                render();
-                return true;
-            }
+            if (state.p1.hp <= 0) { state.p1.hp=0; state.gameOver=true; log('💀 玩家一被击败！玩家二胜利！'); render(); return true; }
+            if (state.p2.hp <= 0) { state.p2.hp=0; state.gameOver=true; log('💀 玩家二被击败！玩家一胜利！'); render(); return true; }
             return false;
         }
 
-        // ----- 结束回合 -----
         function endTurn() {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             if (state.aiMode && state.aiThinking) { log('⏳ AI 正在思考...'); return; }
@@ -1593,6 +1626,7 @@
             const currentPlayer = getPlayer(state.turn);
             if (currentPlayer.freeze > 0) {
                 currentPlayer.freeze--;
+                clearStateEffects(state.turn);
                 log(`❄️ 玩家${state.turn} 冰牢解除，剩余 ${currentPlayer.freeze} 回合`);
             }
             if (state.discardMode) {
@@ -1630,9 +1664,7 @@
 
             if (!(state.turn === 2 && state.round === 0)) {
                 const newCard = drawOne(newPlayer);
-                if (newCard) {
-                    addCardToDOM(state.turn, newCard);
-                }
+                if (newCard) { addCardToDOM(state.turn, newCard); }
             } else {
                 log('⏭️ 玩家2第一回合不抽牌');
             }
@@ -1647,7 +1679,6 @@
             }
         }
 
-        // ----- AI 逻辑 -----
         function aiAction() {
             if (state.gameOver || state.turn !== 2 || !state.aiMode) {
                 state.aiThinking = false;
@@ -1656,16 +1687,15 @@
             }
             const player = state.p2;
             const opponent = state.p1;
-            log('🤖 AI 正在思考...');
 
-            // 替身术
             if (player.freeze > 0 && player.chakra >= 1) {
                 player.chakra -= 1;
                 player.freeze = 0;
+                clearStateEffects(2);
                 log(`🪵 AI 使用替身术解除冻结！消耗1查克拉。`);
             }
 
-            // 合成（非木系优先）
+            // 合成
             const hand = player.hand;
             const nonWoodBase = hand.filter(c => c.level === 'base' && c.element !== '🌿');
             const woodBase = hand.filter(c => c.level === 'base' && c.element === '🌿');
@@ -1694,27 +1724,22 @@
                     addCardToDOM(2, adv);
                     syncHandFromDOM(2);
                     if (player.chakra < 3) player.chakra++;
+                    showSynthesisEffect();
                     log(`🔮 AI 合成！${targetElem} → ${adv.element} ${adv.name}`);
                 }
             }
 
             syncHandFromDOM(2);
             const currentHand = state.p2.hand;
-
             let actions = 0;
             const maxActions = 3;
             while (actions < maxActions && currentHand.length > 0 && player.freeze === 0 && !state.gameOver) {
                 let selectedIndex = -1;
                 let isHeal = false;
-
                 if (player.hp < 35) {
                     const healIndex = currentHand.findIndex(c => c.element === '🌿');
-                    if (healIndex !== -1) {
-                        selectedIndex = healIndex;
-                        isHeal = true;
-                    }
+                    if (healIndex !== -1) { selectedIndex = healIndex; isHeal = true; }
                 }
-
                 if (selectedIndex === -1) {
                     const nonHeal = currentHand.filter(c => c.element !== '🌿');
                     if (nonHeal.length > 0) {
@@ -1722,8 +1747,7 @@
                         nonHeal.forEach((c, i) => {
                             let atk = c.atk;
                             if (c.level === 'advanced') atk += 5;
-                            if (atk > maxAtk) { maxAtk = atk;
-                                selectedIndex = currentHand.indexOf(c); }
+                            if (atk > maxAtk) { maxAtk = atk; selectedIndex = currentHand.indexOf(c); }
                         });
                         if (selectedIndex === -1) selectedIndex = 0;
                     } else {
@@ -1731,14 +1755,11 @@
                         isHeal = true;
                     }
                 }
-
                 const cardEl = p2HandEl.querySelectorAll('.card')[selectedIndex];
                 if (!cardEl) break;
-
                 const cardData = currentHand.splice(selectedIndex, 1)[0];
                 cardEl.remove();
                 syncHandFromDOM(2);
-
                 let enhanced = false;
                 if (player.chakra >= 2 && cardData.atk > 0 && !isHeal) {
                     if (cardData.level === 'advanced' || cardData.atk >= 8) {
@@ -1748,30 +1769,26 @@
                         log(`💠 AI 使用忍术强化，${cardData.name} 伤害+5`);
                     }
                 }
-
+                // AI出牌动画：从AI区域飞向玩家区域
+                const fakeEl = document.createElement('div');
+                fakeEl.style.display = 'none';
+                document.body.appendChild(fakeEl);
+                // 直接执行效果，不触发飞行动画（因为AI出牌不需要）
                 const res = applyCard(cardData, player, opponent, enhanced);
                 log(`🤖 AI 打出 <span class="highlight">${cardData.element} ${cardData.name}</span> → ${res.log}`);
-
+                fakeEl.remove();
                 if (hasSkill(2, 'mangekyo')) {
                     const key = 'p2';
                     if (!skillState.itachiTriggered[key]) {
                         skillState.itachiTriggered[key] = true;
                         if (player.hand.length < 4) {
                             const newCard = drawOne(player);
-                            if (newCard) {
-                                addCardToDOM(2, newCard);
-                                log(`👁️ AI 鼬 万花筒发动！额外抽1张牌`);
-                            }
+                            if (newCard) { addCardToDOM(2, newCard); log(`👁️ AI 鼬 万花筒发动！额外抽1张牌`); }
                         }
                     }
                 }
-
                 actions++;
-                if (checkGameOver()) {
-                    state.aiThinking = false;
-                    render();
-                    return;
-                }
+                if (checkGameOver()) { state.aiThinking = false; render(); return; }
             }
 
             state.aiThinking = false;
@@ -1782,11 +1799,8 @@
                 const p1 = state.p1;
                 const oldHp = p1.hp;
                 p1.hp = Math.min(p1.maxHp, p1.hp + 2);
-                if (p1.hp > oldHp) {
-                    log(`💚 玩家一 回合开始，恢复2点生命 (当前 ${p1.hp})`);
-                } else {
-                    log(`💚 玩家一 生命已满 (${p1.hp})`);
-                }
+                if (p1.hp > oldHp) log(`💚 玩家一 回合开始，恢复2点生命 (当前 ${p1.hp})`);
+                else log(`💚 玩家一 生命已满 (${p1.hp})`);
                 drawOne(p1);
                 const newCard = p1.hand[p1.hand.length - 1];
                 if (newCard) addCardToDOM(1, newCard);
@@ -1797,7 +1811,6 @@
             render();
         }
 
-        // ----- 切换换牌模式 -----
         function toggleDiscardMode() {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             if (state.aiMode && state.aiThinking) { log('⏳ AI 正在思考...'); return; }
@@ -1819,7 +1832,6 @@
             render();
         }
 
-        // ----- 忍术强化（玩家手动） -----
         function toggleEnhance() {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
             if (state.aiMode && state.aiThinking) { log('⏳ AI 正在思考...'); return; }
@@ -1842,79 +1854,41 @@
             render();
         }
 
-        // ----- 重启游戏 -----
         function restartGame() {
-            state.p1.hp = 50;
-            state.p1.maxHp = 50;
-            state.p1.hand = [];
-            state.p1.burn = 0;
-            state.p1.freeze = 0;
-            state.p1.shield = 0;
-            state.p1.discarded = false;
-            state.p1.chakra = 0;
-            state.p2.hp = 50;
-            state.p2.maxHp = 50;
-            state.p2.hand = [];
-            state.p2.burn = 0;
-            state.p2.freeze = 0;
-            state.p2.shield = 0;
-            state.p2.discarded = false;
-            state.p2.chakra = 0;
-            state.turn = 1;
-            state.gameOver = false;
-            state.discardMode = false;
-            state.round = 0;
-            state.enhancePending = false;
-            state.aiThinking = false;
-            state.lastPlayedCard = null;
-            state.lastPlayedPlayer = null;
-            skillState.narutoTriggered = { p1: false, p2: false };
-            skillState.sasukeTriggered = { p1: false, p2: false };
-            skillState.itachiTriggered = { p1: false, p2: false };
-
-            btnDiscard.textContent = '🔄 换牌';
-            btnDiscard.classList.remove('active');
-            clearHandDOM(1);
-            clearHandDOM(2);
+            state.p1.hp=50; state.p1.maxHp=50; state.p1.hand=[]; state.p1.burn=0; state.p1.freeze=0; state.p1.shield=0; state.p1.discarded=false; state.p1.chakra=0;
+            state.p2.hp=50; state.p2.maxHp=50; state.p2.hand=[]; state.p2.burn=0; state.p2.freeze=0; state.p2.shield=0; state.p2.discarded=false; state.p2.chakra=0;
+            state.turn=1; state.gameOver=false; state.discardMode=false; state.round=0; state.enhancePending=false; state.aiThinking=false;
+            state.lastPlayedCard=null; state.lastPlayedPlayer=null;
+            skillState.narutoTriggered={p1:false,p2:false};
+            skillState.sasukeTriggered={p1:false,p2:false};
+            skillState.itachiTriggered={p1:false,p2:false};
+            btnDiscard.textContent='🔄 换牌'; btnDiscard.classList.remove('active');
+            clearHandDOM(1); clearHandDOM(2);
             const initialCards = [
-                { name: '螺旋丸', element: '🌀', atk: 5, heal: 0, level: 'base' },
-                { name: '千杀水翔', element: '❄️', atk: 4, heal: 0, level: 'base' },
-                { name: '掌仙术', element: '🌿', atk: 0, heal: 6, level: 'base' },
-                { name: '千鸟', element: '⚡', atk: 8, heal: 0, level: 'base' },
+                { name:'螺旋丸', element:'🌀', atk:5, heal:0, level:'base' },
+                { name:'千杀水翔', element:'❄️', atk:4, heal:0, level:'base' },
+                { name:'掌仙术', element:'🌿', atk:0, heal:6, level:'base' },
+                { name:'千鸟', element:'⚡', atk:8, heal:0, level:'base' }
             ];
-            initialCards.forEach(c => { addCardToDOM(1, c);
-                state.p1.hand.push(c); });
-            initialCards.forEach(c => { addCardToDOM(2, c);
-                state.p2.hand.push(c); });
-            clearLog();
-            log('🔄 忍界大战重启！');
-            const r1 = getRoleObj(1);
-            const r2 = getRoleObj(2);
-            if (r1) { p1Avatar.textContent = r1.emoji;
-                p1Name.textContent = r1.name; }
-            if (r2) { p2Avatar.textContent = r2.emoji;
-                p2Name.textContent = r2.name; }
+            initialCards.forEach(c => { addCardToDOM(1,c); state.p1.hand.push(c); });
+            initialCards.forEach(c => { addCardToDOM(2,c); state.p2.hand.push(c); });
+            clearLog(); log('🔄 忍界大战重启！');
+            const r1 = getRoleObj(1); const r2 = getRoleObj(2);
+            if (r1) { p1Avatar.textContent = r1.emoji; p1Name.textContent = r1.name; }
+            if (r2) { p2Avatar.textContent = r2.emoji; p2Name.textContent = r2.name; }
             document.getElementById('game-screen').style.display = 'block';
             render();
         }
 
-        // ----- 渲染 -----
         function render() {
             p1HpEl.textContent = state.p1.hp;
             p2HpEl.textContent = state.p2.hp;
-            p1HpBar.style.width = Math.max(0, (state.p1.hp / state.p1.maxHp) * 100) + '%';
-            p2HpBar.style.width = Math.max(0, (state.p2.hp / state.p2.maxHp) * 100) + '%';
+            p1HpBar.style.width = Math.max(0, (state.p1.hp/state.p1.maxHp)*100)+'%';
+            p2HpBar.style.width = Math.max(0, (state.p2.hp/state.p2.maxHp)*100)+'%';
 
-            let p1s = [];
-            if (state.p1.burn > 0) p1s.push('🔥黑炎' + state.p1.burn);
-            if (state.p1.freeze > 0) p1s.push('❄️冰牢' + state.p1.freeze);
-            if (state.p1.shield > 0) p1s.push('🛡️护盾' + state.p1.shield);
+            let p1s=[]; if (state.p1.burn>0) p1s.push('🔥黑炎'+state.p1.burn); if (state.p1.freeze>0) p1s.push('❄️冰牢'+state.p1.freeze); if (state.p1.shield>0) p1s.push('🛡️护盾'+state.p1.shield);
             p1Status.textContent = p1s.length ? p1s.join(' ') : '无';
-
-            let p2s = [];
-            if (state.p2.burn > 0) p2s.push('🔥黑炎' + state.p2.burn);
-            if (state.p2.freeze > 0) p2s.push('❄️冰牢' + state.p2.freeze);
-            if (state.p2.shield > 0) p2s.push('🛡️护盾' + state.p2.shield);
+            let p2s=[]; if (state.p2.burn>0) p2s.push('🔥黑炎'+state.p2.burn); if (state.p2.freeze>0) p2s.push('❄️冰牢'+state.p2.freeze); if (state.p2.shield>0) p2s.push('🛡️护盾'+state.p2.shield);
             p2Status.textContent = p2s.length ? p2s.join(' ') : '无';
 
             p1ChakraEl.textContent = state.p1.chakra;
@@ -1928,17 +1902,9 @@
                 <span class="chakra-display" style="margin-left:8px;">💠 查克拉 <span id="p2-chakra">${state.p2.chakra}</span> / 3</span>
             `;
 
-            if (state.aiMode) {
-                p1Overlay.classList.remove('show');
-                p2Overlay.classList.add('show');
-            } else {
-                p1Overlay.classList.toggle('show', state.turn !== 1);
-                p2Overlay.classList.toggle('show', state.turn !== 2);
-            }
-            if (state.gameOver) {
-                p1Overlay.classList.remove('show');
-                p2Overlay.classList.remove('show');
-            }
+            if (state.aiMode) { p1Overlay.classList.remove('show'); p2Overlay.classList.add('show'); }
+            else { p1Overlay.classList.toggle('show', state.turn !== 1); p2Overlay.classList.toggle('show', state.turn !== 2); }
+            if (state.gameOver) { p1Overlay.classList.remove('show'); p2Overlay.classList.remove('show'); }
 
             document.getElementById('p1-area').classList.toggle('active-turn', state.turn === 1 && !state.gameOver);
             document.getElementById('p2-area').classList.toggle('active-turn', state.turn === 2 && !state.gameOver);
@@ -1953,25 +1919,16 @@
                     c.classList.add('disabled');
                     if (!isActive) c.classList.add('enemy-card');
                 }
-                if (state.discardMode && isActive) {
-                    c.classList.add('discard-mode');
-                } else {
-                    c.classList.remove('discard-mode');
-                }
+                if (state.discardMode && isActive) c.classList.add('discard-mode');
+                else c.classList.remove('discard-mode');
             });
 
             btnSynth.disabled = false;
             btnDiscard.disabled = false;
             btnEnd.disabled = false;
             btnRestart.disabled = false;
-
-            if (state.discardMode) {
-                btnDiscard.textContent = '❌ 取消换牌';
-                btnDiscard.classList.add('active');
-            } else {
-                btnDiscard.textContent = '🔄 换牌';
-                btnDiscard.classList.remove('active');
-            }
+            if (state.discardMode) { btnDiscard.textContent='❌ 取消换牌'; btnDiscard.classList.add('active'); }
+            else { btnDiscard.textContent='🔄 换牌'; btnDiscard.classList.remove('active'); }
 
             const player = getPlayer(state.turn);
             const isFrozen = player.freeze > 0;
@@ -2029,8 +1986,7 @@
                 }
                 const role = ROLES[selectedRoles.p2];
                 const div = document.createElement('div');
-                div.style.cssText =
-                    'padding:12px 16px; background:rgba(255,255,255,0.04); border-radius:12px; border:1px solid rgba(212,168,84,0.2); color:#d0c0a8;';
+                div.style.cssText = 'padding:12px 16px; background:rgba(255,255,255,0.04); border-radius:12px; border:1px solid rgba(212,168,84,0.2); color:#d0c0a8;';
                 div.innerHTML = `
                     <div class="role-name">${role.emoji} ${role.name} <span style="font-size:12px;color:#7a6a5a;">(AI 选择)</span></div>
                     <div class="role-skill">技能：${role.skillName} — <span>${role.skillDesc}</span></div>
@@ -2067,7 +2023,6 @@
             }
         }
 
-        // ----- 启动游戏流程 -----
         function startGame(mode) {
             gameMode = mode;
             selectedRoles.p1 = null;
@@ -2123,7 +2078,14 @@
                 }
             });
 
-            // 规则书按钮已经在上面绑定了
+            // 规则书
+            document.getElementById('btn-rulebook-home').addEventListener('click', openRulebook);
+            document.getElementById('btn-rulebook-game').addEventListener('click', openRulebook);
+            document.getElementById('rulebook-close').addEventListener('click', closeRulebook);
+            document.getElementById('rulebook-overlay').addEventListener('click', function(e) {
+                if (e.target === this) closeRulebook();
+            });
+
             restartGame();
         });
     </script>
