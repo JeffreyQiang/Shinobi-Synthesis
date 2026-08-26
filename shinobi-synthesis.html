@@ -334,6 +334,7 @@
         }
         #victory-overlay .stats-grid .stat-card .stat-row .value.dmg { color: #ff7b7b; }
         #victory-overlay .stats-grid .stat-card .stat-row .value.heal { color: #7bff7b; }
+        #victory-overlay .stats-grid .stat-card .stat-row .value.burn { color: #ff6b2a; }
         #victory-overlay .victory-btn {
             background: #d4a854;
             border: none;
@@ -943,13 +944,51 @@
         </div>
     </div>
 
-    <!-- ===== 规则书模态框 ===== -->
+    <!-- ===== 规则书模态框（简化版） ===== -->
     <div id="rulebook-overlay">
         <div class="rulebook-container">
             <button class="close-btn" id="rulebook-close">✕ 关闭</button>
             <h1>📜 忍界大战 · 完整规则书</h1>
             <div class="version">版本 1.0 · 最后更新 2026年8月</div>
-            <!-- 规则内容省略（与之前相同，为了节省篇幅不重复） -->
+            <h2>🎯 游戏目标</h2>
+            <p>将对手的生命值（HP）削减至 0，即可获胜。双方初始生命值为 50。</p>
+            <h2>🃏 卡牌系统</h2>
+            <h3>基础忍术（5种）</h3>
+            <ul>
+                <li><strong>🌀 螺旋丸</strong> — 造成 5 点伤害</li>
+                <li><strong>❄️ 千杀水翔</strong> — 造成 4 点伤害</li>
+                <li><strong>🌿 掌仙术</strong> — 恢复 6 点生命</li>
+                <li><strong>⚡ 千鸟</strong> — 造成 8 点伤害</li>
+                <li><strong>🌑 影手里剑</strong> — 造成 6 点伤害</li>
+            </ul>
+            <h3>⭐ 奥义（通过合成获得）</h3>
+            <ul>
+                <li><strong>🌪️ 风遁·螺旋手里剑</strong> — 伤害 10，附加 2 层灼烧</li>
+                <li><strong>🧊 冰遁·魔镜冰晶</strong> — 伤害 8，附加 1 回合冻结</li>
+                <li><strong>💫 创造再生</strong> — 恢复 12 生命，并净化负面状态</li>
+                <li><strong>⚡⚡ 麒麟</strong> — 伤害 16，抽 1 张牌</li>
+                <li><strong>🔥👁️ 天照</strong> — 伤害 12，吸血 60%</li>
+            </ul>
+            <h2>💠 查克拉系统</h2>
+            <ul>
+                <li>合成进阶忍术 → 获得 1 点查克拉（上限 3）</li>
+                <li><strong>消耗 1 点</strong>：解除冻结状态（替身术）</li>
+                <li><strong>消耗 2 点</strong>：忍术强化（下一张牌伤害/治疗 +5）</li>
+                <li>回合开始恢复 1 点生命（小樱技能可额外 +1）</li>
+            </ul>
+            <h2>🎭 角色技能</h2>
+            <ul>
+                <li><strong>🍥 鸣人（影分身）</strong> — 每回合第一次受击，30% 概率闪避</li>
+                <li><strong>⚡ 佐助（写轮眼）</strong> — 每回合第一次造成伤害 +2</li>
+                <li><strong>🌸 小樱（医疗天赋）</strong> — 每回合回血额外 +1</li>
+                <li><strong>👁️ 鼬（万花筒）</strong> — 每回合第一张牌打出后额外抽 1 张</li>
+                <li><strong>🦈 鬼鲛（鲛肌·饕餮）</strong> — 造成伤害时 40% 概率吸 1 查克拉；若对手查克拉为 0，则伤害 +1</li>
+            </ul>
+            <h2>🔥 负面状态</h2>
+            <ul>
+                <li><strong>灼烧</strong> — 每回合受到 2 点伤害，持续多层</li>
+                <li><strong>冻结</strong> — 无法行动，可用 1 点查克拉解除</li>
+            </ul>
             <div class="rulebook-footer">🍥 木叶 vs 晓 · 查克拉与策略 · 祝你好运！</div>
         </div>
     </div>
@@ -964,11 +1003,13 @@
                 <div class="stat-card">
                     <div class="player-label"><span class="emoji">👹</span> 玩家一</div>
                     <div class="stat-row"><span class="label">⚔️ 总伤害</span><span class="value dmg" id="p1-dmg">0</span></div>
+                    <div class="stat-row"><span class="label">🔥 灼烧伤害</span><span class="value burn" id="p1-burn">0</span></div>
                     <div class="stat-row"><span class="label">💚 总治疗</span><span class="value heal" id="p1-heal">0</span></div>
                 </div>
                 <div class="stat-card">
                     <div class="player-label"><span class="emoji">🧙</span> 玩家二</div>
                     <div class="stat-row"><span class="label">⚔️ 总伤害</span><span class="value dmg" id="p2-dmg">0</span></div>
+                    <div class="stat-row"><span class="label">🔥 灼烧伤害</span><span class="value burn" id="p2-burn">0</span></div>
                     <div class="stat-row"><span class="label">💚 总治疗</span><span class="value heal" id="p2-heal">0</span></div>
                 </div>
             </div>
@@ -1242,9 +1283,9 @@
             p2: { hp:50, maxHp:50, hand:[], burn:0, freeze:0, shield:0, discarded:false, chakra:0 },
             turn:1, gameOver:false, discardMode:false, round:0, enhancePending:false,
             aiMode:false, aiThinking:false, roleMap:{p1:null,p2:null}, lastPlayedCard:null, lastPlayedPlayer:null,
-            // 统计
             totalDamage: { p1: 0, p2: 0 },
-            totalHeal: { p1: 0, p2: 0 }
+            totalHeal: { p1: 0, p2: 0 },
+            totalBurnDamage: { p1: 0, p2: 0 }
         };
         let skillState = {
             narutoTriggered: {p1:false,p2:false},
@@ -1432,9 +1473,16 @@
                         let h = Math.floor(dmg * 0.6);
                         owner.hp = Math.min(owner.maxHp, owner.hp + h);
                         extra += ` 🩸查克拉吸收 ${h}`;
+                        if (h > 0) {
+                            if (ownerId === 1) state.totalHeal.p1 += h;
+                            else state.totalHeal.p2 += h;
+                        }
                     }
                 }
             }
+
+            let actualDmg = 0;
+            let actualHeal = 0;
 
             if (dmg > 0 && hasSkill(targetId, 'shadow_clone')) {
                 const key = targetId === 1 ? 'p1' : 'p2';
@@ -1448,34 +1496,31 @@
                 if (!skillState.sasukeTriggered[key]) { dmg += 2; extra += ' ⚡ 写轮眼！'; skillState.sasukeTriggered[key] = true; }
             }
 
-            let actual = 0;
             if (dmg > 0) {
-                actual = dmg;
-                target.hp = Math.max(0, target.hp - actual);
-                // 累计伤害
-                if (ownerId === 1) state.totalDamage.p1 += actual;
-                else state.totalDamage.p2 += actual;
+                actualDmg = dmg;
+                target.hp = Math.max(0, target.hp - actualDmg);
+                if (ownerId === 1) state.totalDamage.p1 += actualDmg;
+                else state.totalDamage.p2 += actualDmg;
             }
             if (heal > 0) {
                 const oldHp = owner.hp;
                 owner.hp = Math.min(owner.maxHp, owner.hp + heal);
-                const actualHeal = owner.hp - oldHp;
+                actualHeal = owner.hp - oldHp;
                 if (actualHeal > 0) {
                     if (ownerId === 1) state.totalHeal.p1 += actualHeal;
                     else state.totalHeal.p2 += actualHeal;
                 }
             }
 
-            // 鬼鲛
             let samehadaExtra = '';
-            if (actual > 0 && hasSkill(ownerId, 'samehada')) {
+            if (actualDmg > 0 && hasSkill(ownerId, 'samehada')) {
                 if (Math.random() < 0.4) {
                     if (target.chakra > 0) {
                         target.chakra -= 1;
                         owner.chakra = Math.min(3, owner.chakra + 1);
                         samehadaExtra = ' 🦈 鲛肌吞噬！吸收对手1查克拉';
                     } else {
-                        actual += 1;
+                        actualDmg += 1;
                         target.hp = Math.max(0, target.hp - 1);
                         if (ownerId === 1) state.totalDamage.p1 += 1;
                         else state.totalDamage.p2 += 1;
@@ -1484,13 +1529,12 @@
                 }
             }
 
-            // 视觉反馈
-            if (actual > 0) showDamageOnTarget(targetId, actual, false);
-            else if (heal > 0) showDamageOnTarget(ownerId, heal, true);
+            if (actualDmg > 0) showDamageOnTarget(targetId, actualDmg, false);
+            else if (actualHeal > 0) showDamageOnTarget(ownerId, actualHeal, true);
 
             let msg = '';
-            if (dmg > 0) msg += ` ⚔️造成 <span class="damage">${actual}</span> 伤害`;
-            if (heal > 0) msg += ` 💚恢复 <span class="heal">${heal}</span> 生命`;
+            if (actualDmg > 0) msg += ` ⚔️造成 <span class="damage">${actualDmg}</span> 伤害`;
+            if (actualHeal > 0) msg += ` 💚恢复 <span class="heal">${actualHeal}</span> 生命`;
             if (extra) msg += ` ${extra}`;
             if (samehadaExtra) msg += ` ${samehadaExtra}`;
             return { log: msg };
@@ -1627,15 +1671,19 @@
 
         function applyBurns() {
             if (state.p1.burn > 0) {
-                state.p1.hp = Math.max(0, state.p1.hp - 2);
+                const burnDmg = 2;
+                state.p1.hp = Math.max(0, state.p1.hp - burnDmg);
+                state.totalBurnDamage.p1 += burnDmg;
                 state.p1.burn--;
-                log(`🔥 玩家一灼烧 -2`);
+                log(`🔥 玩家一灼烧 -${burnDmg}`);
                 if (state.p1.burn === 0) clearStateEffects(1);
             }
             if (state.p2.burn > 0) {
-                state.p2.hp = Math.max(0, state.p2.hp - 2);
+                const burnDmg = 2;
+                state.p2.hp = Math.max(0, state.p2.hp - burnDmg);
+                state.totalBurnDamage.p2 += burnDmg;
                 state.p2.burn--;
-                log(`🔥 玩家二灼烧 -2`);
+                log(`🔥 玩家二灼烧 -${burnDmg}`);
                 if (state.p2.burn === 0) clearStateEffects(2);
             }
         }
@@ -1668,6 +1716,8 @@
             const p1Heal = document.getElementById('p1-heal');
             const p2Dmg = document.getElementById('p2-dmg');
             const p2Heal = document.getElementById('p2-heal');
+            const p1Burn = document.getElementById('p1-burn');
+            const p2Burn = document.getElementById('p2-burn');
 
             const r1 = getRoleObj(1);
             const r2 = getRoleObj(2);
@@ -1678,10 +1728,15 @@
             winnerName.textContent = winner === 1 ? p1Label : p2Label;
             winnerName.className = 'victory-winner ' + (winner === 1 ? 'win-p1' : 'win-p2');
 
-            p1Dmg.textContent = state.totalDamage.p1;
+            const p1TotalDmg = state.totalDamage.p1 + state.totalBurnDamage.p1;
+            const p2TotalDmg = state.totalDamage.p2 + state.totalBurnDamage.p2;
+
+            p1Dmg.textContent = p1TotalDmg;
             p1Heal.textContent = state.totalHeal.p1;
-            p2Dmg.textContent = state.totalDamage.p2;
+            p2Dmg.textContent = p2TotalDmg;
             p2Heal.textContent = state.totalHeal.p2;
+            if (p1Burn) p1Burn.textContent = state.totalBurnDamage.p1;
+            if (p2Burn) p2Burn.textContent = state.totalBurnDamage.p2;
 
             overlay.style.display = 'flex';
         }
@@ -1925,6 +1980,7 @@
             state.lastPlayedCard=null; state.lastPlayedPlayer=null;
             state.totalDamage = { p1: 0, p2: 0 };
             state.totalHeal = { p1: 0, p2: 0 };
+            state.totalBurnDamage = { p1: 0, p2: 0 };
             skillState.narutoTriggered={p1:false,p2:false};
             skillState.sasukeTriggered={p1:false,p2:false};
             skillState.itachiTriggered={p1:false,p2:false};
@@ -2126,7 +2182,6 @@
             btnRestart.onclick = restartGame;
             btnSubstitute.onclick = useSubstitute;
 
-            // 胜利画面重启按钮
             document.getElementById('victory-restart-btn').onclick = function() {
                 restartGame();
             };
@@ -2151,7 +2206,6 @@
                 }
             });
 
-            // 规则书
             document.getElementById('btn-rulebook-home').addEventListener('click', openRulebook);
             document.getElementById('btn-rulebook-game').addEventListener('click', openRulebook);
             document.getElementById('rulebook-close').addEventListener('click', closeRulebook);
