@@ -681,7 +681,7 @@
         function closeRulebook() { document.getElementById('rulebook-overlay').style.display = 'none'; }
 
         // ============================================================
-        //  核心数据（7名忍者，卡卡西已移除）
+        //  核心数据（7名忍者）
         // ============================================================
         const ROLES = {
             naruto: { id: 'naruto', name: '鸣人', emoji: '🍥', faction: '木叶', skill: 'shadow_clone', skillName: '影分身',
@@ -1120,7 +1120,7 @@
         }
 
         // ============================================================
-        //  出牌逻辑（含自来也技能，卡卡西已移除）
+        //  出牌逻辑（含自来也技能）
         // ============================================================
         function playCardFromDOM(playerId, cardElement) {
             if (state.gameOver) { log('⛔ 游戏已结束'); return; }
@@ -1540,7 +1540,7 @@
         }
 
         // ============================================================
-        //  AI 逻辑（卡卡西已移除）
+        //  AI 逻辑（增强版，包含理智治疗）
         // ============================================================
         function aiAction() {
             if (state.gameOver || state.turn !== 2 || !state.aiMode) {
@@ -1551,9 +1551,9 @@
 
             const playerId = 2;
             const member = getCurrentMember(playerId);
-            if (!member) { state.aiThinking = false;
-                render(); return; }
+            if (!member) { state.aiThinking = false; render(); return; }
 
+            // ---- 解冻 ----
             if (member.freeze > 0 && member.chakra >= 1) {
                 member.chakra -= 1;
                 member.freeze = 0;
@@ -1561,18 +1561,28 @@
                 log(`🪵 AI 使用替身术解除冻结！`);
             }
 
-            // 合成逻辑
+            // ---- 合成 ----
             const hand = member.hand || [];
-            const nonWoodBase = hand.filter(c => c.level === 'base' && c.element !== '🌿');
-            const woodBase = hand.filter(c => c.level === 'base' && c.element === '🌿');
+            const baseMap = {};
+            hand.forEach(c => { if (c.level === 'base') { baseMap[c.element] = (baseMap[c.element] || 0) + 1; } });
             let targetElem = null;
-            const nonWoodMap = {};
-            nonWoodBase.forEach(c => { nonWoodMap[c.element] = (nonWoodMap[c.element] || 0) + 1; });
-            for (let [elem, cnt] of Object.entries(nonWoodMap)) {
-                if (cnt >= 2) { targetElem = elem; break; }
+            const priority = ['🌀', '⚡', '❄️', '🌿', '🌑'];
+            for (const elem of priority) {
+                if (baseMap[elem] >= 2) {
+                    targetElem = elem;
+                    break;
+                }
             }
-            if (!targetElem && member.hp < 30 && woodBase.length >= 2) {
-                targetElem = '🌿';
+            if (!targetElem) {
+                for (const [elem, cnt] of Object.entries(baseMap)) {
+                    if (cnt >= 2) { targetElem = elem; break; }
+                }
+            }
+            const oppMember = getCurrentMember(1);
+            const oppRole = oppMember ? ROLES[oppMember.roleId] : null;
+            const oppId = oppRole ? oppRole.id : null;
+            if (oppId === 'kisame' && member.chakra === 0 && baseMap['🌿'] >= 2) {
+                if (baseMap['🌿'] >= 2) targetElem = '🌿';
             }
             if (targetElem) {
                 const cards = p2HandEl.querySelectorAll('.card');
@@ -1595,69 +1605,156 @@
                 }
             }
 
+            // ---- 出牌循环 ----
             syncHandFromDOM(2);
-            const currentHand = member.hand || [];
             let actions = 0;
             const maxActions = 3;
-            while (actions < maxActions && currentHand.length > 0 && member.freeze === 0 && !state.gameOver) {
+
+            while (actions < maxActions && member.hand.length > 0 && member.freeze === 0 && !state.gameOver) {
+                const currentHand = member.hand;
+                const opponentMember = getCurrentMember(1);
+                const oppRole = opponentMember ? ROLES[opponentMember.roleId] : null;
+                const oppId = oppRole ? oppRole.id : null;
+                const opponentHp = opponentMember ? opponentMember.hp : 999;
+
                 let selectedIndex = -1;
+                let useEnhance = false;
                 let isHeal = false;
-                if (member.hp < 35) {
-                    const healIndex = currentHand.findIndex(c => c.element === '🌿');
-                    if (healIndex !== -1) { selectedIndex = healIndex;
-                        isHeal = true; }
+
+                // ---- 辅助：计算伤害 ----
+                function getCardDamage(card, enhanced) {
+                    let dmg = card.atk || 0;
+                    if (enhanced) dmg += 5;
+                    return dmg;
                 }
-                if (selectedIndex === -1) {
-                    const nonHeal = currentHand.filter(c => c.element !== '🌿');
-                    if (nonHeal.length > 0) {
-                        let maxAtk = -1;
-                        nonHeal.forEach((c, i) => {
-                            let atk = c.atk;
-                            if (c.level === 'advanced') atk += 5;
-                            if (atk > maxAtk) { maxAtk = atk;
-                                selectedIndex = currentHand.indexOf(c); }
-                        });
-                        if (selectedIndex === -1) selectedIndex = 0;
-                    } else {
-                        selectedIndex = 0;
-                        isHeal = true;
+
+                // ---- 1. 斩杀检测 ----
+                for (let i = 0; i < currentHand.length; i++) {
+                    const card = currentHand[i];
+                    const dmgNoEnhance = getCardDamage(card, false);
+                    if (dmgNoEnhance >= opponentHp) {
+                        selectedIndex = i;
+                        useEnhance = false;
+                        isHeal = false;
+                        log(`⚔️ AI 斩杀！${card.name}`);
+                        break;
+                    }
+                    if (member.chakra >= 2 && (card.level === 'advanced' || card.atk >= 8)) {
+                        const dmgEnhance = getCardDamage(card, true);
+                        if (dmgEnhance >= opponentHp) {
+                            selectedIndex = i;
+                            useEnhance = true;
+                            isHeal = false;
+                            log(`⚔️ AI 斩杀！${card.name} 强化`);
+                            break;
+                        }
                     }
                 }
+
+                // ---- 2. 治疗（理智治疗） ----
+                if (selectedIndex === -1 && member.hp < 25) {
+                    const healIdx = currentHand.findIndex(c => c.element === '🌿' && c.heal > 0);
+                    if (healIdx !== -1) {
+                        // 计算治疗后是否溢出，如果溢出太多（> 上限20%），就不治疗
+                        const maxHeal = currentHand[healIdx].heal;
+                        const wouldHeal = Math.min(maxHeal, member.maxHp - member.hp);
+                        if (wouldHeal > 4) { // 至少治疗5点才值得
+                            selectedIndex = healIdx;
+                            isHeal = true;
+                            useEnhance = false;
+                            log(`💚 AI 治疗 (HP ${member.hp})`);
+                        }
+                    }
+                }
+
+                // ---- 3. 针对鸣人：先低伤试探 ----
+                if (selectedIndex === -1 && oppId === 'naruto') {
+                    const lowIdx = currentHand.findIndex(c => c.atk === 4 && c.level === 'base');
+                    if (lowIdx !== -1) {
+                        selectedIndex = lowIdx;
+                        useEnhance = false;
+                        isHeal = false;
+                        log(`🍥 AI 低伤试探鸣人`);
+                    }
+                }
+
+                // ---- 4. 针对斑：先低伤触发反弹 ----
+                if (selectedIndex === -1 && oppId === 'madara') {
+                    const lowIdx = currentHand.findIndex(c => c.atk >= 4 && c.atk <= 6);
+                    if (lowIdx !== -1) {
+                        selectedIndex = lowIdx;
+                        useEnhance = false;
+                        isHeal = false;
+                        log(`🔥 AI 低伤触发斑反弹`);
+                    }
+                }
+
+                // ---- 5. 针对鬼鲛：保持查克拉 ----
+                // 已经在合成中优先处理了
+
+                // ---- 6. 默认选最高伤害（考虑奥义价值） ----
+                if (selectedIndex === -1) {
+                    let maxValue = -1;
+                    let maxIdx = -1;
+                    currentHand.forEach((c, idx) => {
+                        let val = c.atk;
+                        if (c.level === 'advanced') val += 5;
+                        // 如果是治疗牌且血量健康，降低价值
+                        if (c.heal > 0 && member.hp > 30) val = 0;
+                        if (val > maxValue) {
+                            maxValue = val;
+                            maxIdx = idx;
+                        }
+                    });
+                    if (maxIdx !== -1 && maxValue > 0) {
+                        selectedIndex = maxIdx;
+                        useEnhance = false;
+                        isHeal = false;
+                        const card = currentHand[maxIdx];
+                        // 如果是奥义或高伤牌，考虑强化
+                        if (member.chakra >= 2 && (card.level === 'advanced' || card.atk >= 12)) {
+                            useEnhance = true;
+                            log(`💠 AI 强化奥义/高伤`);
+                        }
+                        log(`⚔️ AI 选择最高伤害 (${card.name})`);
+                    } else {
+                        // 无有效伤害牌，结束
+                        break;
+                    }
+                }
+
+                // ---- 执行 ----
+                if (selectedIndex === -1) break;
+
+                const cardData = currentHand[selectedIndex];
+                if (useEnhance) {
+                    if (member.chakra >= 2) {
+                        member.chakra -= 2;
+                        cardData.atk += 5;
+                    } else {
+                        useEnhance = false;
+                    }
+                }
+
+                // 从DOM移除
                 const cardEl = p2HandEl.querySelectorAll('.card')[selectedIndex];
                 if (!cardEl) break;
-                const cardData = currentHand.splice(selectedIndex, 1)[0];
                 cardEl.remove();
                 syncHandFromDOM(2);
 
-                let enhanced = false;
-                if (member.chakra >= 2 && cardData.atk > 0 && !isHeal) {
-                    if (cardData.level === 'advanced' || cardData.atk >= 8) {
-                        member.chakra -= 2;
-                        cardData.atk += 5;
-                        enhanced = true;
-                        log(`💠 AI 忍术强化！`);
-                    }
-                }
-
-                // 记录AI出的牌
                 state.lastPlayedCard['p2'] = { ...cardData };
-
-                // 执行卡牌效果
                 const res = applyCard(cardData, 2, 1);
                 log(`🤖 AI 打出 <span class="highlight">${cardData.element} ${cardData.name}</span> → ${res.log}`);
 
-                // AI 鼬
+                // ---- 被动 ----
                 if (hasSkill(2, 'mangekyo')) {
                     const key = 'p2';
                     if (!state.skillTriggered[key].mangekyo) {
                         state.skillTriggered[key].mangekyo = true;
                         const nc = drawOne(2);
-                        if (nc) { addCardToDOM(2, nc);
-                            log(`👁️ AI 鼬 万花筒！额外抽1张`); }
+                        if (nc) { addCardToDOM(2, nc); log(`👁️ AI 鼬 万花筒！额外抽1张`); }
                     }
                 }
-
-                // AI 自来也
                 if (hasSkill(2, 'summon')) {
                     const key = 'p2';
                     if (!state.skillTriggered[key].summon) {
@@ -1695,45 +1792,35 @@
                     }
                 }
 
+                // 检查游戏结束
+                if (state.gameOver) {
+                    state.aiThinking = false;
+                    render();
+                    return;
+                }
+
                 actions++;
-                if (state.gameOver) { state.aiThinking = false;
-                    render(); return; }
+                // 如果对手切换或死亡，重新评估
+                const newOpp = getCurrentMember(1);
+                if (!newOpp || newOpp.hp <= 0) {
+                    break;
+                }
             }
 
+            // ---- AI回合结束 ----
             state.aiThinking = false;
             if (!state.gameOver && state.turn === 2) {
-                applyBurns();
-                if (state.gameOver) { render(); return; }
-                const key2 = 'p2';
-                state.skillTriggered[key2] = { shadow_clone: false, sharingan: false, mangekyo: false, samehada: false,
-                    summon: false, reflect: false };
-                state.turn = 1;
-                const p1Member = getCurrentMember(1);
-                if (p1Member) {
-                    let healAmount = 1;
-                    if (hasSkill(1, 'medical')) {
-                        healAmount = 2;
-                        log(`🌸 小樱 医疗天赋：回血+1`);
-                    }
-                    const oldHp = p1Member.hp;
-                    p1Member.hp = Math.min(p1Member.maxHp, p1Member.hp + healAmount);
-                    if (p1Member.hp > oldHp) {
-                        log(`💚 玩家1 恢复${healAmount}HP (当前 ${p1Member.hp})`);
-                    }
-                    const newCard = drawOne(1);
-                    if (newCard) { addCardToDOM(1, newCard); }
-                }
-                state.round++;
-                log(`🔄 轮到玩家一的回合`);
+                endTurn();
+            } else {
                 render();
             }
-            render();
         }
 
         // ============================================================
-        //  渲染（修复换牌 & 明牌）
+        //  渲染
         // ============================================================
         function render() {
+            // 队伍状态
             [1, 2].forEach(pid => {
                 const team = getTeam(pid);
                 const alive = getAliveCount(team);
@@ -1806,7 +1893,7 @@
                 `;
             }
 
-            // ---- 遮罩（修复明牌） ----
+            // 遮罩
             if (p1Overlay) {
                 if (state.aiMode) {
                     p1Overlay.classList.remove('show');
@@ -1831,7 +1918,7 @@
             if (p1Area) p1Area.classList.toggle('active-turn', state.turn === 1 && !state.gameOver);
             if (p2Area) p2Area.classList.toggle('active-turn', state.turn === 2 && !state.gameOver);
 
-            // ---- 卡牌交互（修复换牌） ----
+            // 卡牌交互
             const allCards = document.querySelectorAll('.card');
             allCards.forEach(c => {
                 const pid = parseInt(c.dataset.player);
