@@ -193,7 +193,7 @@
         <div class="rulebook-container">
             <button class="close-btn" id="rulebook-close">✕ 关闭</button>
             <h1>📜 忍界大战 · 2v2 规则书</h1>
-            <div class="version">版本 2.2 · 完整规则</div>
+            <div class="version">版本 2.3 · 角色平衡调整</div>
 
             <h2>🎯 游戏目标</h2>
             <p>每位玩家选择 <strong>2 名忍者</strong> 组成小队。每名忍者拥有 <strong>50 HP</strong>。击败对方所有 2 名忍者即可获胜。</p>
@@ -233,13 +233,13 @@
                 <li>回合开始恢复 1 点生命（小樱技能可额外 +1）</li>
             </ul>
 
-            <h2>🎭 角色技能</h2>
+            <h2>🎭 角色技能（已平衡）</h2>
             <ul>
-                <li><strong>🍥 鸣人（影分身）</strong> — 每回合第一次受击，30% 概率闪避</li>
-                <li><strong>⚡ 佐助（写轮眼）</strong> — 每回合第一次造成伤害 +2</li>
-                <li><strong>🌸 小樱（医疗天赋）</strong> — 每回合回血额外 +1</li>
+                <li><strong>🍥 鸣人（影分身）</strong> — 每回合第一次受击，<strong>50%</strong> 概率闪避</li>
+                <li><strong>⚡ 佐助（写轮眼）</strong> — 每回合第一次造成伤害 <strong>+3</strong></li>
+                <li><strong>🌸 小樱（医疗天赋）</strong> — 每回合回血额外 +1；<strong>使用木系牌（🌿）治疗量 +2</strong></li>
                 <li><strong>👁️ 鼬（万花筒）</strong> — 每回合第一张牌打出后额外抽 1 张</li>
-                <li><strong>🦈 鬼鲛（鲛肌·饕餮）</strong> — 造成伤害时 40% 概率吸 1 查克拉；若对手查克拉为 0，则伤害 +1</li>
+                <li><strong>🦈 鬼鲛（鲛肌·饕餮）</strong> — 造成伤害时 <strong>50%</strong> 概率吸 1 查克拉；若对手查克拉为 0，则伤害 <strong>+2</strong></li>
             </ul>
 
             <h2>🔥 负面状态</h2>
@@ -376,11 +376,11 @@
         //  核心数据
         // ============================================================
         const ROLES = {
-            naruto: { id: 'naruto', name: '鸣人', emoji: '🍥', faction: '木叶', skill: 'shadow_clone', skillName: '影分身', skillDesc: '每回合第一次受击30%闪避' },
-            sasuke: { id: 'sasuke', name: '佐助', emoji: '⚡', faction: '木叶', skill: 'sharingan', skillName: '写轮眼', skillDesc: '每回合第一次伤害+2' },
-            sakura: { id: 'sakura', name: '小樱', emoji: '🌸', faction: '木叶', skill: 'medical', skillName: '医疗天赋', skillDesc: '每回合回血额外+1' },
+            naruto: { id: 'naruto', name: '鸣人', emoji: '🍥', faction: '木叶', skill: 'shadow_clone', skillName: '影分身', skillDesc: '每回合第一次受击50%闪避' },
+            sasuke: { id: 'sasuke', name: '佐助', emoji: '⚡', faction: '木叶', skill: 'sharingan', skillName: '写轮眼', skillDesc: '每回合第一次伤害+3' },
+            sakura: { id: 'sakura', name: '小樱', emoji: '🌸', faction: '木叶', skill: 'medical', skillName: '医疗天赋', skillDesc: '回血+1；使用木系牌治疗量+2' },
             itachi: { id: 'itachi', name: '鼬', emoji: '👁️', faction: '晓', skill: 'mangekyo', skillName: '万花筒', skillDesc: '每回合第一张牌打出后额外抽1张' },
-            kisame: { id: 'kisame', name: '鬼鲛', emoji: '🦈', faction: '晓', skill: 'samehada', skillName: '鲛肌·饕餮', skillDesc: '伤害时40%吸1查克拉；对手查克拉0则伤害+1' }
+            kisame: { id: 'kisame', name: '鬼鲛', emoji: '🦈', faction: '晓', skill: 'samehada', skillName: '鲛肌·饕餮', skillDesc: '50%吸1查克拉；对手查克拉0时伤害+2' }
         };
         const ROLE_KEYS = Object.keys(ROLES);
 
@@ -636,7 +636,6 @@
             if (!team || team.members.length === 0) return;
             const aliveIndices = team.members.map((m, i) => m.hp > 0 ? i : -1).filter(i => i >= 0);
             team.currentIndex = aliveIndices.length > 0 ? aliveIndices[0] : -1;
-            // 查克拉保留，不清零
         }
 
         // ============================================================
@@ -752,7 +751,7 @@
         }
 
         // ============================================================
-        //  战斗核心
+        //  战斗核心（包含角色技能调整）
         // ============================================================
         function applyCard(card, ownerPlayerId, targetPlayerId) {
             let dmg = card.atk || 0;
@@ -800,22 +799,28 @@
                 }
             }
 
+            // ---- 小樱：木系牌治疗量 +2 ----
+            if (hasSkill(ownerPlayerId, 'medical') && card.element === '🌿') {
+                heal += 2;
+                extra += ' 🌸医疗天赋：木系治疗+2';
+            }
+
             let actualDmg = 0,
                 actualHeal = 0;
 
-            // 鸣人
+            // ---- 鸣人：闪避概率 50% ----
             if (dmg > 0 && hasSkill(targetPlayerId, 'shadow_clone')) {
                 const key = targetPlayerId === 1 ? 'p1' : 'p2';
                 if (!state.skillTriggered[key].shadow_clone) {
-                    if (Math.random() < 0.3) { dmg = 0;
+                    if (Math.random() < 0.5) { dmg = 0;
                         extra += ' 🍥影分身闪避！'; }
                     state.skillTriggered[key].shadow_clone = true;
                 }
             }
-            // 佐助
+            // ---- 佐助：伤害 +3 ----
             if (dmg > 0 && hasSkill(ownerPlayerId, 'sharingan')) {
                 const key = ownerPlayerId === 1 ? 'p1' : 'p2';
-                if (!state.skillTriggered[key].sharingan) { dmg += 2;
+                if (!state.skillTriggered[key].sharingan) { dmg += 3;
                     extra += ' ⚡写轮眼！';
                     state.skillTriggered[key].sharingan = true; }
             }
@@ -836,20 +841,20 @@
                 }
             }
 
-            // 鬼鲛
+            // ---- 鬼鲛：50%吸查克拉，查克拉0时伤害+2 ----
             let samehadaExtra = '';
             if (actualDmg > 0 && hasSkill(ownerPlayerId, 'samehada')) {
-                if (Math.random() < 0.4) {
+                if (Math.random() < 0.5) {
                     if (target.chakra > 0) {
                         target.chakra -= 1;
                         owner.chakra = Math.min(3, owner.chakra + 1);
                         samehadaExtra = ' 🦈吸1查克拉';
                     } else {
-                        actualDmg += 1;
-                        target.hp = Math.max(0, target.hp - 1);
-                        if (ownerPlayerId === 1) state.totalDamage.p1 += 1;
-                        else state.totalDamage.p2 += 1;
-                        samehadaExtra = ' 🦈查克拉0，伤害+1';
+                        actualDmg += 2;
+                        target.hp = Math.max(0, target.hp - 2);
+                        if (ownerPlayerId === 1) state.totalDamage.p1 += 2;
+                        else state.totalDamage.p2 += 2;
+                        samehadaExtra = ' 🦈查克拉0，伤害+2';
                     }
                 }
             }
@@ -882,6 +887,9 @@
             return { log: msg };
         }
 
+        // ============================================================
+        //  以下为完整游戏逻辑（与最终版一致，未作改动）
+        // ============================================================
         function playCardFromDOM(playerId, cardElement) {
             if (state.gameOver) return log('⛔ 游戏已结束');
             const member = getCurrentMember(playerId);
@@ -1085,9 +1093,6 @@
             if (overlay) overlay.style.display = 'flex';
         }
 
-        // ============================================================
-        //  回合管理
-        // ============================================================
         function endTurn() {
             if (state.gameOver) return log('⛔ 游戏已结束');
             if (state.aiMode && state.aiThinking) return log('⏳ AI 思考中...');
@@ -1142,9 +1147,6 @@
             }
         }
 
-        // ============================================================
-        //  AI
-        // ============================================================
         function aiAction() {
             if (state.gameOver || state.turn !== 2 || !state.aiMode) {
                 state.aiThinking = false;
