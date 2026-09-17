@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;user-select:none}
 html,body{overflow-x:hidden}
-body{background:#0a0806;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;font-family:'Segoe UI','Noto Serif SC',system-ui,sans-serif;background-image:radial-gradient(ellipse at center,#1a1410 0%,#0a0806 100%);margin:0}
+body{background:#0a0806;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;font-family:'Segoe UI','Noto Serif SC',system-ui,sans-serif;background-image:radial-gradient(ellipse at center,#1a1410 0%,#0a0806 100%);margin:0;min-height:100dvh}
 @keyframes shake{0%,100%{transform:translate(0,0)}10%{transform:translate(-8px,6px)}20%{transform:translate(8px,-6px)}30%{transform:translate(-6px,8px)}40%{transform:translate(6px,-4px)}50%{transform:translate(-4px,4px)}60%{transform:translate(4px,-2px)}70%{transform:translate(-2px,2px)}80%{transform:translate(2px,-1px)}90%{transform:translate(-1px,1px)}}
 body.shake{animation:shake .4s ease-in-out}
 #home-screen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,#1a1410 0%,#0a0806 100%);transition:opacity .8s ease,visibility .8s ease;opacity:1;visibility:visible;padding:20px;overflow-y:auto}
@@ -40,25 +40,6 @@ body.shake{animation:shake .4s ease-in-out}
 .story-box .story-skip{position:absolute;top:12px;right:16px;background:transparent;border:none;color:#6a5a4a;font-size:13px;cursor:pointer;font-family:'Noto Serif SC',serif;letter-spacing:1px}
 .story-box .story-skip:hover{color:#b0a090}
 .story-box .story-progress{text-align:center;color:#6a5a4a;font-size:12px;margin-top:12px;letter-spacing:2px}
-#rulebook-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(10,8,6,0.95);backdrop-filter:blur(8px);padding:30px 20px;overflow-y:auto}
-.rulebook-container{max-width:900px;margin:0 auto;background:#1f1814;border-radius:40px;padding:40px 45px 50px;border:1px solid #d4a85455;box-shadow:0 0 80px rgba(212,168,84,0.05);position:relative}
-.close-btn{position:sticky;top:0;float:right;background:rgba(255,255,255,0.04);border:1px solid #d4a85466;color:#d0c0a8;border-radius:40px;padding:6px 20px;font-size:16px;cursor:pointer;transition:.2s;font-family:'Noto Serif SC',serif;letter-spacing:1px;margin-bottom:20px}
-.close-btn:hover{background:rgba(212,168,84,0.1);border-color:#d4a854;color:#f5e7b3}
-.rulebook-container h1{font-family:'Cinzel',serif;font-size:32px;color:#f5e7b3;letter-spacing:4px;text-align:center;margin-bottom:8px;border-bottom:1px solid #d4a85433;padding-bottom:12px}
-.rulebook-container .version{text-align:center;color:#8a7a6a;font-size:14px;margin-bottom:24px}
-.rulebook-container h2{font-family:'Cinzel',serif;font-size:22px;color:#f5e7b3;margin-top:28px;margin-bottom:12px;border-left:3px solid #d4a854;padding-left:14px;letter-spacing:2px}
-.rulebook-container h3{font-size:18px;color:#d0c0a8;margin-top:18px;margin-bottom:8px;padding-left:6px;font-weight:600}
-.rulebook-container p{color:#b0a090;font-size:15px;line-height:1.8;margin-bottom:10px;padding-left:12px;text-align:justify}
-.rulebook-container ul{padding-left:36px;margin:6px 0 14px 0;color:#b0a090;font-size:15px;line-height:1.8;list-style-type:disc}
-.rulebook-container ul li{margin-bottom:4px}
-.rulebook-container .highlight{color:#ffd966;font-weight:600}
-.rulebook-container .damage{color:#ff7b7b}
-.rulebook-container .heal{color:#7bff7b}
-.rulebook-container .chakra{color:#7ab8ff;font-weight:600}
-.rulebook-container .rulebook-footer{margin-top:30px;padding-top:16px;border-top:1px solid #3a2a1a;text-align:center;color:#6a5a4a;font-size:13px}
-.rulebook-container table{width:100%;border-collapse:collapse;color:#d0c0a8;font-size:14px;margin:12px 0}
-.rulebook-container th{background:rgba(212,168,84,0.15);padding:8px 6px;text-align:center;border-bottom:1px solid #4a3a2a}
-.rulebook-container td{padding:6px;text-align:center;border-bottom:1px solid #2a221e}
 #role-select-screen{display:none;position:fixed;inset:0;z-index:900;background:rgba(10,8,6,0.95);backdrop-filter:blur(8px);padding:20px;overflow-y:auto}
 .role-select-title{text-align:center;color:#f5e7b3;font-family:'Cinzel',serif;font-size:28px;letter-spacing:4px;margin-bottom:8px}
 .role-select-sub{text-align:center;color:#8a7a6a;font-size:14px;margin-bottom:20px;letter-spacing:1px}
@@ -85,19 +66,6 @@ body.shake{animation:shake .4s ease-in-out}
 .btn-back-home.show{display:block}
 .app-wrapper{display:flex;flex-direction:column;gap:16px;width:100%;max-width:750px;margin:0 auto;padding:12px}
 .game-container{background:#1f1814;border-radius:24px;padding:18px;width:100%;border:1px solid #d4a85455;box-shadow:0 0 40px #d4a85422}
-.guide-panel{background:#1f1814;border-radius:24px;padding:20px 18px;width:100%;border:1px solid #d4a85444;color:#e0d5c0;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,0.6)}
-.guide-panel h2{font-size:18px;color:#f5e7b3;text-align:center;margin-bottom:12px;border-bottom:2px solid #d4a85455;padding-bottom:8px;letter-spacing:2px;font-weight:400}
-.guide-section{margin-bottom:12px}
-.guide-section h3{font-size:13px;color:#c4b89a;margin-bottom:6px;border-left:3px solid #d4a854;padding-left:10px}
-.guide-card{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border-radius:10px;padding:4px 10px;margin-bottom:3px;font-size:12px}
-.guide-card .emoji{font-size:18px;width:24px;text-align:center}
-.guide-card .info .name{font-weight:600;color:#f0e6d0}
-.guide-card .info .stats .atk{color:#ff7b7b}
-.guide-card .info .stats .heal{color:#7bff7b}
-.guide-card .info .effect{color:#ffd966;font-size:11px}
-.guide-card.base{border-left-color:#7a6a5a}
-.guide-card.advanced{border-left-color:#d4a854;background:rgba(212,168,84,0.08)}
-.guide-note{margin-top:12px;font-size:11px;color:#9a8a7a;text-align:center;border-top:1px solid rgba(255,255,255,0.05);padding-top:12px}
 .header{display:flex;justify-content:space-between;align-items:stretch;color:#d0c0a8;margin-bottom:14px;flex-wrap:wrap;gap:8px}
 .team-status{display:flex;flex-direction:column;gap:4px;background:rgba(0,0,0,0.5);padding:8px 16px;border-radius:16px;border:1px solid #4a3a2a66;min-width:180px;flex:1}
 .team-status .team-label{font-size:13px;color:#b0a090;display:flex;justify-content:space-between;align-items:center}
@@ -171,8 +139,6 @@ body.shake{animation:shake .4s ease-in-out}
 .btn-primary:hover:not(:disabled){background:#5a8cf7;border-color:#5a8cf7}
 .btn-substitute{background:#9a6a4a;border-color:#b88a6a;color:#f0e6d0}
 .btn-substitute:hover:not(:disabled){background:#b88a6a;border-color:#d4a854}
-.btn-rulebook{background:#4a4a6a;border-color:#6a6a8a;color:#f0e6d0}
-.btn-rulebook:hover:not(:disabled){background:#6a6a8a;border-color:#8a8aaa}
 .btn-sound{background:#3a3a4a;border-color:#5a5a6a;color:#d0c0a8}
 .btn-sound:hover:not(:disabled){background:#5a5a6a;border-color:#8a8aaa}
 .battle-log{background:#0f0c0a;border-radius:16px;padding:10px 14px;min-height:50px;max-height:120px;overflow-y:auto;margin:6px 0 12px;border-left:4px solid #d4a85466;box-shadow:inset 0 0 30px #00000055}
@@ -219,14 +185,14 @@ body.shake{animation:shake .4s ease-in-out}
 .victory-winner.win-p1{color:#f74a5e}
 .victory-winner.win-p2{color:#4a7cf7}
 
-/* ===== 移动端适配（方案 B） ===== */
+/* ===== 移动端适配 ===== */
 @media (max-width: 480px){
   .scroll-container{padding:32px 20px 28px}
   .scroll-title{font-size:30px;letter-spacing:4px}
   .scroll-sub{font-size:18px;letter-spacing:4px}
   .btn-start{font-size:17px;padding:14px 24px;min-width:150px}
 
-  .app-wrapper{padding:8px;gap:12px}
+  .app-wrapper{padding:8px 8px calc(28px + env(safe-area-inset-bottom, 0px)) 8px;gap:12px}
   .game-container{padding:12px}
 
   .card{width:68px;height:96px}
@@ -254,13 +220,6 @@ body.shake{animation:shake .4s ease-in-out}
   .role-select-column{padding:14px;min-width:0}
   .role-select-title{font-size:22px}
   .role-btn{padding:9px 12px;font-size:13px}
-
-  .rulebook-container{padding:24px 18px 30px;border-radius:24px}
-  .rulebook-container h1{font-size:24px;letter-spacing:2px}
-  .rulebook-container h2{font-size:18px}
-  .rulebook-container h3{font-size:16px}
-  .rulebook-container table{font-size:12px}
-  .rulebook-container th,.rulebook-container td{padding:5px 3px}
 
   .story-box{padding:28px 20px}
   .story-box .story-text{font-size:16px}
@@ -292,9 +251,6 @@ body.shake{animation:shake .4s ease-in-out}
                 <button class="btn-lang" onclick="setLang('zh')">🇨🇳 中文</button>
                 <button class="btn-lang" onclick="setLang('en')">🇬🇧 English</button>
             </div>
-            <div style="margin-top:4px;">
-                <button class="btn-start" id="btn-rulebook-home" style="font-size:16px;padding:12px 28px;min-width:120px;border-color:#6a6a8a;">📖 <span id="btn-rulebook-label">规则书</span></button>
-            </div>
             <div class="scroll-footer" id="home-footer"><span>✦</span> <span id="home-footer-text">天梯之巅 · 傀儡之战</span> <span>✦</span></div>
         </div>
     </div>
@@ -309,16 +265,6 @@ body.shake{animation:shake .4s ease-in-out}
             <button class="story-continue" id="story-continue-btn">▶ <span id="story-continue-label">继续</span></button>
         </div>
         <div class="story-progress" id="story-progress">第 1 / 10 关</div>
-    </div>
-</div>
-<!-- 规则书 -->
-<div id="rulebook-overlay">
-    <div class="rulebook-container">
-        <button class="close-btn" id="rulebook-close">✕ <span id="rulebook-close-label">关闭</span></button>
-        <h1 id="rulebook-title">📜 忍法对决 · 规则书</h1>
-        <div class="version" id="rulebook-version">版本 8.0 · 傀儡天梯（镜月正义线）</div>
-        <div id="rulebook-content"></div>
-        <div class="rulebook-footer" id="rulebook-footer">⚔️ 风隐村 vs 暗影会 · 天梯之战 · 祝你好运！</div>
     </div>
 </div>
 <!-- 角色选择 -->
@@ -406,7 +352,6 @@ body.shake{animation:shake .4s ease-in-out}
                 <button class="btn btn-warning" id="btn-discard">🔄 <span id="discard-label">换牌</span></button>
                 <button class="btn btn-primary" id="btn-end-turn">⏭️ <span id="endturn-label">结束回合</span></button>
                 <button class="btn btn-substitute" id="btn-substitute" disabled>🪵 <span id="substitute-label">解除冻结 (1忍力)</span></button>
-                <button class="btn btn-rulebook" id="btn-rulebook-game">📖 <span id="rulebook-btn-label">规则书</span></button>
                 <button class="btn btn-sound" id="btn-sound">🔊 <span id="sound-label">音效</span></button>
             </div>
         </div>
@@ -457,12 +402,7 @@ var LANG = {
     home_mode: '⚔️ 选择你的战斗模式 ⚔️',
     btn_pvp: '双人模式',
     btn_climb: '傀儡天梯',
-    btn_rulebook: '规则书',
     home_footer: '天梯之巅 · 傀儡之战',
-    rulebook_title: '📜 忍法对决 · 规则书',
-    rulebook_version: '版本 8.0 · 傀儡天梯（镜月正义线）',
-    rulebook_close: '关闭',
-    rulebook_footer: '⚔️ 风隐村 vs 暗影会 · 天梯之战 · 祝你好运！',
     role_title: '🎭 组建你的忍者小队（2人）',
     role_sub_climb: '选择 2 名风隐村忍者，闯过10关！',
     role_sub_pvp: '每人选择 2 名忍者，可以重复',
@@ -495,32 +435,9 @@ var LANG = {
     discard: '换牌',
     endturn: '结束回合',
     substitute: '解除冻结 (1忍力)',
-    rulebook_btn: '规则书',
     sound: '音效',
     sound_on: '音效',
     sound_off: '静音',
-    guide_title: '📜 忍术指南',
-    guide_base: '🔹 基础忍术',
-    guide_adv: '⭐ 奥义（合成进阶）',
-    guide_chakra: '💠 忍力系统',
-    guide_note: '🎭 风隐村 vs 暗影会 · 天梯之战',
-    card1: '风刃斩',
-    card2: '冰刺破',
-    card3: '愈灵术',
-    card4: '雷光破',
-    card5: '暗影镖',
-    adv1: '灼风手里剑',
-    adv2: '冰镜封绝',
-    adv3: '万象回春',
-    adv4: '九天雷罚',
-    adv5: '炎噬·业火',
-    effect_dmg: '纯伤害',
-    effect_heal: '纯治疗',
-    effect_burn: '🔥 灼烧2层',
-    effect_freeze: '❄️ 冻结1回合',
-    effect_purify: '✨ 净化',
-    effect_draw: '📜 抽1张',
-    effect_vamp: '🩸 吸血60%',
     story_skip: '跳过',
     story_continue: '继续',
     story_progress: '第 关 · ',
@@ -574,12 +491,7 @@ var LANG = {
     type_phantom: '傀儡',
     type_real: '真人',
     type_boss: '最终Boss',
-    guide_chakra_text: [
-      '• 合成奥义 → 获得 <span style="color:#7ab8ff;">1点忍力</span>（上限3）',
-      '• <span style="color:#ffd966;">消耗1点</span>：被冻结时点击 <span style="color:#ffd966;">替身术</span> 解除',
-      '• <span style="color:#ffd966;">消耗2点</span>：忍术强化（下一张牌 +5）',
-      '• <span style="color:#7bff7b;">回合开始</span>：恢复 <span style="color:#7bff7b;">1点生命</span>'
-    ]
+    puppet_prefix: '傀儡·'
   },
   en: {
     home_sub: 'Puppet Ladder · 10 Trials',
@@ -587,12 +499,7 @@ var LANG = {
     home_mode: '⚔️ Choose Your Mode ⚔️',
     btn_pvp: 'PVP Mode',
     btn_climb: 'Puppet Ladder',
-    btn_rulebook: 'Rulebook',
     home_footer: 'Summit of the Ladder · Puppet War',
-    rulebook_title: '📜 Ninja Duel · Rulebook',
-    rulebook_version: 'Ver 8.0 · Puppet Ladder (Itsuki Justice)',
-    rulebook_close: 'Close',
-    rulebook_footer: '⚔️ Wind Village vs Shadow Council · Ladder War · Good Luck!',
     role_title: '🎭 Form Your Ninja Team (2)',
     role_sub_climb: 'Choose 2 Wind Village ninjas, clear 10 floors!',
     role_sub_pvp: 'Each player chooses 2 ninjas (can repeat)',
@@ -625,32 +532,9 @@ var LANG = {
     discard: 'Swap',
     endturn: 'End Turn',
     substitute: 'Release Freeze (1 Chakra)',
-    rulebook_btn: 'Rulebook',
     sound: 'Sound',
     sound_on: 'Sound',
     sound_off: 'Mute',
-    guide_title: '📜 Ninja Arts Guide',
-    guide_base: '🔹 Basic Arts',
-    guide_adv: '⭐ Secret Arts (Forge)',
-    guide_chakra: '💠 Chakra System',
-    guide_note: '🎭 Wind Village vs Shadow Council · Ladder War',
-    card1: 'Wind Slash',
-    card2: 'Ice Spike',
-    card3: 'Healing Touch',
-    card4: 'Thunder Strike',
-    card5: 'Shadow Dart',
-    adv1: 'Scorch Wind Shuriken',
-    adv2: 'Mirror Ice Seal',
-    adv3: 'Spring of Life',
-    adv4: 'Heavenly Thunder',
-    adv5: 'Flame Devourer',
-    effect_dmg: 'Pure Damage',
-    effect_heal: 'Pure Heal',
-    effect_burn: '🔥 Burn 2',
-    effect_freeze: '❄️ Freeze 1',
-    effect_purify: '✨ Purify',
-    effect_draw: '📜 Draw 1',
-    effect_vamp: '🩸 Vampire 60%',
     story_skip: 'Skip',
     story_continue: 'Continue',
     story_progress: 'Floor  · ',
@@ -704,12 +588,7 @@ var LANG = {
     type_phantom: 'Puppet',
     type_real: 'Real',
     type_boss: 'Final Boss',
-    guide_chakra_text: [
-      '• Forge Secret Art → +<span style="color:#7ab8ff;">1 Chakra</span> (max 3)',
-      '• <span style="color:#ffd966;">Spend 1</span>: click <span style="color:#ffd966;">Substitute</span> to break freeze',
-      '• <span style="color:#ffd966;">Spend 2</span>: Ninja Enhancement (next card +5)',
-      '• <span style="color:#7bff7b;">Turn start</span>: restore <span style="color:#7bff7b;">1 HP</span>'
-    ]
+    puppet_prefix: 'Puppet·'
   }
 };
 
@@ -730,7 +609,6 @@ function setLang(lang) {
   try { localStorage.setItem('ninja_lang', lang); } catch(e) {}
   document.getElementById('lang-toggle').textContent = lang === 'zh' ? '🌐 EN' : '🌐 中文';
   updateUI();
-  if (document.getElementById('rulebook-overlay').style.display === 'block') renderRulebook();
 }
 
 function toggleLang() {
@@ -748,9 +626,7 @@ function updateUI() {
   setHTML('home-desc', t('home_desc') + '<br><span id="home-mode-label">' + t('home_mode') + '</span>');
   setText('btn-pvp-label', t('btn_pvp'));
   setText('btn-climb-label', t('btn_climb'));
-  setText('btn-rulebook-label', t('btn_rulebook'));
   setText('home-footer-text', t('home_footer'));
-  setText('rulebook-close-label', t('rulebook_close'));
 
   var isClimb = gameMode === 'climb';
   setText('role-select-title', t('role_title'));
@@ -778,41 +654,7 @@ function updateUI() {
   setText('discard-label', t('discard'));
   setText('endturn-label', t('endturn'));
   setText('substitute-label', t('substitute'));
-  setText('rulebook-btn-label', t('rulebook_btn'));
   setText('sound-label', soundEnabled ? t('sound_on') : t('sound_off'));
-
-  setText('guide-title', t('guide_title'));
-  setText('guide-base-title', t('guide_base'));
-  setText('guide-adv-title', t('guide_adv'));
-  setText('guide-chakra-title', t('guide_chakra'));
-  setText('guide-note', t('guide_note'));
-
-  setText('card1-name', t('card1'));
-  setText('card2-name', t('card2'));
-  setText('card3-name', t('card3'));
-  setText('card4-name', t('card4'));
-  setText('card5-name', t('card5'));
-  setText('adv1-name', t('adv1'));
-  setText('adv2-name', t('adv2'));
-  setText('adv3-name', t('adv3'));
-  setText('adv4-name', t('adv4'));
-  setText('adv5-name', t('adv5'));
-  setText('card1-effect', t('effect_dmg'));
-  setText('card2-effect', t('effect_dmg'));
-  setText('card3-effect', t('effect_heal'));
-  setText('card4-effect', t('effect_dmg'));
-  setText('card5-effect', t('effect_dmg'));
-  setText('adv1-effect', t('effect_burn'));
-  setText('adv2-effect', t('effect_freeze'));
-  setText('adv3-effect', t('effect_purify'));
-  setText('adv4-effect', t('effect_draw'));
-  setText('adv5-effect', t('effect_vamp'));
-
-  var chakraTexts = t('guide_chakra_text');
-  var cEl = document.getElementById('guide-chakra-text');
-  if (cEl && Array.isArray(chakraTexts)) {
-    cEl.innerHTML = chakraTexts.map(function(txt) { return '<p>' + txt + '</p>'; }).join('');
-  }
 
   setText('story-skip-label', t('story_skip'));
   setText('story-continue-label', t('story_continue'));
@@ -831,89 +673,6 @@ function updateUI() {
 
   if (climbState.active) updateClimbHeader();
   renderRoleSelection();
-  setText('sound-label', soundEnabled ? t('sound_on') : t('sound_off'));
-
-  var homeBest = document.getElementById('home-best-record');
-  if (homeBest) {
-    var best = climbState.bestRecord || 0;
-    var bestText = best === 0 ? t('best_none') : (best === 10 ? t('best_clear') : best);
-    homeBest.innerHTML = '🏆 ' + t('best_record') + bestText + ' <span>✦</span> ' + t('home_footer') + ' <span>✦</span>';
-  }
-}
-
-// ----- 规则书渲染 -----
-// ----- 规则书渲染 -----
-function renderRulebook() {
-  var isEn = LANG.current === 'en';
-  var content = document.getElementById('rulebook-content');
-  var title = document.getElementById('rulebook-title');
-  var version = document.getElementById('rulebook-version');
-  var footer = document.getElementById('rulebook-footer');
-
-  if (title) title.textContent = t('rulebook_title');
-  if (version) version.textContent = t('rulebook_version');
-  if (footer) footer.textContent = t('rulebook_footer');
-  if (!content) return;
-
-  if (isEn) {
-    content.innerHTML = '<h2>🎯 Objective</h2>' +
-      '<p>2v2 card battle. Each side brings <strong>2 ninjas</strong>; defeat all enemy ninjas to win.</p>' +
-      '<h2>⚡ Turn Flow</h2>' +
-      '<ul>' +
-      '<li><span class="highlight">Turn start</span>: current ninja restores 1 HP (Mu Ling: 2 HP), draw 1 card</li>' +
-      '<li><span class="highlight">Your actions</span>: Play / Forge / Swap / Enhance / Substitute</li>' +
-      '<li><span class="highlight">End turn</span>: burn damage resolves → opponent\'s turn</li>' +
-      '</ul>' +
-      '<h2>🖱️ Controls</h2>' +
-      '<ul>' +
-      '<li><strong>Play</strong>: click a card to deal damage or heal</li>' +
-      '<li><strong>Forge</strong>: combine 2 same-element basic cards into 1 Secret Art</li>' +
-      '<li><strong>Swap</strong>: enter swap mode, click ✕ to discard and redraw (once per turn)</li>' +
-      '</ul>' +
-      '<h2>💠 Chakra</h2>' +
-      '<ul>' +
-      '<li><strong>Gain</strong>: Forge → +<span class="chakra">1 Chakra</span> (max 3)</li>' +
-      '<li><strong>Spend 2</strong>: Enhance next card (+5)</li>' +
-      '<li><strong>Spend 1</strong>: Break freeze</li>' +
-      '</ul>' +
-      '<h2>🃏 Secret Arts</h2>' +
-      '<table><tr><th>Card</th><th>Element</th><th>DMG</th><th>Heal/Effect</th></tr>' +
-      '<tr><td>Scorch Wind Shuriken ⭐</td><td>🌪️</td><td>10</td><td>Burn 2</td></tr>' +
-      '<tr><td>Mirror Ice Seal ⭐</td><td>🧊</td><td>8</td><td>Freeze 1</td></tr>' +
-      '<tr><td>Spring of Life ⭐</td><td>💫</td><td>-</td><td>12 + Purify</td></tr>' +
-      '<tr><td>Heavenly Thunder ⭐</td><td>⚡⚡</td><td>16</td><td>Draw 1</td></tr>' +
-      '<tr><td>Flame Devourer ⭐</td><td>🔥👁️</td><td>12</td><td>Vampire 60%</td></tr>' +
-      '</table>';
-  } else {
-    content.innerHTML = '<h2>🎯 游戏目标</h2>' +
-      '<p>2v2 卡牌对战。你和对手各派 <strong>2 名忍者</strong>上场，击败对方全部忍者即可获胜。</p>' +
-      '<h2>⚡ 回合流程</h2>' +
-      '<ul>' +
-      '<li><span class="highlight">回合开始</span>：当前忍者恢复 1HP（木灵 2HP），抽 1 张牌</li>' +
-      '<li><span class="highlight">你的操作</span>：出牌 / 合成 / 换牌 / 强化 / 替身术</li>' +
-      '<li><span class="highlight">结束回合</span>：结算灼烧伤害 → 轮到对手</li>' +
-      '</ul>' +
-      '<h2>🖱️ 操作说明</h2>' +
-      '<ul>' +
-      '<li><strong>出牌</strong>：点击手牌，造成伤害或治疗</li>' +
-      '<li><strong>合成</strong>：将 2 张同元素基础牌合成为 1 张奥义牌</li>' +
-      '<li><strong>换牌</strong>：进入换牌模式后点 ✕ 弃牌重抽（每回合 1 次）</li>' +
-      '</ul>' +
-      '<h2>💠 忍力</h2>' +
-      '<ul>' +
-      '<li><strong>获取</strong>：合成奥义 → +<span class="chakra">1 点忍力</span>（上限 3）</li>' +
-      '<li><strong>消耗 2 点</strong>：忍术强化，下一张牌 +5</li>' +
-      '<li><strong>消耗 1 点</strong>：被冻结时解除冻结</li>' +
-      '</ul>' +
-      '<h2>🃏 奥义数值</h2>' +
-      '<table><tr><th>卡牌</th><th>元素</th><th>伤害</th><th>治疗/效果</th></tr>' +
-      '<tr><td>灼风手里剑 ⭐</td><td>🌪️</td><td>10</td><td>灼烧2层</td></tr>' +
-      '<tr><td>冰镜封绝 ⭐</td><td>🧊</td><td>8</td><td>冻结1回合</td></tr>' +
-      '<tr><td>万象回春 ⭐</td><td>💫</td><td>-</td><td>12 + 净化</td></tr>' +
-      '<tr><td>九天雷罚 ⭐</td><td>⚡⚡</td><td>16</td><td>抽1张</td></tr>' +
-      '<tr><td>炎噬·业火 ⭐</td><td>🔥👁️</td><td>12</td><td>吸血60%</td></tr>' +
-      '</table>';
-  }
 }
 
 // ----- 音频 -----
@@ -1197,16 +956,16 @@ var STORY_CONFIG = {
     ['📜 旁白', '那么——开始攀登吧。天梯在等你。', '📜 Narrator', 'Now — begin your climb. The Ladder awaits.']
   ],
   enemies: [
-    { roleId: 'naruto', displayName: '傀儡·风澈', displayNameEn: 'Puppet·Feng Che', subtitle: '天梯第一道傀儡', subtitleEn: 'First Puppet', type: '傀儡', typeEn: 'Puppet' },
-    { roleId: 'sasuke', displayName: '傀儡·雷牙', displayNameEn: 'Puppet·Lei Ya', subtitle: '雷光裂隙', subtitleEn: 'Thunder Rift', type: '傀儡', typeEn: 'Puppet' },
-    { roleId: 'sakura', displayName: '傀儡·木灵', displayNameEn: 'Puppet·Mu Ling', subtitle: '翠灵倒影', subtitleEn: 'Green Reflection', type: '傀儡', typeEn: 'Puppet' },
-    { roleId: 'itachi', displayName: '傀儡·镜月', displayNameEn: 'Puppet·Itsuki', subtitle: '镜中正义（傀儡）', subtitleEn: 'Mirror Justice (Puppet)', type: '傀儡', typeEn: 'Puppet' },
-    { roleId: 'jiraiya', displayName: '傀儡·灵蟾', displayNameEn: 'Puppet·Ling Chan', subtitle: '堕落仙人', subtitleEn: 'Fallen Sage', type: '傀儡', typeEn: 'Puppet' },
-    { roleId: 'kisame', displayName: '傀儡·海噬', displayNameEn: 'Puppet·Kisame', subtitle: '深渊之影', subtitleEn: 'Abyss Shadow', type: '傀儡', typeEn: 'Puppet' },
-    { roleId: 'jiraiya', displayName: '灵蟾', displayNameEn: 'Ling Chan', subtitle: '暗影会三大将 · 背叛的仙人', subtitleEn: 'Shadow Council General · Fallen Sage', type: '真人', typeEn: 'Real' },
-    { roleId: 'kisame', displayName: '海噬', displayNameEn: 'Kisame', subtitle: '暗影会三大将 · 真身', subtitleEn: 'Shadow Council General', type: '真人', typeEn: 'Real' },
-    { roleId: 'madara', displayName: '黑霜', displayNameEn: 'Hei Shuang', subtitle: '暗影会四大将 · 冰之守门人', subtitleEn: 'Shadow Council General · Ice Keeper', type: '真人', typeEn: 'Real' },
-    { roleId: 'madara', displayName: '炎狱', displayNameEn: 'Madara', subtitle: '暗影会首领 · 天梯之巅', subtitleEn: 'Shadow Council Leader · Summit', type: '最终Boss', typeEn: 'Final Boss' }
+    { roleId: 'naruto', displayName: '傀儡·风澈', displayNameEn: 'Puppet·Feng Che', subtitle: '天梯第一道傀儡', subtitleEn: 'First Puppet', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'sasuke', displayName: '傀儡·雷牙', displayNameEn: 'Puppet·Lei Ya', subtitle: '雷光裂隙', subtitleEn: 'Thunder Rift', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'sakura', displayName: '傀儡·木灵', displayNameEn: 'Puppet·Mu Ling', subtitle: '翠灵倒影', subtitleEn: 'Green Reflection', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'itachi', displayName: '傀儡·镜月', displayNameEn: 'Puppet·Itsuki', subtitle: '镜中正义（傀儡）', subtitleEn: 'Mirror Justice (Puppet)', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'jiraiya', displayName: '傀儡·灵蟾', displayNameEn: 'Puppet·Ling Chan', subtitle: '堕落仙人', subtitleEn: 'Fallen Sage', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'kisame', displayName: '傀儡·海噬', displayNameEn: 'Puppet·Kisame', subtitle: '深渊之影', subtitleEn: 'Abyss Shadow', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'jiraiya', displayName: '灵蟾', displayNameEn: 'Ling Chan', subtitle: '暗影会三大将 · 背叛的仙人', subtitleEn: 'Shadow Council General · Fallen Sage', type: '真人', typeEn: 'Real', isPuppet: false },
+    { roleId: 'kisame', displayName: '海噬', displayNameEn: 'Kisame', subtitle: '暗影会三大将 · 真身', subtitleEn: 'Shadow Council General', type: '真人', typeEn: 'Real', isPuppet: false },
+    { roleId: 'madara', displayName: '黑霜', displayNameEn: 'Hei Shuang', subtitle: '暗影会四大将 · 冰之守门人', subtitleEn: 'Shadow Council General · Ice Keeper', type: '真人', typeEn: 'Real', isPuppet: false },
+    { roleId: 'madara', displayName: '炎狱', displayNameEn: 'Madara', subtitle: '暗影会首领 · 天梯之巅', subtitleEn: 'Shadow Council Leader · Summit', type: '最终Boss', typeEn: 'Final Boss', isPuppet: false }
   ],
   dialogues: {
     1: [
@@ -1318,6 +1077,7 @@ var climbState = {
   enemySubtitleEn: null,
   enemyType: null,
   enemyTypeEn: null,
+  enemyIsPuppet: false,
   enemyExtraHp: 0,
   enemyAtkBonus: 0,
   enemySpecial: null,
@@ -1362,6 +1122,16 @@ function getRoleDisplay(roleObj) {
   var isEn = LANG.current === 'en';
   if (!roleObj) return '?';
   return isEn ? (roleObj.nameEn || roleObj.name) : roleObj.name;
+}
+
+// 获取某个成员在天梯模式下的显示名（带"傀儡·"前缀）
+function getMemberDisplayName(member, roleObj) {
+  if (!member || !roleObj) return '?';
+  var baseName = getRoleDisplay(roleObj);
+  if (climbState.active && climbState.enemyIsPuppet && member.roleId === climbState.enemyRoleId) {
+    return (LANG.current === 'en' ? 'Puppet·' : '傀儡·') + baseName;
+  }
+  return baseName;
 }
 
 function log(html) {
@@ -1413,16 +1183,6 @@ function switchToNextAlive(playerId) {
   if (aliveIndices.length > 0) team.currentIndex = aliveIndices[0];
   else team.currentIndex = -1;
 }
-
-function openRulebook() {
-  document.getElementById('rulebook-overlay').style.display = 'block';
-  renderRulebook();
-}
-
-function closeRulebook() {
-  document.getElementById('rulebook-overlay').style.display = 'none';
-}
-
 // ----- 卡牌与战斗逻辑 -----
 
 function drawOne(playerId) {
@@ -1808,7 +1568,7 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
   if (target.hp <= 0) {
     target.hp = 0;
     var team = getTeam(targetPlayerId);
-    var roleName = ROLES[target.roleId] ? ROLES[target.roleId].emoji + getRoleDisplay(ROLES[target.roleId]) : '角色';
+    var roleName = ROLES[target.roleId] ? ROLES[target.roleId].emoji + getMemberDisplayName(target, ROLES[target.roleId]) : '角色';
     log('💀 ' + roleName + ' ' + (isEn ? 'has fallen!' : '阵亡！'));
     switchToNextAlive(targetPlayerId);
     if (getAliveCount(team) === 0) {
@@ -1825,7 +1585,7 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
   if (owner.hp <= 0) {
     owner.hp = 0;
     var team2 = getTeam(ownerPlayerId);
-    var roleName2 = ROLES[owner.roleId] ? ROLES[owner.roleId].emoji + getRoleDisplay(ROLES[owner.roleId]) : '角色';
+    var roleName2 = ROLES[owner.roleId] ? ROLES[owner.roleId].emoji + getMemberDisplayName(owner, ROLES[owner.roleId]) : '角色';
     log('💀 ' + roleName2 + ' ' + (isEn ? 'has fallen!' : '阵亡！'));
     switchToNextAlive(ownerPlayerId);
     if (getAliveCount(team2) === 0) {
@@ -1889,7 +1649,7 @@ function playCardFromDOM(playerId, cardElement) {
 
   var result = applyCard(card, playerId, targetId);
   var role = getCurrentRoleObj(playerId);
-  var roleName = role ? role.emoji + getRoleDisplay(role) : '玩家' + playerId;
+  var roleName = role ? role.emoji + getMemberDisplayName(member, role) : '玩家' + playerId;
   var cardDisplay = LANG.current === 'en' ? (card.nameEn || card.name) : card.name;
   log('🧙 ' + roleName + ' ' + (isEn ? 'plays' : '打出') + ' <span class="highlight">' + card.element + ' ' + cardDisplay + '</span> → ' + result.log);
 
@@ -1943,7 +1703,7 @@ function playCardData(playerId, cardData, enhanced) {
 
   var result = applyCard(cardData, playerId, targetId);
   var role = getCurrentRoleObj(playerId);
-  var roleName = role ? role.emoji + getRoleDisplay(role) : '玩家' + playerId;
+  var roleName = role ? role.emoji + getMemberDisplayName(member, role) : '玩家' + playerId;
   var cardDisplay = LANG.current === 'en' ? (cardData.nameEn || cardData.name) : cardData.name;
   log('🧙 ' + roleName + ' ' + (isEn ? 'plays' : '打出') + ' <span class="highlight">' + cardData.element + ' ' + cardDisplay + '</span> → ' + result.log);
 
@@ -2074,7 +1834,7 @@ function applyBurns() {
       if (member.hp <= 0) {
         member.hp = 0;
         var team = getTeam(pid);
-        var roleName = ROLES[member.roleId] ? ROLES[member.roleId].emoji + getRoleDisplay(ROLES[member.roleId]) : '角色';
+        var roleName = ROLES[member.roleId] ? ROLES[member.roleId].emoji + getMemberDisplayName(member, ROLES[member.roleId]) : '角色';
         log('💀 ' + roleName + ' ' + (isEn ? 'has fallen!' : '阵亡！'));
         switchToNextAlive(pid);
         if (getAliveCount(team) === 0) {
@@ -2189,7 +1949,7 @@ function showVictory(winner) {
 function getEnemyForLevel(level) {
   var enemyData = STORY_CONFIG.enemies[level - 1];
   if (!enemyData) {
-    return { roleId: 'madara', displayName: '炎狱', displayNameEn: 'Madara', subtitle: '天梯之主', subtitleEn: 'Ladder Master', type: '最终Boss', typeEn: 'Final Boss' };
+    return { roleId: 'madara', displayName: '炎狱', displayNameEn: 'Madara', subtitle: '天梯之主', subtitleEn: 'Ladder Master', type: '最终Boss', typeEn: 'Final Boss', isPuppet: false };
   }
   return enemyData;
 }
@@ -2536,6 +2296,7 @@ function setupEnemyForLevel(level) {
   climbState.enemySubtitleEn = enemyData.subtitleEn;
   climbState.enemyType = enemyData.type;
   climbState.enemyTypeEn = enemyData.typeEn;
+  climbState.enemyIsPuppet = !!enemyData.isPuppet;
 
   var cfg = CLIMB_CONFIG.bonusMap[level];
   climbState.enemyExtraHp = cfg.extraHp;
@@ -2894,7 +2655,7 @@ function render() {
       if (m.hp <= 0) badge.classList.add('dead');
       if (mi === team.currentIndex && m.hp > 0) badge.classList.add('active');
       var role = ROLES[m.roleId];
-      var displayName = role ? getRoleDisplay(role) : '?';
+      var displayName = role ? getMemberDisplayName(m, role) : '?';
       badge.innerHTML = (role ? role.emoji : '❓') + displayName + ' <span class="hp-text">' + m.hp + '/' + m.maxHp + '</span>';
       membersEl.appendChild(badge);
     }
@@ -2905,8 +2666,8 @@ function render() {
   var p1Role = p1Member ? ROLES[p1Member.roleId] : null;
   var p2Role = p2Member ? ROLES[p2Member.roleId] : null;
 
-  if (p1CurrentRole) p1CurrentRole.textContent = p1Role ? p1Role.emoji + ' ' + getRoleDisplay(p1Role) : (isEn ? 'None' : '无');
-  if (p2CurrentRole) p2CurrentRole.textContent = p2Role ? p2Role.emoji + ' ' + getRoleDisplay(p2Role) : (isEn ? 'None' : '无');
+  if (p1CurrentRole) p1CurrentRole.textContent = p1Role ? p1Role.emoji + ' ' + getMemberDisplayName(p1Member, p1Role) : (isEn ? 'None' : '无');
+  if (p2CurrentRole) p2CurrentRole.textContent = p2Role ? p2Role.emoji + ' ' + getMemberDisplayName(p2Member, p2Role) : (isEn ? 'None' : '无');
   if (p1TeamName) p1TeamName.textContent = isEn ? 'Player 1' : '玩家一';
   if (p2TeamName) p2TeamName.textContent = climbState.active ? (isEn ? 'AI Enemy' : 'AI 敌人') : (isEn ? 'Player 2' : '玩家二');
 
@@ -3259,6 +3020,7 @@ function startPVPGame() {
   state.aiMode = false;
   state.aiThinking = false;
   climbState.active = false;
+  climbState.enemyIsPuppet = false;
 
   clearHandDOM(1);
   clearHandDOM(2);
@@ -3310,10 +3072,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('btn-pvp').addEventListener('click', function() { startLocalGame('pvp'); });
   document.getElementById('btn-climb').addEventListener('click', function() { startLocalGame('climb'); });
   document.getElementById('role-confirm-btn').addEventListener('click', confirmLocalRoles);
-  document.getElementById('btn-rulebook-home').addEventListener('click', openRulebook);
-  document.getElementById('btn-rulebook-game').addEventListener('click', openRulebook);
-  document.getElementById('rulebook-close').addEventListener('click', closeRulebook);
-  document.getElementById('rulebook-overlay').addEventListener('click', function(e) { if (e.target === this) closeRulebook(); });
   document.getElementById('lang-toggle').addEventListener('click', toggleLang);
 
   btnSynth.addEventListener('click', function() { synthesize(); });
