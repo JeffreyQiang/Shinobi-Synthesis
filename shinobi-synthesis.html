@@ -230,6 +230,14 @@ body.shake{animation:shake .4s ease-in-out}
   #victory-overlay .stats-grid{gap:10px}
   #victory-overlay .stats-grid .stat-card{padding:12px}
   #victory-overlay .victory-btn{padding:12px 32px;font-size:16px}
+
+  /* ===== 底部安全区：角色选择页 ===== */
+  #role-select-screen{padding:16px 16px calc(60px + env(safe-area-inset-bottom, 0px)) 16px}
+  .role-select-container{padding-bottom:20px}
+  #role-select-screen > div{padding-bottom:8px}
+
+  /* ===== 底部安全区：战斗页 ===== */
+  #game-screen{padding-bottom:calc(30px + env(safe-area-inset-bottom, 0px));box-sizing:border-box}
 }
 </style>
 </head>
@@ -1183,6 +1191,7 @@ function switchToNextAlive(playerId) {
   if (aliveIndices.length > 0) team.currentIndex = aliveIndices[0];
   else team.currentIndex = -1;
 }
+
 // ----- 卡牌与战斗逻辑 -----
 
 function drawOne(playerId) {
