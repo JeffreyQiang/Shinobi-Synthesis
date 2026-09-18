@@ -40,7 +40,18 @@ body.shake{animation:shake .4s ease-in-out}
 .story-box .story-skip{position:absolute;top:12px;right:16px;background:transparent;border:none;color:#6a5a4a;font-size:13px;cursor:pointer;font-family:'Noto Serif SC',serif;letter-spacing:1px}
 .story-box .story-skip:hover{color:#b0a090}
 .story-box .story-progress{text-align:center;color:#6a5a4a;font-size:12px;margin-top:12px;letter-spacing:2px}
-#role-select-screen{display:none;position:fixed;inset:0;z-index:900;background:rgba(10,8,6,0.95);backdrop-filter:blur(8px);padding:20px;overflow-y:auto}
+#role-select-screen{
+  display:none;
+  position:fixed;
+  top:0; left:0; right:0; bottom:0;
+  z-index:900;
+  background:rgba(10,8,6,0.95);
+  backdrop-filter:blur(8px);
+  height:100dvh;
+  max-height:100dvh;
+  padding:20px;
+  overflow-y:auto;
+}
 .role-select-title{text-align:center;color:#f5e7b3;font-family:'Cinzel',serif;font-size:28px;letter-spacing:4px;margin-bottom:8px}
 .role-select-sub{text-align:center;color:#8a7a6a;font-size:14px;margin-bottom:20px;letter-spacing:1px}
 .role-select-container{display:flex;gap:40px;justify-content:center;padding:10px;flex-wrap:wrap}
@@ -232,12 +243,14 @@ body.shake{animation:shake .4s ease-in-out}
   #victory-overlay .victory-btn{padding:12px 32px;font-size:16px}
 
   /* ===== 底部安全区：角色选择页 ===== */
-  #role-select-screen{padding:16px 16px calc(60px + env(safe-area-inset-bottom, 0px)) 16px}
+  #role-select-screen{
+    padding:16px 16px calc(180px + env(safe-area-inset-bottom, 0px)) 16px;
+  }
   .role-select-container{padding-bottom:20px}
   #role-select-screen > div{padding-bottom:8px}
 
   /* ===== 底部安全区：战斗页 ===== */
-  #game-screen{padding-bottom:calc(30px + env(safe-area-inset-bottom, 0px));box-sizing:border-box}
+  #game-screen{padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px));box-sizing:border-box}
 }
 </style>
 </head>
