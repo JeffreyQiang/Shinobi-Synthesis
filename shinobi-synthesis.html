@@ -23,9 +23,7 @@ body.shake{animation:shake .4s ease-in-out}
 .btn-start:hover{background:#d4a854;color:#1a1410;box-shadow:0 0 60px rgba(212,168,84,0.3);transform:scale(1.02)}
 .scroll-footer{font-size:13px;color:#6a5a4a;letter-spacing:2px;font-family:'Noto Serif SC',serif;border-top:1px solid #3a2a1a;padding-top:16px;margin-top:8px}
 .scroll-footer span{color:#d4a85488}
-.lang-toggle{position:fixed;top:16px;right:16px;z-index:9999;background:rgba(20,18,16,0.9);backdrop-filter:blur(8px);border:2px solid #d4a854;border-radius:30px;padding:10px 20px;color:#f5e7b3;font-size:16px;font-weight:700;cursor:pointer;transition:.3s;font-family:'Cinzel',serif;letter-spacing:1px;box-shadow:0 0 30px rgba(212,168,84,0.15)}
-.lang-toggle:hover{background:rgba(212,168,84,0.2);border-color:#f5e7b3;transform:scale(1.05)}
-.lang-toggle{display:none !important;}
+.lang-toggle{display:none !important}
 .btn-lang{background:transparent;border:2px solid #d4a854;border-radius:40px;color:#f5e7b3;padding:8px 28px;font-size:16px;cursor:pointer;transition:.3s;font-family:'Cinzel',serif;letter-spacing:2px}
 .btn-lang:hover{background:rgba(212,168,84,0.2);border-color:#f5e7b3;transform:scale(1.05)}
 #story-overlay{display:none;position:fixed;inset:0;z-index:2500;background:rgba(0,0,0,0.92);backdrop-filter:blur(10px);justify-content:center;align-items:center;padding:20px;overflow-y:auto}
@@ -33,26 +31,12 @@ body.shake{animation:shake .4s ease-in-out}
 .story-box .story-speaker{font-family:'Cinzel',serif;font-size:16px;color:#ffd966;letter-spacing:2px;margin-bottom:4px}
 .story-box .story-speaker .emoji{font-size:22px}
 .story-box .story-text{font-size:18px;color:#f0e6d0;line-height:1.8;margin:12px 0 20px;min-height:80px;font-family:'Noto Serif SC',serif}
-.story-box .story-text .highlight{color:#ffd966}
-.story-box .story-text .damage{color:#ff7b7b}
-.story-box .story-text .heal{color:#7bff7b}
 .story-box .story-continue{background:rgba(212,168,84,0.15);border:1px solid #d4a85466;color:#d0c0a8;padding:10px 28px;border-radius:40px;font-size:15px;cursor:pointer;transition:.3s;font-family:'Noto Serif SC',serif;letter-spacing:2px}
 .story-box .story-continue:hover{background:rgba(212,168,84,0.3);border-color:#d4a854;color:#f5e7b3}
 .story-box .story-skip{position:absolute;top:12px;right:16px;background:transparent;border:none;color:#6a5a4a;font-size:13px;cursor:pointer;font-family:'Noto Serif SC',serif;letter-spacing:1px}
 .story-box .story-skip:hover{color:#b0a090}
 .story-box .story-progress{text-align:center;color:#6a5a4a;font-size:12px;margin-top:12px;letter-spacing:2px}
-#role-select-screen{
-  display:none;
-  position:fixed;
-  top:0; left:0; right:0; bottom:0;
-  z-index:900;
-  background:rgba(10,8,6,0.95);
-  backdrop-filter:blur(8px);
-  height:100dvh;
-  max-height:100dvh;
-  padding:20px;
-  overflow-y:auto;
-}
+#role-select-screen{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:900;background:rgba(10,8,6,0.95);backdrop-filter:blur(8px);height:100dvh;max-height:100dvh;padding:20px;overflow-y:auto}
 .role-select-title{text-align:center;color:#f5e7b3;font-family:'Cinzel',serif;font-size:28px;letter-spacing:4px;margin-bottom:8px}
 .role-select-sub{text-align:center;color:#8a7a6a;font-size:14px;margin-bottom:20px;letter-spacing:1px}
 .role-select-container{display:flex;gap:40px;justify-content:center;padding:10px;flex-wrap:wrap}
@@ -138,6 +122,7 @@ body.shake{animation:shake .4s ease-in-out}
 .card.disabled{opacity:0.4;cursor:not-allowed;transform:none!important;filter:grayscale(0.5);animation:none!important}
 .card.enemy-card{cursor:default;opacity:0.5}
 .card.enemy-card:hover{transform:none}
+.card.frozen-lock{filter:grayscale(0.8) brightness(0.6)}
 .action-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px;align-items:center}
 .btn{background:rgba(255,255,255,0.04);border:1px solid rgba(212,168,84,0.15);padding:8px 16px;border-radius:60px;color:#d0c0a8;font-size:13px;cursor:pointer;transition:.2s;font-weight:500;letter-spacing:.5px;white-space:nowrap}
 .btn:hover:not(:disabled){background:rgba(212,168,84,0.1);border-color:#d4a85466;transform:scale(1.02);color:#f5e7b3;box-shadow:0 0 16px #d4a85422}
@@ -153,14 +138,14 @@ body.shake{animation:shake .4s ease-in-out}
 .btn-substitute:hover:not(:disabled){background:#b88a6a;border-color:#d4a854}
 .btn-sound{background:#3a3a4a;border-color:#5a5a6a;color:#d0c0a8}
 .btn-sound:hover:not(:disabled){background:#5a5a6a;border-color:#8a8aaa}
+.btn-info{background:#4a6a9a;border-color:#6a8aba;color:#f0e6d0}
+.btn-info:hover:not(:disabled){background:#6a8aba;border-color:#8aaada}
 .battle-log{background:#0f0c0a;border-radius:16px;padding:10px 14px;min-height:50px;max-height:120px;overflow-y:auto;margin:6px 0 12px;border-left:4px solid #d4a85466;box-shadow:inset 0 0 30px #00000055}
 .battle-log .log-entry{padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;color:#c0b09a;line-height:1.4}
 .battle-log .log-entry:last-child{border-bottom:none}
 .battle-log .log-entry .highlight{color:#ffd966;font-weight:600}
 .battle-log .log-entry .damage{color:#ff7b7b}
 .battle-log .log-entry .heal{color:#7bff7b}
-.battle-log .log-entry .synthesis{color:#a78bfa;font-weight:600}
-.battle-log .log-entry .chakra{color:#7ab8ff;font-weight:600}
 .battle-log::-webkit-scrollbar{width:4px}
 .battle-log::-webkit-scrollbar-track{background:rgba(255,255,255,0.02)}
 .battle-log::-webkit-scrollbar-thumb{background:#5a4a3a;border-radius:10px}
@@ -197,67 +182,69 @@ body.shake{animation:shake .4s ease-in-out}
 .victory-winner.win-p1{color:#f74a5e}
 .victory-winner.win-p2{color:#4a7cf7}
 
+/* ===== 教程提示框（左下角，缩小版） ===== */
+.tutorial-highlight{border:2px solid #ffd966 !important;box-shadow:0 0 25px rgba(255,217,102,0.7),inset 0 0 15px rgba(255,217,102,0.2) !important;animation:tutorialPulse 1.2s ease-in-out infinite;position:relative;z-index:20}
+@keyframes tutorialPulse{0%,100%{border-color:#ffd966;box-shadow:0 0 20px rgba(255,217,102,0.6);}50%{border-color:#fff7d0;box-shadow:0 0 40px rgba(255,217,102,1);}}
+#tutorial-tip{position:fixed;bottom:12px;left:12px;z-index:5000;text-align:left;pointer-events:none;max-width:min(260px,68vw)}
+.tutorial-bubble{display:block;background:linear-gradient(135deg,#2a221e,#1a1410);border:1.5px solid #ffd966;border-radius:12px;padding:10px 12px;color:#f5e7b3;font-family:'Noto Serif SC',serif;font-size:12px;font-weight:600;letter-spacing:.5px;box-shadow:0 0 20px rgba(255,217,102,0.4);animation:tutorialFloat 2s ease-in-out infinite;margin-bottom:6px;pointer-events:auto}
+@keyframes tutorialFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+.tutorial-text{text-align:left;line-height:1.4;margin-bottom:8px;color:#f5e7b3;font-size:12px}
+.tutorial-step-badge{display:inline-block;background:rgba(255,217,102,0.2);color:#ffd966;font-size:10px;padding:1px 8px;border-radius:10px;margin-bottom:6px;letter-spacing:.5px}
+.tutorial-nav{display:flex;gap:6px;justify-content:flex-start;align-items:center}
+.tutorial-next{background:#ffd966;border:none;color:#1a1410;font-weight:700;font-size:11px;padding:5px 12px;border-radius:20px;cursor:pointer;font-family:'Noto Serif SC',serif;letter-spacing:.5px;transition:.3s}
+.tutorial-next:hover{background:#fff7d0;transform:scale(1.05)}
+.tutorial-skip{background:transparent;border:1px solid #d4a85488;color:#8a7a6a;font-size:10px;padding:4px 10px;border-radius:20px;cursor:pointer;font-family:'Noto Serif SC',serif;letter-spacing:.5px}
+.tutorial-skip:hover{color:#d0c0a8;border-color:#d4a854}
+
 /* ===== 移动端适配 ===== */
 @media (max-width: 480px){
   .scroll-container{padding:32px 20px 28px}
   .scroll-title{font-size:30px;letter-spacing:4px}
   .scroll-sub{font-size:18px;letter-spacing:4px}
   .btn-start{font-size:17px;padding:14px 24px;min-width:150px}
-
   .app-wrapper{padding:8px 8px calc(28px + env(safe-area-inset-bottom, 0px)) 8px;gap:12px}
   .game-container{padding:12px}
-
   .card{width:68px;height:96px}
   .card .emoji-big{font-size:24px}
   .card .card-name{font-size:10px}
   .card .card-stats{font-size:12px;gap:6px}
   .card .level-badge{font-size:8px}
-
   .action-bar{gap:6px}
   .btn{padding:7px 12px;font-size:12px}
-
   .turn-indicator{font-size:15px;gap:6px}
   .battle-log{max-height:90px}
-
   .team-status{min-width:0;padding:6px 10px}
   .team-status .member-badge{font-size:10px}
   .hp-bar{padding:3px 10px 3px 8px}
   .hp-bar .value{font-size:17px}
-
   .climb-header{padding:8px 12px;font-size:12px}
   .climb-header .info{font-size:12px}
   .climb-header .progress{min-width:60px}
-
   .role-select-container{gap:16px}
   .role-select-column{padding:14px;min-width:0}
   .role-select-title{font-size:22px}
   .role-btn{padding:9px 12px;font-size:13px}
-
   .story-box{padding:28px 20px}
   .story-box .story-text{font-size:16px}
-
   #victory-overlay .victory-box{padding:28px 22px 34px;border-radius:28px}
   #victory-overlay .victory-title{font-size:26px}
   #victory-overlay .victory-winner{font-size:22px}
   #victory-overlay .stats-grid{gap:10px}
   #victory-overlay .stats-grid .stat-card{padding:12px}
   #victory-overlay .victory-btn{padding:12px 32px;font-size:16px}
-
-  /* ===== 底部安全区：角色选择页 ===== */
-  #role-select-screen{
-    padding:16px 16px calc(180px + env(safe-area-inset-bottom, 0px)) 16px;
-  }
-  .role-select-container{padding-bottom:20px}
-  #role-select-screen > div{padding-bottom:8px}
-
-  /* ===== 底部安全区：战斗页 ===== */
+  #role-select-screen{padding:16px 16px calc(80px + env(safe-area-inset-bottom, 0px)) 16px}
   #game-screen{padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px));box-sizing:border-box}
+  #tutorial-tip{bottom:8px;left:8px;max-width:min(200px,66vw)}
+  .tutorial-bubble{font-size:11px;padding:8px 10px;border-radius:10px}
+  .tutorial-text{font-size:11px}
+  .tutorial-next,.tutorial-skip{font-size:10px;padding:4px 10px}
 }
 </style>
 </head>
 <body>
 <canvas id="particle-canvas"></canvas>
 <button class="lang-toggle" id="lang-toggle">🌐 EN</button>
+
 <!-- 主页 -->
 <div id="home-screen">
     <div class="scroll-container">
@@ -277,6 +264,7 @@ body.shake{animation:shake .4s ease-in-out}
         </div>
     </div>
 </div>
+
 <!-- 故事对话框 -->
 <div id="story-overlay">
     <div class="story-box">
@@ -289,6 +277,7 @@ body.shake{animation:shake .4s ease-in-out}
         <div class="story-progress" id="story-progress">第 1 / 10 关</div>
     </div>
 </div>
+
 <!-- 角色选择 -->
 <div id="role-select-screen">
     <div style="max-width:700px;margin:0 auto;">
@@ -312,6 +301,7 @@ body.shake{animation:shake .4s ease-in-out}
         </div>
     </div>
 </div>
+
 <!-- 游戏界面 -->
 <div id="game-screen">
     <button class="btn-back-home" id="btn-back-home">🏠 <span id="back-home-label">返回卷轴</span></button>
@@ -352,6 +342,7 @@ body.shake{animation:shake .4s ease-in-out}
                     <div class="bar-bg"><div class="bar-fill" id="p1-hp-bar" style="width:100%;"></div></div>
                     <span class="value" id="p1-hp">50</span>
                 </div>
+                <div id="p1-frozen-banner" style="display:none;text-align:center;color:#6bc8ff;font-size:13px;margin:4px 0;"></div>
                 <div class="hand-area" id="p1-hand-container">
                     <div id="p1-hand" class="hand-area" style="min-height:100px;padding:6px 0;"></div>
                     <div class="card-back-overlay" id="p1-overlay"><span class="back-text" id="opp-turn-label">🃏 对手回合</span></div>
@@ -364,6 +355,7 @@ body.shake{animation:shake .4s ease-in-out}
                     <div class="bar-bg"><div class="bar-fill" id="p2-hp-bar" style="width:100%;"></div></div>
                     <span class="value" id="p2-hp">50</span>
                 </div>
+                <div id="p2-frozen-banner" style="display:none;text-align:center;color:#6bc8ff;font-size:13px;margin:4px 0;"></div>
                 <div class="hand-area" id="p2-hand-container">
                     <div id="p2-hand" class="hand-area" style="min-height:100px;padding:6px 0;"></div>
                     <div class="card-back-overlay" id="p2-overlay"><span class="back-text" id="opp-turn-label2">🃏 对手回合</span></div>
@@ -371,14 +363,29 @@ body.shake{animation:shake .4s ease-in-out}
             </div>
             <div class="action-bar">
                 <button class="btn btn-success" id="btn-synthesize">🔮 <span id="synth-label">奥义合成</span></button>
+                <button class="btn btn-warning" id="btn-enhance">💪 <span id="enhance-label">忍术强化 (2忍力)</span></button>
                 <button class="btn btn-warning" id="btn-discard">🔄 <span id="discard-label">换牌</span></button>
-                <button class="btn btn-primary" id="btn-end-turn">⏭️ <span id="endturn-label">结束回合</span></button>
+                <button class="btn btn-info" id="btn-switch" disabled>🔀 <span id="switch-label">切换忍者 (1忍力)</span></button>
                 <button class="btn btn-substitute" id="btn-substitute" disabled>🪵 <span id="substitute-label">解除冻结 (1忍力)</span></button>
+                <button class="btn btn-primary" id="btn-end-turn">⏭️ <span id="endturn-label">结束回合</span></button>
                 <button class="btn btn-sound" id="btn-sound">🔊 <span id="sound-label">音效</span></button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- 教程提示框 -->
+<div id="tutorial-tip" style="display:none;">
+    <div class="tutorial-bubble" id="tutorial-bubble">
+        <div class="tutorial-step-badge" id="tutorial-step-badge">教程 1/12</div>
+        <div class="tutorial-text" id="tutorial-text">点击一张手牌打出</div>
+        <div class="tutorial-nav">
+            <button class="tutorial-next" id="tutorial-next">下一步 ▶</button>
+            <button class="tutorial-skip" id="tutorial-skip">跳过</button>
+        </div>
+    </div>
+</div>
+
 <!-- 胜利/失败画面 -->
 <div id="victory-overlay">
     <div class="victory-box">
@@ -406,16 +413,17 @@ body.shake{animation:shake .4s ease-in-out}
         </div>
     </div>
 </div>
+
 <script>
 // ============================================================
-//  【傀儡天梯】完整脚本 + 双语支持 + 序章 + 修正对话
+//  忍法对决 · 傀儡天梯
 // ============================================================
-console.log('🟢 忍法对决 · 傀儡天梯（完整版）加载中...');
+console.log('🟢 忍法对决 · 傀儡天梯 加载中...');
 
-// ----- 全局状态 -----
 var soundEnabled = true;
+var tutorial = { active: false, phase: 'tour', step: 0 };
 
-// ----- 双语字典（完整） -----
+// ----- 双语字典 -----
 var LANG = {
   current: 'zh',
   zh: {
@@ -456,16 +464,16 @@ var LANG = {
     synth: '奥义合成',
     discard: '换牌',
     endturn: '结束回合',
+    switch: '切换忍者 (1忍力)',
     substitute: '解除冻结 (1忍力)',
+    enhance: '忍术强化 (2忍力)',
     sound: '音效',
     sound_on: '音效',
     sound_off: '静音',
     story_skip: '跳过',
     story_continue: '继续',
-    story_progress: '第 关 · ',
     victory_title: '🏆 战斗结束',
     victory_winner: '获胜者：',
-    victory_restart: '继续',
     victory_restart_clear: '再来一次',
     victory_restart_retry: '重新开始',
     victory_restart_next: '继续挑战',
@@ -475,45 +483,16 @@ var LANG = {
     stat_heal: '💚 总治疗',
     log_start: '⚔️ 2v2 忍法对决开始！',
     log_climb_start: '🏔️ 傀儡天梯 · 第 关开始！',
-    log_story: '📖 故事开始：',
-    log_synth: '🔮 合成！ → ',
-    log_discard: '🔄 弃掉 ，抽1张',
-    log_discard_ai: '🔄 AI 换牌',
-    log_freeze: '❄️ 冻结剩余 回合',
-    log_burn: '🔥 玩家灼烧 -',
-    log_dead: '💀 阵亡！',
-    log_team_dead: '小队全灭！玩家胜利！',
-    log_turn: '🔄 轮到玩家的回合',
-    log_round: '📊 ===== 第 回合开始 =====',
-    log_heal: '💚 玩家 恢复 HP (当前 )',
-    log_ai_sub: '🪵 AI 使用替身术解除冻结！',
-    log_player_sub: '🪵 使用替身术解除冻结！',
-    log_enhance: '💠 忍术强化已激活！(+5效果)',
-    log_enhance_cancel: '💬 已取消强化',
-    log_chakra_insufficient: '⛔ 忍力不足 (需要2点)',
-    log_no_chakra: '⛔ 忍力不足 (需要1点)',
-    log_not_turn: '⛔ 不是你的回合，不能出牌',
-    log_frozen: '❄️ 被冻结，无法行动',
-    log_discard_mode: '💡 点击 ✕ 换牌',
-    log_discard_cancel: '💬 已取消换牌',
-    log_no_hand: '🃏 没有手牌可换',
-    log_already_discarded: '⛔ 本回合已换过牌',
-    log_no_role: '⛔ 没有可用角色',
-    log_no_target: '⛔ 对手没有可用角色',
-    log_synth_fail: '❌ 没有两张相同元素的基础忍术',
-    log_synth_error: '❌ 合成错误',
-    log_no_freeze: '💡 没有处于冻结状态',
-    log_game_over: '⛔ 游戏已结束',
-    log_not_your_turn: '⛔ 这不是你的回合！',
-    log_cancel_discard: '💬 已取消换牌',
-    log_ai_keep: '⏭️ AI 选择保留忍力，结束回合',
-    badge_phantom: '👻 傀儡守卫',
-    badge_shadow: '⚡ 暗影会将',
-    badge_boss: '👑 最终Boss',
-    type_phantom: '傀儡',
-    type_real: '真人',
-    type_boss: '最终Boss',
-    puppet_prefix: '傀儡·'
+    tutorial_next: '下一步 ▶',
+    tutorial_start: '开始操作 ▶',
+    tutorial_finish: '🎮 开始战斗！',
+    tutorial_skip: '跳过',
+    tutorial_badge_tour: '导览',
+    tutorial_badge_interact: '操作',
+    enhance_label: '忍术强化 (2忍力)',
+    enhance_active: '取消强化',
+    frozen_banner: '被冻结 — 只能使用替身术或结束回合',
+    frozen_ai_banner: '被冻结 — 只能替身术或结束回合'
   },
   en: {
     home_sub: 'Puppet Ladder · 10 Trials',
@@ -553,16 +532,16 @@ var LANG = {
     synth: 'Forge',
     discard: 'Swap',
     endturn: 'End Turn',
+    switch: 'Switch Ninja (1 Chakra)',
     substitute: 'Release Freeze (1 Chakra)',
+    enhance: 'Enhance (2 Chakra)',
     sound: 'Sound',
     sound_on: 'Sound',
     sound_off: 'Mute',
     story_skip: 'Skip',
     story_continue: 'Continue',
-    story_progress: 'Floor  · ',
     victory_title: '🏆 Battle Over',
     victory_winner: 'Winner:',
-    victory_restart: 'Continue',
     victory_restart_clear: 'Play Again',
     victory_restart_retry: 'Retry',
     victory_restart_next: 'Next Floor',
@@ -572,49 +551,19 @@ var LANG = {
     stat_heal: '💚 Total Heal',
     log_start: '⚔️ 2v2 Ninja Duel Begins!',
     log_climb_start: '🏔️ Puppet Ladder · Floor ',
-    log_story: '📖 Story: ',
-    log_synth: '🔮 Forge!  → ',
-    log_discard: '🔄 Discard , draw 1',
-    log_discard_ai: '🔄 AI swapped a card',
-    log_freeze: '❄️ Freeze remaining  turns',
-    log_burn: '🔥 Player  burn -',
-    log_dead: '💀  has fallen!',
-    log_team_dead: '\'s team wiped! Player  wins!',
-    log_turn: '🔄 Player \'s turn',
-    log_round: '📊 ===== Round  begins =====',
-    log_heal: '💚 Player  restored  HP (now )',
-    log_ai_sub: '🪵 AI used Substitute to break freeze!',
-    log_player_sub: '🪵 Used Substitute to break freeze!',
-    log_enhance: '💠 Ninja Enhancement activated! (+5 effect)',
-    log_enhance_cancel: '💬 Enhancement cancelled',
-    log_chakra_insufficient: '⛔ Not enough chakra (need 2)',
-    log_no_chakra: '⛔ Not enough chakra (need 1)',
-    log_not_turn: '⛔ Not your turn!',
-    log_frozen: '❄️ Frozen, cannot act',
-    log_discard_mode: '💡 Click ✕ to discard',
-    log_discard_cancel: '💬 Swap cancelled',
-    log_no_hand: '🃏 No cards to swap',
-    log_already_discarded: '⛔ Already swapped this turn',
-    log_no_role: '⛔ No active ninja',
-    log_no_target: '⛔ No enemy target',
-    log_synth_fail: '❌ Need 2 same-element basic cards',
-    log_synth_error: '❌ Forge error',
-    log_no_freeze: '💡 Not frozen',
-    log_game_over: '⛔ Game over',
-    log_not_your_turn: '⛔ Not your turn!',
-    log_cancel_discard: '💬 Swap cancelled',
-    log_ai_keep: '⏭️ AI keeps chakra, ends turn',
-    badge_phantom: '👻 Puppet Guard',
-    badge_shadow: '⚡ Shadow General',
-    badge_boss: '👑 Final Boss',
-    type_phantom: 'Puppet',
-    type_real: 'Real',
-    type_boss: 'Final Boss',
-    puppet_prefix: 'Puppet·'
+    tutorial_next: 'Next ▶',
+    tutorial_start: 'Start Playing ▶',
+    tutorial_finish: '🎮 Begin Battle!',
+    tutorial_skip: 'Skip',
+    tutorial_badge_tour: 'TOUR',
+    tutorial_badge_interact: 'DO',
+    enhance_label: 'Enhance (2 Chakra)',
+    enhance_active: 'Cancel Enhance',
+    frozen_banner: 'Frozen — may only use Substitute or End Turn',
+    frozen_ai_banner: 'Frozen — may only Substitute or End Turn'
   }
 };
 
-// ----- 语言切换函数 -----
 function t(key) {
   var lang = LANG.current;
   var keys = key.split('.');
@@ -629,16 +578,235 @@ function t(key) {
 function setLang(lang) {
   LANG.current = lang;
   try { localStorage.setItem('ninja_lang', lang); } catch(e) {}
-  document.getElementById('lang-toggle').textContent = lang === 'zh' ? '🌐 EN' : '🌐 中文';
+  var lt = document.getElementById('lang-toggle');
+  if (lt) lt.textContent = lang === 'zh' ? '🌐 EN' : '🌐 中文';
   updateUI();
+  refreshHandTexts();
 }
 
-function toggleLang() {
-  var next = LANG.current === 'zh' ? 'en' : 'zh';
-  setLang(next);
+function toggleLang() { setLang(LANG.current === 'zh' ? 'en' : 'zh'); }
+
+function refreshHandTexts() {
+  [1, 2].forEach(function(pid) {
+    var container = pid === 1 ? document.getElementById('p1-hand') : document.getElementById('p2-hand');
+    if (!container) return;
+    var cards = container.querySelectorAll('.card');
+    for (var i = 0; i < cards.length; i++) {
+      var el = cards[i];
+      var nameZh = el.dataset.name || '';
+      var nameEn = el.dataset.nameEn || nameZh;
+      var nameEl = el.querySelector('.card-name');
+      if (nameEl) nameEl.textContent = LANG.current === 'en' ? nameEn : nameZh;
+      var badge = el.querySelector('.level-badge');
+      if (badge) badge.textContent = el.dataset.level === 'advanced'
+        ? '⭐' + (LANG.current === 'en' ? 'Secret' : '奥义')
+        : (LANG.current === 'en' ? 'Base' : '基础');
+    }
+  });
 }
 
-// ----- UI 更新函数 -----
+// ============================================================
+//  教程系统
+// ============================================================
+var TUTORIAL_TOUR = [
+  { sel: '.header',
+    zh: '双方队伍：红色是你，蓝色是对手',
+    en: 'Teams: red = you, blue = enemy' },
+  { sel: '#turn-indicator',
+    zh: '回合指示器：回合数 + 双方忍力 💠（0~3）',
+    en: 'Turn bar: round number & both sides\' Chakra 💠' },
+  { sel: '#p1-hp-container',
+    zh: '你的 HP 条，归零就倒下',
+    en: 'Your HP — hit 0 and you fall' },
+  { sel: '#p1-hand-container',
+    zh: '手牌区：点击一张牌即可打出',
+    en: 'Hand: click a card to play it' },
+  { sel: '#log-area',
+    zh: '战斗日志：所有行动记录在此',
+    en: 'Battle log: every action is logged here' },
+  { sel: '#btn-synthesize',
+    zh: '奥义合成：两张同元素牌合成强力牌（+1 忍力）',
+    en: 'Forge: combine 2 same-element cards (+1 Chakra)' },
+  { sel: '#btn-enhance',
+    zh: '忍术强化：花 2 忍力，下一张牌 +5',
+    en: 'Enhance: spend 2 Chakra, next card +5' },
+  { sel: '#btn-discard',
+    zh: '换牌：弃 1 张抽 1 张（每回合 1 次）',
+    en: 'Swap: discard 1, draw 1 (once per turn)' },
+  { sel: '#btn-switch',
+    zh: '切换忍者：花 1 忍力换队友（每回合 1 次）',
+    en: 'Switch: 1 Chakra to swap teammate' },
+  { sel: '#btn-substitute',
+    zh: '解除冻结：花 1 忍力脱困',
+    en: 'Substitute: 1 Chakra to break Freeze' },
+  { sel: '#btn-end-turn',
+    zh: '结束回合：把回合交给对手',
+    en: 'End Turn: pass the turn to opponent' },
+  { sel: '#btn-sound',
+    zh: '音效开关',
+    en: 'Sound on/off' }
+];
+
+var TUTORIAL_INTERACT = [
+  { sel: '#p1-hand-container',
+    zh: '点一张手牌打出去',
+    en: 'Click a card to play it' },
+  { sel: '#btn-synthesize',
+    zh: '点"奥义合成"（没对子会自动跳过）',
+    en: 'Click "Forge" (auto-skip if no pair)' },
+  { sel: '#btn-end-turn',
+    zh: '点"结束回合"完成教程',
+    en: 'Click "End Turn" to finish' }
+];
+
+function clearTutorialHighlights() {
+  var els = document.querySelectorAll('.tutorial-highlight');
+  for (var i = 0; i < els.length; i++) els[i].classList.remove('tutorial-highlight');
+}
+
+function showTutorialBubble(text, badge, showNextBtn, nextLabel) {
+  var tip = document.getElementById('tutorial-tip');
+  var bubble = document.getElementById('tutorial-bubble');
+  var stepBadge = document.getElementById('tutorial-step-badge');
+  var txtEl = document.getElementById('tutorial-text');
+  var nextBtn = document.getElementById('tutorial-next');
+  if (!tip || !bubble || !txtEl) return;
+  tip.style.display = 'block';
+  if (stepBadge) stepBadge.textContent = badge;
+  txtEl.textContent = text;
+  if (nextBtn) {
+    nextBtn.style.display = showNextBtn ? 'inline-block' : 'none';
+    if (showNextBtn) nextBtn.textContent = nextLabel || t('tutorial_next');
+  }
+}
+
+function showTourStep(n) {
+  clearTutorialHighlights();
+  if (n < 0) n = 0;
+  if (n >= TUTORIAL_TOUR.length) { startInteractPhase(); return; }
+  var step = TUTORIAL_TOUR[n];
+  var el = document.querySelector(step.sel);
+  if (el) {
+    el.classList.add('tutorial-highlight');
+    try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) { el.scrollIntoView(); }
+  }
+  tutorial.step = n;
+  var text = LANG.current === 'en' ? step.en : step.zh;
+  var badge = t('tutorial_badge_tour') + ' ' + (n + 1) + '/' + TUTORIAL_TOUR.length;
+  var isLast = (n === TUTORIAL_TOUR.length - 1);
+  showTutorialBubble(text, badge, true, isLast ? t('tutorial_start') : t('tutorial_next'));
+}
+
+function showInteractStep(n) {
+  clearTutorialHighlights();
+  if (n < 0) n = 0;
+  if (n >= TUTORIAL_INTERACT.length) { endTutorial(); return; }
+  var step = TUTORIAL_INTERACT[n];
+  var el = document.querySelector(step.sel);
+  if (el) {
+    el.classList.add('tutorial-highlight');
+    try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) { el.scrollIntoView(); }
+  }
+  tutorial.step = n;
+  var text = LANG.current === 'en' ? step.en : step.zh;
+  var badge = t('tutorial_badge_interact') + ' ' + (n + 1) + '/' + TUTORIAL_INTERACT.length;
+  showTutorialBubble(text, badge, false);
+}
+
+function startTourPhase() {
+  tutorial.active = true;
+  tutorial.phase = 'tour';
+  tutorial.step = 0;
+  showTourStep(0);
+}
+
+function startInteractPhase() {
+  tutorial.phase = 'interact';
+  tutorial.step = 0;
+  showInteractStep(0);
+}
+
+function nextTourStep() {
+  if (!tutorial.active) return;
+  if (tutorial.phase === 'tour') showTourStep(tutorial.step + 1);
+}
+
+function advanceInteract(fromStep) {
+  if (!tutorial.active) return;
+  if (tutorial.phase !== 'interact') return;
+  if (tutorial.step !== fromStep) return;
+  showInteractStep(tutorial.step + 1);
+}
+
+function startTutorial() { startTourPhase(); }
+
+function endTutorial() {
+  tutorial.active = false;
+  clearTutorialHighlights();
+  var tip = document.getElementById('tutorial-tip');
+  var stepBadge = document.getElementById('tutorial-step-badge');
+  var txtEl = document.getElementById('tutorial-text');
+  var nextBtn = document.getElementById('tutorial-next');
+  var skipBtn = document.getElementById('tutorial-skip');
+  if (!tip || !txtEl) return;
+  var isEn = LANG.current === 'en';
+
+  // 显示"教程结束"提示，2 秒后自动消失
+  tip.style.display = 'block';
+  if (stepBadge) stepBadge.textContent = isEn ? '✅ DONE' : '✅ 完成';
+  txtEl.textContent = isEn
+    ? 'Tutorial complete — good luck in battle!'
+    : '教程结束，祝你战斗顺利！';
+  if (nextBtn) nextBtn.style.display = 'none';
+  if (skipBtn) skipBtn.style.display = 'none';
+
+  setTimeout(function() {
+    tip.style.display = 'none';
+    if (skipBtn) skipBtn.style.display = '';
+  }, 2200);
+}
+
+function hasPairInHand(playerId) {
+  var m = getCurrentMember(playerId);
+  if (!m || !m.hand) return false;
+  var map = {};
+  for (var i = 0; i < m.hand.length; i++) {
+    var c = m.hand[i];
+    if (c.level === 'base') map[c.element] = (map[c.element] || 0) + 1;
+  }
+  for (var k in map) if (map[k] >= 2) return true;
+  return false;
+}
+
+function tutorialBlocked(actionType) {
+  if (!tutorial.active) return false;
+  var isEn = LANG.current === 'en';
+  if (tutorial.phase === 'tour') {
+    log('💡 ' + (isEn ? 'Click "Next" to continue the tour' : '点击"下一步"继续导览'));
+    return true;
+  }
+  if (actionType === 'play' && tutorial.step !== 0) {
+    log('💡 ' + (isEn ? 'Follow the tutorial on screen' : '先跟着屏幕上的提示走'));
+    return true;
+  }
+  if (actionType === 'synth' && tutorial.step !== 1) {
+    log('💡 ' + (isEn ? 'Follow the tutorial on screen' : '先跟着屏幕上的提示走'));
+    return true;
+  }
+  if (actionType === 'end' && tutorial.step !== 2) {
+    log('💡 ' + (isEn ? 'Follow the tutorial on screen' : '先跟着屏幕上的提示走'));
+    return true;
+  }
+  if (actionType === 'other') {
+    log('💡 ' + (isEn ? 'Finish the tutorial first' : '先完成教程'));
+    return true;
+  }
+  return false;
+}
+
+// ============================================================
+//  UI 更新
+// ============================================================
 function updateUI() {
   var el;
   function setText(id, text) { el = document.getElementById(id); if (el) el.textContent = text; }
@@ -675,8 +843,12 @@ function updateUI() {
   setText('synth-label', t('synth'));
   setText('discard-label', t('discard'));
   setText('endturn-label', t('endturn'));
+  setText('switch-label', t('switch'));
   setText('substitute-label', t('substitute'));
   setText('sound-label', soundEnabled ? t('sound_on') : t('sound_off'));
+
+  var enhLabel = document.getElementById('enhance-label');
+  if (enhLabel) enhLabel.textContent = state.enhancePending ? t('enhance_active') : t('enhance_label');
 
   setText('story-skip-label', t('story_skip'));
   setText('story-continue-label', t('story_continue'));
@@ -697,7 +869,9 @@ function updateUI() {
   renderRoleSelection();
 }
 
-// ----- 音频 -----
+// ============================================================
+//  音频
+// ============================================================
 var _audioCtx = null;
 function ensureAudio() {
   if (!soundEnabled) return null;
@@ -739,9 +913,7 @@ function playSound(name) {
       playTone(600, 0.1, 'sine', 0.1);
       setTimeout(function() { playTone(800, 0.08, 'sine', 0.08); }, 100);
       break;
-    case 'damage':
-      playTone(200, 0.2, 'sawtooth', 0.12);
-      break;
+    case 'damage': playTone(200, 0.2, 'sawtooth', 0.12); break;
     case 'heal':
       playTone(900, 0.15, 'sine', 0.1);
       setTimeout(function() { playTone(1100, 0.15, 'sine', 0.08); }, 120);
@@ -755,13 +927,13 @@ function playSound(name) {
       playTone(300, 0.3, 'sine', 0.06);
       setTimeout(function() { playTone(200, 0.3, 'sine', 0.04); }, 200);
       break;
-    case 'burn':
-      playTone(150, 0.4, 'sawtooth', 0.05);
-      break;
+    case 'burn': playTone(150, 0.4, 'sawtooth', 0.05); break;
   }
 }
 
-// ----- 特效函数 -----
+// ============================================================
+//  特效
+// ============================================================
 function showFloatNumber(x, y, text, type) {
   var el = document.createElement('div');
   el.className = 'float-number ' + type;
@@ -862,7 +1034,6 @@ function triggerEnhanceEffect(playerId) {
   if (!area) return;
   var glow = document.createElement('div');
   glow.style.cssText = 'position:absolute;inset:-6px;border:4px solid #ffd700;border-radius:24px;box-shadow:0 0 40px #ffd700,inset 0 0 40px #ffd70066;pointer-events:none;z-index:6;animation:enhancePulse 0.6s ease 2;';
-  glow.id = 'enhance-glow';
   area.appendChild(glow);
   var text = document.createElement('div');
   text.textContent = '💪 ' + (LANG.current === 'en' ? 'Enhance' : '强化');
@@ -918,15 +1089,17 @@ if (!document.getElementById('flash-fade-style')) {
   document.head.appendChild(s);
 }
 
-// ----- 核心数据 -----
+// ============================================================
+//  核心数据
+// ============================================================
 var ROLES = {
-  naruto: { id: 'naruto', name: '风澈', nameEn: 'Feng Che', emoji: '🍥', faction: '风隐村', factionEn: 'Wind Village', skill: 'shadow_clone', skillName: '风灵分身', skillNameEn: 'Wind Clone', skillDesc: '每回合第一次受击50%闪避', skillDescEn: '50% dodge first hit per turn' },
-  sasuke: { id: 'sasuke', name: '雷牙', nameEn: 'Lei Ya', emoji: '⚡', faction: '风隐村', factionEn: 'Wind Village', skill: 'sharingan', skillName: '雷光洞察', skillNameEn: 'Thunder Insight', skillDesc: '每回合第一次伤害+3', skillDescEn: 'First damage +3 per turn' },
-  sakura: { id: 'sakura', name: '木灵', nameEn: 'Mu Ling', emoji: '🌸', faction: '风隐村', factionEn: 'Wind Village', skill: 'medical', skillName: '翠灵祝福', skillNameEn: 'Green Blessing', skillDesc: '回血+1；木系牌治疗+2', skillDescEn: 'Heal +1; Wood cards heal +2' },
-  itachi: { id: 'itachi', name: '镜月', nameEn: 'Itsuki', emoji: '👁️', faction: '风隐村', factionEn: 'Wind Village', skill: 'mangekyo', skillName: '幻镜洞察', skillNameEn: 'Mirror Insight', skillDesc: '每回合第一张牌打出后抽1张', skillDescEn: 'Draw 1 after first card per turn' },
-  kisame: { id: 'kisame', name: '海噬', nameEn: 'Kisame', emoji: '🦈', faction: '暗影会', factionEn: 'Shadow Council', skill: 'samehada', skillName: '噬灵深渊', skillNameEn: 'Abyss Drain', skillDesc: '50%吸1忍力；对手忍力0时伤害+2', skillDescEn: '50% drain 1 chakra; +2 dmg if enemy chakra=0' },
-  jiraiya: { id: 'jiraiya', name: '灵蟾', nameEn: 'Ling Chan', emoji: '🐸', faction: '暗影会', factionEn: 'Shadow Council', skill: 'summon', skillName: '邪蟾召唤', skillNameEn: 'Dark Toad Summon', skillDesc: '每回合第一次出牌后召唤：邪蟾·赤20%(+1忍力)、邪蟾·翠25%(+2血)、邪蟾·玄35%(-3敌血)、失败20%', skillDescEn: 'Summon: Red 20%(+1 chakra), Green 25%(+2 HP), Dark 35%(-3 enemy HP), Fail 20%' },
-  madara: { id: 'madara', name: '炎狱', nameEn: 'Madara', emoji: '🔥', faction: '暗影会', factionEn: 'Shadow Council', skill: 'reflect', skillName: '狱火反弹', skillNameEn: 'Hellfire Reflect', skillDesc: '每回合第一次受击反弹50%伤害（上限4）', skillDescEn: 'Reflect 50% damage first hit per turn (max 4)' }
+  naruto: { id: 'naruto', name: '风澈', nameEn: 'Feng Che', emoji: '🍥', faction: '风隐村', factionEn: 'Wind Village', skill: 'shadow_clone', skillName: '风灵分身', skillNameEn: 'Wind Clone', skillDesc: '每回合第一次受击有 50% 概率闪避', skillDescEn: '50% dodge the first hit each turn' },
+  sasuke: { id: 'sasuke', name: '雷牙', nameEn: 'Lei Ya', emoji: '⚡', faction: '风隐村', factionEn: 'Wind Village', skill: 'sharingan', skillName: '雷光洞察', skillNameEn: 'Thunder Insight', skillDesc: '每回合第一次造成的伤害 +3', skillDescEn: 'First damage dealt each turn +3' },
+  sakura: { id: 'sakura', name: '木灵', nameEn: 'Mu Ling', emoji: '🌸', faction: '风隐村', factionEn: 'Wind Village', skill: 'medical', skillName: '翠灵祝福', skillNameEn: 'Green Blessing', skillDesc: '每回合开始恢复 2 点 HP；打出木系牌额外治疗 +2', skillDescEn: 'Heal 2 HP each turn start; Wood cards heal +2' },
+  itachi: { id: 'itachi', name: '镜月', nameEn: 'Itsuki', emoji: '👁️', faction: '风隐村', factionEn: 'Wind Village', skill: 'mangekyo', skillName: '幻镜洞察', skillNameEn: 'Mirror Insight', skillDesc: '每回合打出的第一张牌后抽 1 张牌', skillDescEn: 'After first card played each turn, draw 1' },
+  kisame: { id: 'kisame', name: '海噬', nameEn: 'Kisame', emoji: '🦈', faction: '暗影会', factionEn: 'Shadow Council', skill: 'samehada', skillName: '噬灵深渊', skillNameEn: 'Abyss Drain', skillDesc: '每回合第一次造成伤害时，50% 概率吸取 1 忍力；若对手忍力为 0，则额外 +2 伤害', skillDescEn: 'First hit each turn: 50% drain 1 Chakra; if enemy has 0 Chakra, +2 damage' },
+  jiraiya: { id: 'jiraiya', name: '灵蟾', nameEn: 'Ling Chan', emoji: '🐸', faction: '暗影会', factionEn: 'Shadow Council', skill: 'summon', skillName: '邪蟾召唤', skillNameEn: 'Dark Toad Summon', skillDesc: '每回合第一次出牌后召唤：赤蟾 20%(+1 忍力)、翠蟾 25%(+2 血)、玄蟾 35%(-3 敌血)、失败 20%', skillDescEn: 'After first card each turn: Red Toad 20%(+1 Chakra), Green 25%(+2 HP), Dark 35%(-3 enemy HP), Fail 20%' },
+  madara: { id: 'madara', name: '炎狱', nameEn: 'Madara', emoji: '🔥', faction: '暗影会', factionEn: 'Shadow Council', skill: 'reflect', skillName: '狱火反弹', skillNameEn: 'Hellfire Reflect', skillDesc: '每回合第一次受到伤害时，反弹 50%（上限 4 点）', skillDescEn: 'Reflect 50% of the first hit each turn (max 4)' }
 };
 
 var ROLE_KEYS = Object.keys(ROLES);
@@ -949,8 +1122,6 @@ var ADV_MAP = {
 
 var CLIMB_CONFIG = {
   totalLevels: 10,
-  enemyMaxAppear: 2,
-  restLevel: 5,
   bonusMap: {
     1: { extraHp: 5, atkBonus: 1, special: null },
     2: { extraHp: 10, atkBonus: 2, special: null },
@@ -965,10 +1136,9 @@ var CLIMB_CONFIG = {
   }
 };
 
-// ----- 故事配置（含序章）-----
 var STORY_CONFIG = {
   prologue: [
-    ['📜 旁白', '忍界天梯——自古以来便是连接凡间与神域的通路。据说登上天梯之巅的人，可以获得改变世界的力量。', '📜 Narrator', 'The Ninja Ladder — since ancient times, it has been the path connecting the mortal world to the divine. It is said that whoever reaches the summit can obtain the power to change the world.'],
+    ['📜 旁白', '忍界天梯——自古以来便是连接凡间与神域的通路。据说登上天梯之巅的人，可以获得改变世界的力量。', '📜 Narrator', 'The Ninja Ladder — since ancient times, it has been the path connecting the mortal world to the divine. Whoever reaches the summit can obtain the power to change the world.'],
     ['📜 旁白', '但就在三年前，天梯被一个人夺走了。', '📜 Narrator', 'But three years ago, the Ladder was seized by a single man.'],
     ['🔥 炎狱', '我是炎狱。暗影会的首领。这天梯的力量，本就该属于强者。', '🔥 Madara', 'I am Madara. Leader of the Shadow Council. The power of this Ladder was always meant for the strong.'],
     ['📜 旁白', '炎狱用天梯的力量制造了"傀儡守卫"——没有灵魂的躯壳，只会遵从命令的战争机器。', '📜 Narrator', 'Madara used the Ladder\'s power to create "Puppet Guards" — soulless shells, war machines that obey only commands.'],
@@ -978,16 +1148,16 @@ var STORY_CONFIG = {
     ['📜 旁白', '那么——开始攀登吧。天梯在等你。', '📜 Narrator', 'Now — begin your climb. The Ladder awaits.']
   ],
   enemies: [
-    { roleId: 'naruto', displayName: '傀儡·风澈', displayNameEn: 'Puppet·Feng Che', subtitle: '天梯第一道傀儡', subtitleEn: 'First Puppet', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
-    { roleId: 'sasuke', displayName: '傀儡·雷牙', displayNameEn: 'Puppet·Lei Ya', subtitle: '雷光裂隙', subtitleEn: 'Thunder Rift', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
-    { roleId: 'sakura', displayName: '傀儡·木灵', displayNameEn: 'Puppet·Mu Ling', subtitle: '翠灵倒影', subtitleEn: 'Green Reflection', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
-    { roleId: 'itachi', displayName: '傀儡·镜月', displayNameEn: 'Puppet·Itsuki', subtitle: '镜中正义（傀儡）', subtitleEn: 'Mirror Justice (Puppet)', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
-    { roleId: 'jiraiya', displayName: '傀儡·灵蟾', displayNameEn: 'Puppet·Ling Chan', subtitle: '堕落仙人', subtitleEn: 'Fallen Sage', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
-    { roleId: 'kisame', displayName: '傀儡·海噬', displayNameEn: 'Puppet·Kisame', subtitle: '深渊之影', subtitleEn: 'Abyss Shadow', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
-    { roleId: 'jiraiya', displayName: '灵蟾', displayNameEn: 'Ling Chan', subtitle: '暗影会三大将 · 背叛的仙人', subtitleEn: 'Shadow Council General · Fallen Sage', type: '真人', typeEn: 'Real', isPuppet: false },
-    { roleId: 'kisame', displayName: '海噬', displayNameEn: 'Kisame', subtitle: '暗影会三大将 · 真身', subtitleEn: 'Shadow Council General', type: '真人', typeEn: 'Real', isPuppet: false },
-    { roleId: 'madara', displayName: '黑霜', displayNameEn: 'Hei Shuang', subtitle: '暗影会四大将 · 冰之守门人', subtitleEn: 'Shadow Council General · Ice Keeper', type: '真人', typeEn: 'Real', isPuppet: false },
-    { roleId: 'madara', displayName: '炎狱', displayNameEn: 'Madara', subtitle: '暗影会首领 · 天梯之巅', subtitleEn: 'Shadow Council Leader · Summit', type: '最终Boss', typeEn: 'Final Boss', isPuppet: false }
+    { roleId: 'naruto', displayName: '傀儡·风澈', displayNameEn: 'Puppet·Feng Che', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'sasuke', displayName: '傀儡·雷牙', displayNameEn: 'Puppet·Lei Ya', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'sakura', displayName: '傀儡·木灵', displayNameEn: 'Puppet·Mu Ling', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'itachi', displayName: '傀儡·镜月', displayNameEn: 'Puppet·Itsuki', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'jiraiya', displayName: '傀儡·灵蟾', displayNameEn: 'Puppet·Ling Chan', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'kisame', displayName: '傀儡·海噬', displayNameEn: 'Puppet·Kisame', type: '傀儡', typeEn: 'Puppet', isPuppet: true },
+    { roleId: 'jiraiya', displayName: '灵蟾', displayNameEn: 'Ling Chan', type: '真人', typeEn: 'Real', isPuppet: false },
+    { roleId: 'kisame', displayName: '海噬', displayNameEn: 'Kisame', type: '真人', typeEn: 'Real', isPuppet: false },
+    { roleId: 'madara', displayName: '黑霜', displayNameEn: 'Hei Shuang', type: '真人', typeEn: 'Real', isPuppet: false },
+    { roleId: 'madara', displayName: '炎狱', displayNameEn: 'Madara', type: '最终Boss', typeEn: 'Final Boss', isPuppet: false }
   ],
   dialogues: {
     1: [
@@ -1066,7 +1236,9 @@ var STORY_CONFIG = {
   ]
 };
 
-// ----- 全局状态 -----
+// ============================================================
+//  全局状态
+// ============================================================
 var selectedRoles = { p1: [], p2: [] };
 var gameMode = null;
 var state = {
@@ -1082,6 +1254,7 @@ var state = {
   totalDamage: { p1: 0, p2: 0 },
   totalHeal: { p1: 0, p2: 0 },
   totalBurnDamage: { p1: 0, p2: 0 },
+  totalReflect: { p1: 0, p2: 0 },
   lastPlayedCard: { p1: null, p2: null },
   skillTriggered: {
     p1: { shadow_clone: false, sharingan: false, mangekyo: false, samehada: false, summon: false, reflect: false },
@@ -1095,8 +1268,6 @@ var climbState = {
   enemyRoleId: null,
   enemyDisplayName: null,
   enemyDisplayNameEn: null,
-  enemySubtitle: null,
-  enemySubtitleEn: null,
   enemyType: null,
   enemyTypeEn: null,
   enemyIsPuppet: false,
@@ -1105,9 +1276,7 @@ var climbState = {
   enemySpecial: null,
   enemyUsed: [],
   bestRecord: 0,
-  restPassed: false,
-  victoryPending: false,
-  storySkipped: false
+  victoryPending: false
 };
 
 function $(id) { return document.getElementById(id); }
@@ -1130,6 +1299,7 @@ var btnSynth = $('btn-synthesize');
 var btnDiscard = $('btn-discard');
 var btnEnd = $('btn-end-turn');
 var btnSubstitute = $('btn-substitute');
+var btnSwitch = $('btn-switch');
 var p1Alive = $('p1-alive');
 var p2Alive = $('p2-alive');
 var p1Members = $('p1-members');
@@ -1139,14 +1309,15 @@ var p2CurrentRole = $('p2-current-role');
 var p1TeamName = $('p1-team-name');
 var p2TeamName = $('p2-team-name');
 
-// ----- 辅助函数 -----
+// ============================================================
+//  辅助
+// ============================================================
 function getRoleDisplay(roleObj) {
   var isEn = LANG.current === 'en';
   if (!roleObj) return '?';
   return isEn ? (roleObj.nameEn || roleObj.name) : roleObj.name;
 }
 
-// 获取某个成员在天梯模式下的显示名（带"傀儡·"前缀）
 function getMemberDisplayName(member, roleObj) {
   if (!member || !roleObj) return '?';
   var baseName = getRoleDisplay(roleObj);
@@ -1167,12 +1338,11 @@ function log(html) {
 
 function clearLog() {
   logArea.innerHTML = '';
-  log(t('log_start'));
+  if (climbState.active) log(t('log_climb_start') + '1');
+  else log(t('log_start'));
 }
 
-function getTeam(playerId) {
-  return playerId === 1 ? state.teams.p1 : state.teams.p2;
-}
+function getTeam(playerId) { return playerId === 1 ? state.teams.p1 : state.teams.p2; }
 
 function getCurrentMember(playerId) {
   var team = getTeam(playerId);
@@ -1206,8 +1376,9 @@ function switchToNextAlive(playerId) {
   else team.currentIndex = -1;
 }
 
-// ----- 卡牌与战斗逻辑 -----
-
+// ============================================================
+//  卡牌抽取 & DOM
+// ============================================================
 function drawOne(playerId) {
   var member = getCurrentMember(playerId);
   if (!member) return null;
@@ -1238,24 +1409,12 @@ function drawOne(playerId) {
     if (rand <= 0) { selected = weightedPool[m].card; break; }
   }
 
-  var card = {
-    name: selected.name,
-    nameEn: selected.nameEn,
-    element: selected.element,
-    atk: selected.atk,
-    heal: selected.heal,
-    level: selected.level
+  var newCard = {
+    name: selected.name, nameEn: selected.nameEn, element: selected.element,
+    atk: selected.atk, heal: selected.heal, level: selected.level
   };
-  if (card.level !== 'base') {
-    card.name = '风刃斩';
-    card.nameEn = 'Wind Slash';
-    card.element = '🌀';
-    card.atk = 5;
-    card.heal = 0;
-    card.level = 'base';
-  }
-  member.hand.push(card);
-  return card;
+  member.hand.push(newCard);
+  return newCard;
 }
 
 function addCardToDOM(playerId, card) {
@@ -1264,6 +1423,7 @@ function addCardToDOM(playerId, card) {
   div.className = 'card';
   if (card.level === 'advanced') div.classList.add('advanced-card');
   div.dataset.name = card.name;
+  div.dataset.nameEn = card.nameEn || card.name;
   div.dataset.element = card.element;
   div.dataset.atk = card.atk;
   div.dataset.heal = card.heal;
@@ -1294,11 +1454,8 @@ function addCardToDOM(playerId, card) {
         member.chakra -= 2;
         state.enhancePending = false;
         var cardData = {
-          name: card.name,
-          nameEn: card.nameEn,
-          element: card.element,
-          atk: parseInt(div.dataset.atk) + 5,
-          heal: parseInt(div.dataset.heal) + 5,
+          name: card.name, nameEn: card.nameEn, element: card.element,
+          atk: parseInt(div.dataset.atk) + 5, heal: parseInt(div.dataset.heal) + 5,
           level: card.level
         };
         div.remove();
@@ -1319,11 +1476,8 @@ function addCardToDOM(playerId, card) {
   var btn = div.querySelector('.discard-btn');
   btn.addEventListener('click', function(e) {
     e.stopPropagation();
-    if (state.discardMode) {
-      discardCardFromDOM(playerId, div);
-    } else {
-      log('💡 ' + (LANG.current === 'en' ? 'Enter swap mode first' : '请先进入换牌模式'));
-    }
+    if (state.discardMode) discardCardFromDOM(playerId, div);
+    else log('💡 ' + (LANG.current === 'en' ? 'Enter swap mode first' : '请先进入换牌模式'));
   });
 
   container.appendChild(div);
@@ -1353,8 +1507,10 @@ function syncHandFromDOM(playerId) {
   if (member) member.hand = hand;
 }
 
+// ============================================================
+//  applyCard
+// ============================================================
 function applyCard(card, ownerPlayerId, targetPlayerId) {
-  console.log('⚔️ applyCard:', card, 'owner:', ownerPlayerId, 'target:', targetPlayerId);
   var isEn = LANG.current === 'en';
   var dmg = card.atk || 0;
   var heal = card.heal || 0;
@@ -1384,12 +1540,12 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
       applyStateEffect(targetPlayerId, 'freeze');
     } else if (card.element === '💫') {
       if (owner.burn > 0) {
-        extra += ' ✨' + (isEn ? 'Cleanse ' + owner.burn + ' burn' : '解除灼烧' + owner.burn + '层');
+        extra += ' ✨' + (isEn ? 'Cleanse burn' : '解除灼烧');
         owner.burn = 0;
         clearStateEffects(ownerPlayerId);
       }
       if (owner.freeze > 0) {
-        extra += ' ✨' + (isEn ? 'Cleanse ' + owner.freeze + ' freeze' : '解除冻结' + owner.freeze + '层');
+        extra += ' ✨' + (isEn ? 'Cleanse freeze' : '解除冻结');
         owner.freeze = 0;
         clearStateEffects(ownerPlayerId);
       }
@@ -1398,10 +1554,8 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
       if (owner.hand.length < 4) {
         var newCard = drawOne(ownerPlayerId);
         if (newCard) { addCardToDOM(ownerPlayerId, newCard); extra += ' 📜' + (isEn ? 'Draw 1' : '抽1张牌'); }
-        else { extra += ' ⚠️' + (isEn ? 'Hand full' : '手牌已满'); }
-      } else {
-        extra += ' ⚠️' + (isEn ? 'Hand full' : '手牌已满');
-      }
+        else extra += ' ⚠️' + (isEn ? 'Hand full' : '手牌已满');
+      } else extra += ' ⚠️' + (isEn ? 'Hand full' : '手牌已满');
     } else if (card.element === '🔥👁️') {
       if (dmg > 0) {
         var h = Math.floor(dmg * 0.6);
@@ -1496,10 +1650,9 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
       if (reflected > reflectMax) reflected = reflectMax;
       if (reflected > 0) {
         owner.hp = Math.max(0, owner.hp - reflected);
-        if (ownerPlayerId === 1) state.totalDamage.p1 += reflected;
-        else state.totalDamage.p2 += reflected;
+        if (targetPlayerId === 1) state.totalReflect.p1 += reflected;
+        else state.totalReflect.p2 += reflected;
         extra += ' 🔥' + (isEn ? 'Hellfire Reflect ' + reflected + ' dmg!' : '狱火反弹 ' + reflected + ' 点伤害！');
-        if (owner.hp <= 0) owner.hp = 0;
       }
     }
   }
@@ -1515,9 +1668,8 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
           owner.chakra = Math.min(3, owner.chakra + 1);
           effect = '🐸 ' + (isEn ? 'Dark Toad·Red: +1 Chakra!' : '邪蟾·赤：+1忍力！');
         } else if (rand < 0.45) {
-          var healAmt = 2;
           var old2 = owner.hp;
-          owner.hp = Math.min(owner.maxHp, owner.hp + healAmt);
+          owner.hp = Math.min(owner.maxHp, owner.hp + 2);
           var actual2 = owner.hp - old2;
           if (actual2 > 0) {
             if (ownerPlayerId === 1) state.totalHeal.p1 += actual2;
@@ -1526,23 +1678,19 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
           }
           effect = '🐸 ' + (isEn ? 'Dark Toad·Green: Restore 2 HP!' : '邪蟾·翠：恢复2点生命！');
         } else if (rand < 0.8) {
-          var dmg3 = 3;
-          target.hp = Math.max(0, target.hp - dmg3);
-          if (ownerPlayerId === 1) state.totalDamage.p1 += dmg3;
-          else state.totalDamage.p2 += dmg3;
-          showDamageOnTarget(targetPlayerId, dmg3, false);
+          target.hp = Math.max(0, target.hp - 3);
+          if (ownerPlayerId === 1) state.totalDamage.p1 += 3;
+          else state.totalDamage.p2 += 3;
+          showDamageOnTarget(targetPlayerId, 3, false);
           effect = '🐸 ' + (isEn ? 'Dark Toad·Shadow: Deal 3 dmg!' : '邪蟾·玄：造成3点伤害！');
-        } else {
-          effect = '🐸 ' + (isEn ? 'Dark Toad summon failed...' : '邪蟾召唤失败...');
-        }
+        } else effect = '🐸 ' + (isEn ? 'Dark Toad summon failed...' : '邪蟾召唤失败...');
       } else {
         if (rand < 0.1) {
           owner.chakra = Math.min(3, owner.chakra + 1);
           effect = '🐸 ' + (isEn ? 'Toad·Red: +1 Chakra!' : '灵蟾·赤：+1忍力！');
         } else if (rand < 0.4) {
-          var healAmt2 = 2;
           var old3 = owner.hp;
-          owner.hp = Math.min(owner.maxHp, owner.hp + healAmt2);
+          owner.hp = Math.min(owner.maxHp, owner.hp + 2);
           var actual3 = owner.hp - old3;
           if (actual3 > 0) {
             if (ownerPlayerId === 1) state.totalHeal.p1 += actual3;
@@ -1551,15 +1699,12 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
           }
           effect = '🐸 ' + (isEn ? 'Toad·Green: Restore 2 HP!' : '灵蟾·翠：恢复2点生命！');
         } else if (rand < 0.7) {
-          var dmg4 = 3;
-          target.hp = Math.max(0, target.hp - dmg4);
-          if (ownerPlayerId === 1) state.totalDamage.p1 += dmg4;
-          else state.totalDamage.p2 += dmg4;
-          showDamageOnTarget(targetPlayerId, dmg4, false);
+          target.hp = Math.max(0, target.hp - 3);
+          if (ownerPlayerId === 1) state.totalDamage.p1 += 3;
+          else state.totalDamage.p2 += 3;
+          showDamageOnTarget(targetPlayerId, 3, false);
           effect = '🐸 ' + (isEn ? 'Toad·Shadow: Deal 3 dmg!' : '灵蟾·玄：造成3点伤害！');
-        } else {
-          effect = '🐸 ' + (isEn ? 'Toad summon failed...' : '灵蟾召唤失败...');
-        }
+        } else effect = '🐸 ' + (isEn ? 'Toad summon failed...' : '灵蟾召唤失败...');
       }
       extra += ' ' + effect;
     }
@@ -1573,7 +1718,7 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
       if (owner.hand.length < 4) {
         for (var d = 0; d < drawCount; d++) {
           var drawn = drawOne(ownerPlayerId);
-          if (drawn) { addCardToDOM(ownerPlayerId, drawn); }
+          if (drawn) addCardToDOM(ownerPlayerId, drawn);
         }
         extra += ' 👁️' + (isEn ? 'Mirror Insight: Draw ' + drawCount : '幻镜洞察：抽' + drawCount + '张牌');
       }
@@ -1622,14 +1767,16 @@ function applyCard(card, ownerPlayerId, targetPlayerId) {
     }
   }
 
-  console.log('⚔️ applyCard 结果:', { actualDmg: actualDmg, actualHeal: actualHeal, extra: extra, gameOver: state.gameOver });
   return { log: msg, dmg: actualDmg, heal: actualHeal };
 }
 
+// ============================================================
+//  出牌 / 换牌 / 合成 / 切换 / 替身
+// ============================================================
 function playCardFromDOM(playerId, cardElement) {
-  console.log('🎴 playCardFromDOM', playerId, cardElement.dataset.name);
   var isEn = LANG.current === 'en';
   if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+  if (tutorialBlocked('play')) return;
   if (playerId !== state.turn) { log('⛔ ' + (isEn ? 'Not your turn!' : '不是你的回合，不能出牌')); return; }
   var member = getCurrentMember(playerId);
   if (!member) { log('⛔ ' + (isEn ? 'No active ninja' : '没有可用角色')); return; }
@@ -1655,25 +1802,14 @@ function playCardFromDOM(playerId, cardElement) {
 
   var playerKey = playerId === 1 ? 'p1' : 'p2';
   state.lastPlayedCard[playerKey] = {
-    name: card.name,
-    element: card.element,
-    atk: card.atk,
-    heal: card.heal,
-    level: card.level
+    name: card.name, nameEn: card.nameEn, element: card.element,
+    atk: card.atk, heal: card.heal, level: card.level
   };
-
-  if (member) {
-    var idx = -1;
-    for (var i = 0; i < member.hand.length; i++) {
-      if (member.hand[i].name === card.name && member.hand[i].element === card.element) { idx = i; break; }
-    }
-    if (idx !== -1) member.hand.splice(idx, 1);
-  }
 
   var result = applyCard(card, playerId, targetId);
   var role = getCurrentRoleObj(playerId);
   var roleName = role ? role.emoji + getMemberDisplayName(member, role) : '玩家' + playerId;
-  var cardDisplay = LANG.current === 'en' ? (card.nameEn || card.name) : card.name;
+  var cardDisplay = isEn ? (card.nameEn || card.name) : card.name;
   log('🧙 ' + roleName + ' ' + (isEn ? 'plays' : '打出') + ' <span class="highlight">' + card.element + ' ' + cardDisplay + '</span> → ' + result.log);
 
   if (result.dmg > 0) {
@@ -1686,19 +1822,23 @@ function playCardFromDOM(playerId, cardElement) {
     flashHpBar(targetId);
   }
 
-  if (result.gameOver) { render(); return; }
-  if (state.gameOver) { render(); return; }
+  if (result.gameOver || state.gameOver) { render(); return; }
   render();
-  if (climbState.active && playerId === 1 && !state.gameOver) {
+
+  if (tutorial.active && tutorial.phase === 'interact' && tutorial.step === 0) {
+    advanceInteract(0);
+    return;
+  }
+  if (climbState.active && playerId === 1 && !state.gameOver && !tutorial.active) {
     state.aiThinking = true;
     setTimeout(function() { aiAction(); }, 600);
   }
 }
 
 function playCardData(playerId, cardData, enhanced) {
-  console.log('🎴 playCardData (强化)', playerId, cardData);
   var isEn = LANG.current === 'en';
   if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+  if (tutorialBlocked('play')) return;
   if (playerId !== state.turn) { log('⛔ ' + (isEn ? 'Not your turn!' : '不是你的回合，不能出牌')); return; }
   var member = getCurrentMember(playerId);
   if (!member) { log('⛔ ' + (isEn ? 'No active ninja' : '没有可用角色')); return; }
@@ -1709,25 +1849,14 @@ function playCardData(playerId, cardData, enhanced) {
 
   var playerKey = playerId === 1 ? 'p1' : 'p2';
   state.lastPlayedCard[playerKey] = {
-    name: cardData.name,
-    element: cardData.element,
-    atk: cardData.atk,
-    heal: cardData.heal,
-    level: cardData.level
+    name: cardData.name, nameEn: cardData.nameEn, element: cardData.element,
+    atk: cardData.atk, heal: cardData.heal, level: cardData.level
   };
-
-  if (member) {
-    var idx = -1;
-    for (var i = 0; i < member.hand.length; i++) {
-      if (member.hand[i].name === cardData.name && member.hand[i].element === cardData.element) { idx = i; break; }
-    }
-    if (idx !== -1) member.hand.splice(idx, 1);
-  }
 
   var result = applyCard(cardData, playerId, targetId);
   var role = getCurrentRoleObj(playerId);
   var roleName = role ? role.emoji + getMemberDisplayName(member, role) : '玩家' + playerId;
-  var cardDisplay = LANG.current === 'en' ? (cardData.nameEn || cardData.name) : cardData.name;
+  var cardDisplay = isEn ? (cardData.nameEn || cardData.name) : cardData.name;
   log('🧙 ' + roleName + ' ' + (isEn ? 'plays' : '打出') + ' <span class="highlight">' + cardData.element + ' ' + cardDisplay + '</span> → ' + result.log);
 
   if (result.dmg > 0) {
@@ -1740,10 +1869,13 @@ function playCardData(playerId, cardData, enhanced) {
     flashHpBar(targetId);
   }
 
-  if (result.gameOver) { render(); return; }
-  if (state.gameOver) { render(); return; }
+  if (result.gameOver || state.gameOver) { render(); return; }
   render();
-  if (climbState.active && playerId === 1 && !state.gameOver) {
+  if (tutorial.active && tutorial.phase === 'interact' && tutorial.step === 0) {
+    advanceInteract(0);
+    return;
+  }
+  if (climbState.active && playerId === 1 && !state.gameOver && !tutorial.active) {
     state.aiThinking = true;
     setTimeout(function() { aiAction(); }, 600);
   }
@@ -1752,6 +1884,7 @@ function playCardData(playerId, cardData, enhanced) {
 function discardCardFromDOM(playerId, cardElement) {
   var isEn = LANG.current === 'en';
   if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+  if (tutorialBlocked('other')) return;
   if (playerId !== state.turn) { log('⛔ ' + (isEn ? 'Not your turn!' : '不是你的回合，不能换牌')); return; }
   var member = getCurrentMember(playerId);
   if (!member) { log('⛔ ' + (isEn ? 'No active ninja' : '没有可用角色')); return; }
@@ -1759,6 +1892,7 @@ function discardCardFromDOM(playerId, cardElement) {
   if (!state.discardMode) { log('⛔ ' + (isEn ? 'Not in swap mode' : '未进入换牌模式')); return; }
 
   var name = cardElement.dataset.name;
+  var nameEn = cardElement.dataset.nameEn || name;
   var element = cardElement.dataset.element;
   cardElement.remove();
   syncHandFromDOM(playerId);
@@ -1768,7 +1902,7 @@ function discardCardFromDOM(playerId, cardElement) {
   state.discardMode = false;
   btnDiscard.textContent = '🔄 ' + (isEn ? 'Swap' : '换牌');
   btnDiscard.classList.remove('active');
-  var cardDisplay = LANG.current === 'en' ? (cardElement.dataset.nameEn || name) : name;
+  var cardDisplay = isEn ? nameEn : name;
   log('🔄 ' + (isEn ? 'Discarded ' + element + ' ' + cardDisplay + ', draw 1' : '弃掉 ' + element + ' ' + cardDisplay + '，抽1张'));
   render();
 }
@@ -1776,6 +1910,7 @@ function discardCardFromDOM(playerId, cardElement) {
 function synthesize() {
   var isEn = LANG.current === 'en';
   if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+  if (tutorialBlocked('synth')) return;
   var playerId = state.turn;
   var member = getCurrentMember(playerId);
   if (!member) { log('⛔ ' + (isEn ? 'No active ninja' : '没有可用角色')); return; }
@@ -1810,7 +1945,7 @@ function synthesize() {
       removed++;
     }
   }
-  for (var k = 0; k < toRemove.length; k++) { toRemove[k].remove(); }
+  for (var k = 0; k < toRemove.length; k++) toRemove[k].remove();
 
   var adv = ADV_MAP[target];
   if (!adv) { log('❌ ' + (isEn ? 'Forge error' : '合成错误')); return; }
@@ -1821,11 +1956,16 @@ function synthesize() {
   var advName = isEn ? (adv.nameEn || adv.name) : adv.name;
   log('🔮 ' + (isEn ? 'Forge! ' + target + ' → ' + advName : '合成！' + target + ' → ' + advName));
   render();
+
+  if (tutorial.active && tutorial.phase === 'interact' && tutorial.step === 1) {
+    advanceInteract(1);
+  }
 }
 
 function useSubstitute() {
   var isEn = LANG.current === 'en';
   if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+  if (tutorialBlocked('other')) return;
   var playerId = state.turn;
   var member = getCurrentMember(playerId);
   if (!member) { log('⛔ ' + (isEn ? 'No active ninja' : '没有可用角色')); return; }
@@ -1839,45 +1979,73 @@ function useSubstitute() {
   render();
 }
 
-function applyBurns() {
+function switchNinja() {
   var isEn = LANG.current === 'en';
-  var ids = [1, 2];
-  for (var idx = 0; idx < ids.length; idx++) {
-    var pid = ids[idx];
-    var member = getCurrentMember(pid);
-    if (member && member.burn > 0) {
-      var burnDmg = 2;
-      member.hp = Math.max(0, member.hp - burnDmg);
-      if (pid === 1) state.totalBurnDamage.p1 += burnDmg;
-      else state.totalBurnDamage.p2 += burnDmg;
-      member.burn--;
-      triggerBurnDamageEffect(pid);
-      log('🔥 ' + (isEn ? 'Player ' + pid + ' burn -' + burnDmg : '玩家' + pid + '灼烧 -' + burnDmg));
-      if (member.burn === 0) clearStateEffects(pid);
-      if (member.hp <= 0) {
-        member.hp = 0;
-        var team = getTeam(pid);
-        var roleName = ROLES[member.roleId] ? ROLES[member.roleId].emoji + getMemberDisplayName(member, ROLES[member.roleId]) : '角色';
-        log('💀 ' + roleName + ' ' + (isEn ? 'has fallen!' : '阵亡！'));
-        switchToNextAlive(pid);
-        if (getAliveCount(team) === 0) {
-          state.gameOver = true;
-          var winner = pid === 1 ? 2 : 1;
-          var winnerLabel = winner === 1 ? (isEn ? 'Player 1' : '玩家一') : (isEn ? 'Player 2' : '玩家二');
-          log('💀 ' + (isEn ? ('Player ' + pid + ' team wiped! ' + winnerLabel + ' wins!') : '玩家' + pid + '小队全灭！' + winnerLabel + '胜利！'));
-          showVictory(winner);
-          render();
-        }
-      }
+  if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+  if (tutorialBlocked('other')) return;
+  var playerId = state.turn;
+  var team = getTeam(playerId);
+  if (team.members.length < 2) { log('⛔ ' + (isEn ? 'Only one ninja' : '只有一名忍者')); return; }
+  var aliveIndices = [];
+  for (var i = 0; i < team.members.length; i++) {
+    if (team.members[i].hp > 0) aliveIndices.push(i);
+  }
+  if (aliveIndices.length < 2) { log('⛔ ' + (isEn ? 'No other ninja to switch to' : '没有可切换的忍者')); return; }
+  var cur = getCurrentMember(playerId);
+  if (!cur) return;
+  if (cur.chakra < 1) { log('⛔ ' + (isEn ? 'Not enough chakra (need 1)' : '忍力不足 (需要1点)')); return; }
+  if (cur.switched) { log('⛔ ' + (isEn ? 'Already switched this turn' : '本回合已切换过忍者')); return; }
+  cur.chakra -= 1;
+  cur.switched = true;
+  var nextIdx = -1;
+  for (var k = 1; k <= team.members.length; k++) {
+    var idx = (team.currentIndex + k) % team.members.length;
+    if (team.members[idx].hp > 0) { nextIdx = idx; break; }
+  }
+  if (nextIdx === -1 || nextIdx === team.currentIndex) { log('⛔ ' + (isEn ? 'No valid target' : '没有可切换目标')); return; }
+  team.currentIndex = nextIdx;
+  var newRole = ROLES[team.members[nextIdx].roleId];
+  var displayName = newRole ? newRole.emoji + getMemberDisplayName(team.members[nextIdx], newRole) : '?';
+  triggerFreezeBreakEffect(playerId);
+  log('🔀 ' + (isEn ? 'Switched to ' : '切换忍者 → ') + displayName);
+  render();
+}
+
+function applyBurnsFor(pid) {
+  var isEn = LANG.current === 'en';
+  var member = getCurrentMember(pid);
+  if (!member || member.burn <= 0) return;
+  var burnDmg = 2;
+  member.hp = Math.max(0, member.hp - burnDmg);
+  if (pid === 1) state.totalBurnDamage.p1 += burnDmg;
+  else state.totalBurnDamage.p2 += burnDmg;
+  member.burn--;
+  triggerBurnDamageEffect(pid);
+  log('🔥 ' + (isEn ? 'Player ' + pid + ' burn -' + burnDmg : '玩家' + pid + '灼烧 -' + burnDmg));
+  if (member.burn === 0) clearStateEffects(pid);
+  if (member.hp <= 0) {
+    member.hp = 0;
+    var team = getTeam(pid);
+    var roleName = ROLES[member.roleId] ? ROLES[member.roleId].emoji + getMemberDisplayName(member, ROLES[member.roleId]) : '角色';
+    log('💀 ' + roleName + ' ' + (isEn ? 'has fallen!' : '阵亡！'));
+    switchToNextAlive(pid);
+    if (getAliveCount(team) === 0) {
+      state.gameOver = true;
+      var winner = pid === 1 ? 2 : 1;
+      var winnerLabel = winner === 1 ? (isEn ? 'Player 1' : '玩家一') : (isEn ? 'Player 2' : '玩家二');
+      log('💀 ' + (isEn ? ('Player ' + pid + ' team wiped! ' + winnerLabel + ' wins!') : '玩家' + pid + '小队全灭！' + winnerLabel + '胜利！'));
+      showVictory(winner);
+      render();
     }
   }
 }
 
+// ============================================================
+//  胜利结算
+// ============================================================
 function showVictory(winner) {
-  console.log('🏆 showVictory', winner);
   var overlay = document.getElementById('victory-overlay');
   var winnerName = document.getElementById('victory-winner-name');
-  var winnerText = document.getElementById('victory-winner-text');
   var p1Dmg = document.getElementById('p1-dmg'), p1Heal = document.getElementById('p1-heal');
   var p2Dmg = document.getElementById('p2-dmg'), p2Heal = document.getElementById('p2-heal');
   var p1Burn = document.getElementById('p1-burn'), p2Burn = document.getElementById('p2-burn');
@@ -1949,7 +2117,6 @@ function showVictory(winner) {
     state.gameOver = true;
     titleEl.textContent = '🏆 ' + (isEn ? 'Battle Over' : '战斗结束');
     var p2LabelLocal = state.aiMode ? (isEn ? 'AI' : 'AI') : (isEn ? 'Player 2' : '玩家二');
-    winnerText.textContent = winner === 1 ? '🏆 ' + p1Label + ' ' + (isEn ? 'wins!' : '获胜！') : '🏆 ' + p2LabelLocal + ' ' + (isEn ? 'wins!' : '获胜！');
     winnerName.textContent = winner === 1 ? p1Label : p2LabelLocal;
     winnerName.className = 'victory-winner ' + (winner === 1 ? 'win-p1' : 'win-p2');
     climbInfo.innerHTML = '';
@@ -1969,10 +2136,13 @@ function showVictory(winner) {
   document.getElementById('p2-stat-label').textContent = '🧙 ' + p2Label;
 }
 
+// ============================================================
+//  关卡辅助
+// ============================================================
 function getEnemyForLevel(level) {
   var enemyData = STORY_CONFIG.enemies[level - 1];
   if (!enemyData) {
-    return { roleId: 'madara', displayName: '炎狱', displayNameEn: 'Madara', subtitle: '天梯之主', subtitleEn: 'Ladder Master', type: '最终Boss', typeEn: 'Final Boss', isPuppet: false };
+    return { roleId: 'madara', displayName: '炎狱', displayNameEn: 'Madara', type: '最终Boss', typeEn: 'Final Boss', isPuppet: false };
   }
   return enemyData;
 }
@@ -2001,8 +2171,7 @@ function getBonusText(level) {
 }
 
 function getEnemyDisplay(enemyData) {
-  var isEn = LANG.current === 'en';
-  return isEn ? (enemyData.displayNameEn || enemyData.displayName) : enemyData.displayName;
+  return LANG.current === 'en' ? (enemyData.displayNameEn || enemyData.displayName) : enemyData.displayName;
 }
 
 function getEnemyTypeLabel(enemyData) {
@@ -2018,7 +2187,7 @@ function getBadgeLabel(enemyData) {
   if (type === '傀儡' || type === 'Puppet') return isEn ? '👻 Puppet Guard' : '👻 傀儡守卫';
   if (type === '真人' || type === 'Real') return isEn ? '⚡ Shadow General' : '⚡ 暗影会将';
   if (type === '最终Boss' || type === 'Final Boss') return isEn ? '👑 Final Boss' : '👑 最终Boss';
-  return isEn ? '📖 ' + type : '📖 ' + type;
+  return '📖 ' + type;
 }
 
 function getStoryDialogue(level, index) {
@@ -2026,11 +2195,8 @@ function getStoryDialogue(level, index) {
   var dialogues = STORY_CONFIG.dialogues[level];
   if (!dialogues || index >= dialogues.length) return null;
   var line = dialogues[index];
-  if (isEn) {
-    return { speaker: line[2] || line[0], text: line[3] || line[1] };
-  } else {
-    return { speaker: line[0], text: line[1] };
-  }
+  if (isEn) return { speaker: line[2] || line[0], text: line[3] || line[1] };
+  return { speaker: line[0], text: line[1] };
 }
 
 function getEndingLine(index) {
@@ -2038,15 +2204,14 @@ function getEndingLine(index) {
   var endings = STORY_CONFIG.ending;
   if (!endings || index >= endings.length) return null;
   var line = endings[index];
-  if (isEn) {
-    return { speaker: line[2] || line[0], text: line[3] || line[1] };
-  } else {
-    return { speaker: line[0], text: line[1] };
-  }
+  if (isEn) return { speaker: line[2] || line[0], text: line[3] || line[1] };
+  return { speaker: line[0], text: line[1] };
 }
 
+// ============================================================
+//  故事对话
+// ============================================================
 function showStoryPrologue(callback) {
-  console.log('📖 显示序章');
   var overlay = document.getElementById('story-overlay');
   var speakerEmoji = document.getElementById('story-speaker-emoji');
   var speakerName = document.getElementById('story-speaker-name');
@@ -2064,6 +2229,7 @@ function showStoryPrologue(callback) {
   function showLine() {
     if (index >= dialogues.length) {
       overlay.style.display = 'none';
+      if (overlay._cleanup) overlay._cleanup();
       if (callback) callback();
       return;
     }
@@ -2083,28 +2249,19 @@ function showStoryPrologue(callback) {
   continueBtn.onclick = showLine;
   skipBtn.onclick = function() {
     overlay.style.display = 'none';
+    if (overlay._cleanup) overlay._cleanup();
     if (callback) callback();
   };
   var keyHandler = function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      if (overlay.style.display === 'flex') showLine();
-    }
-    if (e.key === 'Escape') {
-      overlay.style.display = 'none';
-      if (callback) callback();
-      document.removeEventListener('keydown', keyHandler);
-    }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (overlay.style.display === 'flex') showLine(); }
+    if (e.key === 'Escape') { overlay.style.display = 'none'; if (overlay._cleanup) overlay._cleanup(); if (callback) callback(); }
   };
   document.addEventListener('keydown', keyHandler);
-  overlay._cleanup = function() {
-    document.removeEventListener('keydown', keyHandler);
-  };
+  overlay._cleanup = function() { document.removeEventListener('keydown', keyHandler); };
   showLine();
 }
 
 function showStoryDialogue(level, callback) {
-  console.log('📖 显示故事对话，关卡:', level);
   var overlay = document.getElementById('story-overlay');
   var speakerEmoji = document.getElementById('story-speaker-emoji');
   var speakerName = document.getElementById('story-speaker-name');
@@ -2122,21 +2279,18 @@ function showStoryDialogue(level, callback) {
     var lineData = getStoryDialogue(level, index);
     if (!lineData) {
       overlay.style.display = 'none';
+      if (overlay._cleanup) overlay._cleanup();
       if (callback) callback();
       return;
     }
     var speaker = lineData.speaker;
     var text = lineData.text;
-
     var enemyData = STORY_CONFIG.enemies[level - 1];
     if (enemyData && level >= 7) {
       var type = isEn ? (enemyData.typeEn || enemyData.type) : enemyData.type;
       if (type === '真人' || type === 'Real' || type === '最终Boss' || type === 'Final Boss') {
-        if (!isEn) {
-          text = text.replace(/傀儡/g, type);
-        } else {
-          text = text.replace(/Puppet/g, type);
-        }
+        if (!isEn) text = text.replace(/傀儡/g, type);
+        else text = text.replace(/Puppet/g, type);
       }
     }
 
@@ -2161,28 +2315,19 @@ function showStoryDialogue(level, callback) {
   continueBtn.onclick = showLine;
   skipBtn.onclick = function() {
     overlay.style.display = 'none';
+    if (overlay._cleanup) overlay._cleanup();
     if (callback) callback();
   };
   var keyHandler = function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      if (overlay.style.display === 'flex') showLine();
-    }
-    if (e.key === 'Escape') {
-      overlay.style.display = 'none';
-      if (callback) callback();
-      document.removeEventListener('keydown', keyHandler);
-    }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (overlay.style.display === 'flex') showLine(); }
+    if (e.key === 'Escape') { overlay.style.display = 'none'; if (overlay._cleanup) overlay._cleanup(); if (callback) callback(); }
   };
   document.addEventListener('keydown', keyHandler);
-  overlay._cleanup = function() {
-    document.removeEventListener('keydown', keyHandler);
-  };
+  overlay._cleanup = function() { document.removeEventListener('keydown', keyHandler); };
   showLine();
 }
 
 function showEnding(callback) {
-  console.log('📖 显示通关结局');
   var overlay = document.getElementById('story-overlay');
   var speakerEmoji = document.getElementById('story-speaker-emoji');
   var speakerName = document.getElementById('story-speaker-name');
@@ -2191,7 +2336,6 @@ function showEnding(callback) {
   var continueBtn = document.getElementById('story-continue-btn');
   var skipBtn = document.getElementById('story-skip-btn');
   var isEn = LANG.current === 'en';
-  var total = STORY_CONFIG.ending.length;
   var index = 0;
   overlay.style.display = 'flex';
   progress.textContent = isEn ? '🏆 Ending' : '🏆 通关结局';
@@ -2200,6 +2344,7 @@ function showEnding(callback) {
     var lineData = getEndingLine(index);
     if (!lineData) {
       overlay.style.display = 'none';
+      if (overlay._cleanup) overlay._cleanup();
       if (callback) callback();
       return;
     }
@@ -2213,7 +2358,7 @@ function showEnding(callback) {
     else if (speaker.indexOf('镜月') !== -1 || speaker.indexOf('Itsuki') !== -1) emoji = '👁️';
     else if (speaker.indexOf('你') !== -1 || speaker.indexOf('You') !== -1) emoji = '⚔️';
     else if (speaker.indexOf('旁白') !== -1 || speaker.indexOf('Narrator') !== -1) emoji = '📜';
-    else if (speaker.indexOf('🎉') !== -1) { emoji = '🎉'; }
+    else if (speaker.indexOf('🎉') !== -1) emoji = '🎉';
     speakerEmoji.textContent = emoji;
     speakerName.textContent = speaker;
     storyText.innerHTML = text;
@@ -2223,20 +2368,26 @@ function showEnding(callback) {
   continueBtn.onclick = showLine;
   skipBtn.onclick = function() {
     overlay.style.display = 'none';
+    if (overlay._cleanup) overlay._cleanup();
     if (callback) callback();
   };
   showLine();
 }
 
+// ============================================================
+//  天梯启动
+// ============================================================
 function startClimbGame() {
-  console.log('🏔️ 开始傀儡天梯');
+  tutorial.active = false;
+  clearTutorialHighlights();
+  var _tipReset = document.getElementById('tutorial-tip');
+  if (_tipReset) _tipReset.style.display = 'none';
+
   gameMode = 'climb';
   climbState.active = true;
   climbState.currentLevel = 1;
   climbState.enemyUsed = [];
-  climbState.restPassed = false;
   climbState.victoryPending = false;
-  climbState.storySkipped = false;
   var saved = null;
   try { saved = localStorage.getItem('ninja_climb_best'); } catch(e) {}
   climbState.bestRecord = saved ? parseInt(saved) : 0;
@@ -2246,10 +2397,10 @@ function startClimbGame() {
 
   var p1Roles = [];
   for (var i = 0; i < p1Selected.length; i++) {
-    p1Roles.push({ roleId: p1Selected[i], hp: 50, maxHp: 50, burn: 0, freeze: 0, shield: 0, chakra: 0, discarded: false, hand: [] });
+    p1Roles.push({ roleId: p1Selected[i], hp: 50, maxHp: 50, burn: 0, freeze: 0, shield: 0, chakra: 0, discarded: false, switched: false, hand: [] });
   }
   var dummyRole = p1Selected[0];
-  var p2Roles = [{ roleId: dummyRole, hp: 50, maxHp: 50, burn: 0, freeze: 0, shield: 0, chakra: 0, discarded: false, hand: [] }];
+  var p2Roles = [{ roleId: dummyRole, hp: 50, maxHp: 50, burn: 0, freeze: 0, shield: 0, chakra: 0, discarded: false, switched: false, hand: [] }];
 
   state.teams.p1.members = p1Roles;
   state.teams.p2.members = p2Roles;
@@ -2263,6 +2414,7 @@ function startClimbGame() {
   state.totalDamage = { p1: 0, p2: 0 };
   state.totalHeal = { p1: 0, p2: 0 };
   state.totalBurnDamage = { p1: 0, p2: 0 };
+  state.totalReflect = { p1: 0, p2: 0 };
   state.skillTriggered = {
     p1: { shadow_clone: false, sharingan: false, mangekyo: false, samehada: false, summon: false, reflect: false },
     p2: { shadow_clone: false, sharingan: false, mangekyo: false, samehada: false, summon: false, reflect: false }
@@ -2276,9 +2428,9 @@ function startClimbGame() {
 
   var initialCards = [
     { name: '风刃斩', nameEn: 'Wind Slash', element: '🌀', atk: 5, heal: 0, level: 'base' },
-    { name: '冰刺破', nameEn: 'Ice Spike', element: '❄️', atk: 4, heal: 0, level: 'base' },
-    { name: '愈灵术', nameEn: 'Healing Touch', element: '🌿', atk: 0, heal: 6, level: 'base' },
-    { name: '雷光破', nameEn: 'Thunder Strike', element: '⚡', atk: 8, heal: 0, level: 'base' }
+    { name: '风刃斩', nameEn: 'Wind Slash', element: '🌀', atk: 5, heal: 0, level: 'base' },
+    { name: '风刃斩', nameEn: 'Wind Slash', element: '🌀', atk: 5, heal: 0, level: 'base' },
+    { name: '愈灵术', nameEn: 'Healing Touch', element: '🌿', atk: 0, heal: 6, level: 'base' }
   ];
   for (var pid = 1; pid <= 2; pid++) {
     var member = getCurrentMember(pid);
@@ -2304,19 +2456,17 @@ function startClimbGame() {
       updateClimbHeader();
       render();
       log('📖 ' + (isEn ? 'Story: First Puppet' : '故事开始：天梯第一道傀儡'));
+      setTimeout(function() { startTutorial(); }, 400);
     });
   });
 }
 
 function setupEnemyForLevel(level) {
-  console.log('⚙️ 设置第' + level + '关敌人');
   var enemyData = getEnemyForLevel(level);
   var enemyId = enemyData.roleId;
   climbState.enemyRoleId = enemyId;
   climbState.enemyDisplayName = enemyData.displayName;
   climbState.enemyDisplayNameEn = enemyData.displayNameEn;
-  climbState.enemySubtitle = enemyData.subtitle;
-  climbState.enemySubtitleEn = enemyData.subtitleEn;
   climbState.enemyType = enemyData.type;
   climbState.enemyTypeEn = enemyData.typeEn;
   climbState.enemyIsPuppet = !!enemyData.isPuppet;
@@ -2328,15 +2478,8 @@ function setupEnemyForLevel(level) {
 
   var enemyHp = 50 + cfg.extraHp;
   var enemyMember = {
-    roleId: enemyId,
-    hp: enemyHp,
-    maxHp: enemyHp,
-    burn: 0,
-    freeze: 0,
-    shield: 0,
-    chakra: 0,
-    discarded: false,
-    hand: []
+    roleId: enemyId, hp: enemyHp, maxHp: enemyHp, burn: 0, freeze: 0, shield: 0,
+    chakra: 0, discarded: false, switched: false, hand: []
   };
   var enemyCards = [
     { name: '风刃斩', nameEn: 'Wind Slash', element: '🌀', atk: 5, heal: 0, level: 'base' },
@@ -2348,7 +2491,7 @@ function setupEnemyForLevel(level) {
   state.teams.p2.members = [enemyMember];
   state.teams.p2.currentIndex = 0;
   clearHandDOM(2);
-  for (var i = 0; i < enemyCards.length; i++) { addCardToDOM(2, enemyCards[i]); }
+  for (var i = 0; i < enemyCards.length; i++) addCardToDOM(2, enemyCards[i]);
 
   if (cfg.special === 'startChakra1' || cfg.special === 'startChakra2' || cfg.special === 'startChakra3+burn2') {
     var startChakra = 0;
@@ -2380,7 +2523,7 @@ function updateClimbHeader() {
   var level = climbState.currentLevel;
   var isEn = LANG.current === 'en';
   var levelLabelEl = document.getElementById('climb-level-label');
-  if (levelLabelEl) { levelLabelEl.textContent = t('climb_level') + level + t('of'); }
+  if (levelLabelEl) levelLabelEl.textContent = t('climb_level') + level + t('of');
 
   var enemyId = climbState.enemyRoleId;
   if (enemyId) {
@@ -2417,9 +2560,15 @@ function updateClimbHeader() {
   if (bestLabelEl) bestLabelEl.textContent = t('best_record');
 }
 
+// ============================================================
+//  AI
+// ============================================================
 function aiAction() {
-  console.log('🤖 AI 行动开始，回合:', state.turn, 'gameOver:', state.gameOver);
-  if (state.gameOver || state.turn !== 2 || !climbState.active) { state.aiThinking = false; render(); return; }
+  if (state.gameOver || state.turn !== 2 || !climbState.active || tutorial.active) {
+    state.aiThinking = false;
+    render();
+    return;
+  }
   var playerId = 2;
   var member = getCurrentMember(playerId);
   if (!member) { state.aiThinking = false; render(); return; }
@@ -2466,7 +2615,7 @@ function aiAction() {
   }
 
   if (targetElem) {
-    var container = playerId === 1 ? p1HandEl : p2HandEl;
+    var container = p2HandEl;
     var cards = container.querySelectorAll('.card');
     var removed = 0;
     var toRemove = [];
@@ -2530,7 +2679,6 @@ function aiAction() {
 }
 
 function executeAICard(index, enhanced) {
-  console.log('🤖 AI 执行出牌，索引:', index, '强化:', enhanced);
   var isEn = LANG.current === 'en';
   var playerId = 2;
   var member = getCurrentMember(playerId);
@@ -2543,12 +2691,8 @@ function executeAICard(index, enhanced) {
     if (member.chakra >= 2) {
       member.chakra -= 2;
       cardData = {
-        name: cardData.name,
-        nameEn: cardData.nameEn,
-        element: cardData.element,
-        atk: cardData.atk + 5,
-        heal: cardData.heal + 5,
-        level: cardData.level
+        name: cardData.name, nameEn: cardData.nameEn, element: cardData.element,
+        atk: cardData.atk + 5, heal: cardData.heal + 5, level: cardData.level
       };
     } else {
       enhanced = false;
@@ -2586,23 +2730,32 @@ function executeAICard(index, enhanced) {
     flashHpBar(1);
   }
 
-  if (result.gameOver) { state.aiThinking = false; render(); return; }
-  if (state.gameOver) { state.aiThinking = false; render(); return; }
   state.aiThinking = false;
-  if (!state.gameOver && state.turn === 2) { endTurn(); } else { render(); }
+  if (result.gameOver || state.gameOver) { render(); return; }
+  if (!state.gameOver && state.turn === 2) endTurn(); else render();
 }
 
+// ============================================================
+//  回合结束
+// ============================================================
 function endTurn() {
-  console.log('⏭️ endTurn 被调用，当前回合:', state.turn);
   var isEn = LANG.current === 'en';
   if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+  if (tutorial.active && tutorial.phase === 'tour') {
+    log('💡 ' + (isEn ? 'Click "Next" to continue the tour' : '点击"下一步"继续导览'));
+    return;
+  }
+  if (tutorial.active && tutorial.phase === 'interact' && tutorial.step !== 2) {
+    log('💡 ' + (isEn ? 'Follow the tutorial on screen' : '先跟着屏幕上的提示走'));
+    return;
+  }
   if (state.aiMode && state.aiThinking) { log('⏳ ' + (isEn ? 'AI thinking...' : 'AI 正在思考...')); return; }
 
   state.enhancePending = false;
   var currentMember = getCurrentMember(state.turn);
   if (currentMember && currentMember.freeze > 0) {
     currentMember.freeze--;
-    clearStateEffects(state.turn);
+    if (currentMember.freeze === 0) clearStateEffects(state.turn);
     log('❄️ ' + (isEn ? 'Player ' + state.turn + ' freeze remaining ' + currentMember.freeze + ' turns' : '玩家' + state.turn + ' 冻结剩余 ' + currentMember.freeze + ' 回合'));
   }
 
@@ -2611,9 +2764,9 @@ function endTurn() {
     btnDiscard.textContent = '🔄 ' + (isEn ? 'Swap' : '换牌');
     btnDiscard.classList.remove('active');
   }
-  if (currentMember) currentMember.discarded = false;
+  if (currentMember) { currentMember.discarded = false; currentMember.switched = false; }
 
-  applyBurns();
+  applyBurnsFor(state.turn);
   if (state.gameOver) { render(); return; }
 
   var key = state.turn === 1 ? 'p1' : 'p2';
@@ -2644,7 +2797,8 @@ function endTurn() {
     if (newMember.hp > oldHp) {
       log('💚 ' + (isEn ? 'Player ' + state.turn + ' restored ' + healAmount + 'HP (now ' + newMember.hp + ')' : '玩家' + state.turn + ' 恢复' + healAmount + 'HP (当前 ' + newMember.hp + ')'));
     }
-    if (state.turn === 1) {
+    var shouldDraw = (state.turn === 1) || !climbState.active;
+    if (shouldDraw) {
       var newCard = drawOne(state.turn);
       if (newCard) addCardToDOM(state.turn, newCard);
     }
@@ -2653,14 +2807,21 @@ function endTurn() {
   state.round++;
   log('🔄 ' + (isEn ? 'Player ' + state.turn + '\'s turn' : '轮到玩家' + state.turn + '的回合'));
   render();
-  if (climbState.active && state.turn === 2 && !state.gameOver) {
+
+  if (tutorial.active && tutorial.phase === 'interact' && tutorial.step === 2) {
+    advanceInteract(2);
+  }
+
+  if (climbState.active && state.turn === 2 && !state.gameOver && !tutorial.active) {
     state.aiThinking = true;
     setTimeout(function() { aiAction(); }, 600);
   }
 }
 
+// ============================================================
+//  渲染
+// ============================================================
 function render() {
-  console.log('🔄 render');
   var isEn = LANG.current === 'en';
   var players = [1, 2];
   for (var pi = 0; pi < players.length; pi++) {
@@ -2669,18 +2830,20 @@ function render() {
     var alive = getAliveCount(team);
     var membersEl = pid === 1 ? p1Members : p2Members;
     var aliveEl = pid === 1 ? p1Alive : p2Alive;
-    aliveEl.textContent = alive;
-    membersEl.innerHTML = '';
-    for (var mi = 0; mi < team.members.length; mi++) {
-      var m = team.members[mi];
-      var badge = document.createElement('span');
-      badge.className = 'member-badge';
-      if (m.hp <= 0) badge.classList.add('dead');
-      if (mi === team.currentIndex && m.hp > 0) badge.classList.add('active');
-      var role = ROLES[m.roleId];
-      var displayName = role ? getMemberDisplayName(m, role) : '?';
-      badge.innerHTML = (role ? role.emoji : '❓') + displayName + ' <span class="hp-text">' + m.hp + '/' + m.maxHp + '</span>';
-      membersEl.appendChild(badge);
+    if (aliveEl) aliveEl.textContent = alive;
+    if (membersEl) {
+      membersEl.innerHTML = '';
+      for (var mi = 0; mi < team.members.length; mi++) {
+        var m = team.members[mi];
+        var badge = document.createElement('span');
+        badge.className = 'member-badge';
+        if (m.hp <= 0) badge.classList.add('dead');
+        if (mi === team.currentIndex && m.hp > 0) badge.classList.add('active');
+        var role = ROLES[m.roleId];
+        var displayName = role ? getMemberDisplayName(m, role) : '?';
+        badge.innerHTML = (role ? role.emoji : '❓') + displayName + ' <span class="hp-text">' + m.hp + '/' + m.maxHp + '</span>';
+        membersEl.appendChild(badge);
+      }
     }
   }
 
@@ -2719,22 +2882,37 @@ function render() {
   }
   if (p2Status) p2Status.textContent = p2s.length ? p2s.join(' ') : (isEn ? 'None' : '无');
 
+  var p1Banner = document.getElementById('p1-frozen-banner');
+  var p2Banner = document.getElementById('p2-frozen-banner');
+  if (p1Banner) {
+    if (p1Member && p1Member.freeze > 0 && state.turn === 1 && !state.gameOver) {
+      p1Banner.style.display = 'block';
+      p1Banner.textContent = '❄️ ' + t('frozen_banner');
+    } else { p1Banner.style.display = 'none'; p1Banner.textContent = ''; }
+  }
+  if (p2Banner) {
+    if (p2Member && p2Member.freeze > 0 && state.turn === 2 && !state.gameOver && !climbState.active) {
+      p2Banner.style.display = 'block';
+      p2Banner.textContent = '❄️ ' + t('frozen_ai_banner');
+    } else { p2Banner.style.display = 'none'; p2Banner.textContent = ''; }
+  }
+
   if (p1ChakraEl) p1ChakraEl.textContent = p1Member ? p1Member.chakra : 0;
   if (p2ChakraEl) p2ChakraEl.textContent = p2Member ? p2Member.chakra : 0;
 
   var turnName = state.turn === 1 ? (isEn ? 'Player 1' : '玩家一') : (climbState.active ? (isEn ? 'AI Enemy' : 'AI 敌人') : (isEn ? 'Player 2' : '玩家二'));
   var thinking = state.aiMode && state.aiThinking ? ' ' + (isEn ? '(Thinking...)' : '(思考中...)') : '';
   if (turnIndicator) {
-    turnIndicator.innerHTML = '<span>' + (isEn ? '🎯 ' : '🎯 ') + turnName + (isEn ? '\'s Turn' : '的回合') + thinking + '</span><span class="round-badge">' + t('round') + state.roundCounter + t('round_end') + '</span><span class="chakra-display">💠 ' + t('chakra') + ' <span>' + (p1Member ? p1Member.chakra : 0) + '</span>/3</span><span class="chakra-display" style="margin-left:8px;">💠 ' + t('chakra') + ' <span>' + (p2Member ? p2Member.chakra : 0) + '</span>/3</span>';
+    turnIndicator.innerHTML = '<span>' + '🎯 ' + turnName + (isEn ? '\'s Turn' : '的回合') + thinking + '</span><span class="round-badge">' + t('round') + state.roundCounter + t('round_end') + '</span><span class="chakra-display">💠 ' + t('chakra') + ' <span>' + (p1Member ? p1Member.chakra : 0) + '</span>/3</span><span class="chakra-display" style="margin-left:8px;">💠 ' + t('chakra') + ' <span>' + (p2Member ? p2Member.chakra : 0) + '</span>/3</span>';
   }
 
   if (p1Overlay) {
-    if (state.turn === 1 || climbState.active) { p1Overlay.classList.remove('show'); }
-    else { p1Overlay.classList.add('show'); }
+    if (state.turn === 1 || climbState.active) p1Overlay.classList.remove('show');
+    else p1Overlay.classList.add('show');
   }
   if (p2Overlay) {
-    if (state.turn === 2 && !climbState.active) { p2Overlay.classList.remove('show'); }
-    else { p2Overlay.classList.add('show'); }
+    if (state.turn === 2 && !climbState.active) p2Overlay.classList.remove('show');
+    else p2Overlay.classList.add('show');
   }
   if (climbState.active) { if (p2Overlay) p2Overlay.classList.add('show'); }
   if (state.gameOver) {
@@ -2747,15 +2925,19 @@ function render() {
   if (p1Area) p1Area.classList.toggle('active-turn', state.turn === 1 && !state.gameOver);
   if (p2Area) p2Area.classList.toggle('active-turn', state.turn === 2 && !state.gameOver);
 
+  var curMember = getCurrentMember(state.turn);
+  var curFrozen = curMember && curMember.freeze > 0;
   var allCards = document.querySelectorAll('.card');
   for (var ci2 = 0; ci2 < allCards.length; ci2++) {
     var c = allCards[ci2];
     var pid2 = parseInt(c.dataset.player);
-    var isActive = (pid2 === state.turn && !state.gameOver && !(state.aiMode && state.aiThinking));
-    if (state.discardMode && isActive) { c.classList.add('discard-mode'); }
-    else { c.classList.remove('discard-mode'); }
-    if (isActive && !state.discardMode) { c.classList.remove('disabled', 'enemy-card'); }
+    var isActive = (pid2 === state.turn && !state.gameOver && !(state.aiMode && state.aiThinking) && !curFrozen);
+    if (state.discardMode && isActive) c.classList.add('discard-mode');
+    else c.classList.remove('discard-mode');
+    if (isActive && !state.discardMode) c.classList.remove('disabled', 'enemy-card');
     else { c.classList.add('disabled'); if (!isActive) c.classList.add('enemy-card'); }
+    if (pid2 === state.turn && curFrozen) c.classList.add('frozen-lock');
+    else c.classList.remove('frozen-lock');
   }
 
   if (btnDiscard) {
@@ -2766,51 +2948,34 @@ function render() {
       btnDiscard.textContent = '🔄 ' + (isEn ? 'Swap' : '换牌');
       btnDiscard.classList.remove('active');
     }
+    btnDiscard.disabled = !!curFrozen || state.gameOver;
   }
 
   if (btnSubstitute) {
-    var cur = getCurrentMember(state.turn);
-    var frozen = cur && cur.freeze > 0;
-    var chakra = cur && cur.chakra >= 1;
+    var frozen = curMember && curMember.freeze > 0;
+    var chakra = curMember && curMember.chakra >= 1;
     btnSubstitute.disabled = !(frozen && chakra);
     btnSubstitute.textContent = '🪵 ' + t('substitute') + (frozen ? ' ❄️' : '');
   }
 
-  var enhance = document.getElementById('btn-enhance');
-  if (!enhance) {
-    var bar = document.querySelector('.action-bar');
-    if (bar) {
-      var b = document.createElement('button');
-      b.id = 'btn-enhance';
-      b.className = 'btn btn-warning';
-      b.textContent = '💪 ' + (isEn ? 'Enhance (2 Chakra)' : '忍术强化 (2忍力)');
-      b.addEventListener('click', function() {
-        if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
-        if (state.aiMode && state.aiThinking) { log('⏳ ' + (isEn ? 'AI thinking...' : 'AI 正在思考...')); return; }
-        var member = getCurrentMember(state.turn);
-        if (!member) { log('⛔ ' + (isEn ? 'No active ninja' : '没有可用角色')); return; }
-        if (member.chakra < 2) { log('⛔ ' + (isEn ? 'Not enough chakra (need 2)' : '忍力不足 (需要2点)')); return; }
-        state.enhancePending = !state.enhancePending;
-        if (state.enhancePending) {
-          log('💠 ' + (isEn ? 'Ninja Enhancement activated! (+5 effect)' : '忍术强化已激活！(+5效果)'));
-          triggerEnhanceEffect(state.turn);
-          if (state.discardMode) {
-            state.discardMode = false;
-            btnDiscard.textContent = '🔄 ' + (isEn ? 'Swap' : '换牌');
-            btnDiscard.classList.remove('active');
-          }
-        } else {
-          log('💬 ' + (isEn ? 'Enhancement cancelled' : '已取消强化'));
-        }
-        render();
-      });
-      bar.appendChild(b);
-    }
-  } else {
-    enhance.disabled = false;
-    enhance.textContent = state.enhancePending ? '❌ ' + (isEn ? 'Cancel' : '取消强化') : '💪 ' + (isEn ? 'Enhance (2 Chakra)' : '忍术强化 (2忍力)');
-    if (state.enhancePending) enhance.classList.add('active');
-    else enhance.classList.remove('active');
+  if (btnSwitch) {
+    var team = getTeam(state.turn);
+    var aliveCount = team ? getAliveCount(team) : 0;
+    var canSwitch = aliveCount >= 2 && curMember && curMember.chakra >= 1 && !curMember.switched && !curFrozen && !state.gameOver;
+    btnSwitch.disabled = !canSwitch;
+    btnSwitch.textContent = '🔀 ' + t('switch') + (curMember && curMember.switched ? ' ✓' : '');
+  }
+
+  if (btnSynth) btnSynth.disabled = !!curFrozen || state.gameOver;
+  if (btnEnd) btnEnd.disabled = state.gameOver;
+
+  var enhanceBtn = document.getElementById('btn-enhance');
+  if (enhanceBtn) {
+    enhanceBtn.disabled = !!curFrozen || state.gameOver;
+    var enhLabel = document.getElementById('enhance-label');
+    if (enhLabel) enhLabel.textContent = state.enhancePending ? t('enhance_active') : t('enhance_label');
+    if (state.enhancePending) enhanceBtn.classList.add('active');
+    else enhanceBtn.classList.remove('active');
   }
 
   if (climbState.active) updateClimbHeader();
@@ -2818,7 +2983,9 @@ function render() {
   if (soundLabel) soundLabel.textContent = soundEnabled ? t('sound_on') : t('sound_off');
 }
 
-// ----- 粒子系统 -----
+// ============================================================
+//  粒子系统
+// ============================================================
 var particleCanvas = document.getElementById('particle-canvas');
 var ctx = particleCanvas.getContext('2d');
 var particles = [];
@@ -2847,7 +3014,10 @@ function spawnParticles(x, y, count, colors, speed, sizeRange) {
       gravity: 0.05
     });
   }
-  particleActive = true;
+  if (!particleActive) {
+    particleActive = true;
+    requestAnimationFrame(particleLoop);
+  }
 }
 
 function spawnCardParticles(x, y, isDamage) {
@@ -2862,7 +3032,7 @@ function updateParticles() {
     p.y += p.vy;
     p.vy += p.gravity;
     p.life -= 0.015;
-    if (p.life <= 0) { particles.splice(i, 1); }
+    if (p.life <= 0) particles.splice(i, 1);
   }
   if (particles.length === 0) particleActive = false;
 }
@@ -2882,15 +3052,19 @@ function drawParticles() {
   }
   ctx.globalAlpha = 1;
   ctx.shadowBlur = 0;
-  if (particleActive) {
-    requestAnimationFrame(function() { updateParticles(); drawParticles(); });
-  } else {
-    ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-  }
+}
+
+function particleLoop() {
+  updateParticles();
+  drawParticles();
+  if (particleActive) requestAnimationFrame(particleLoop);
+  else ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
 }
 window.spawnCardParticles = spawnCardParticles;
 
-// ----- 角色选择 -----
+// ============================================================
+//  角色选择
+// ============================================================
 function renderRoleSelection() {
   var p1List = document.getElementById('p1-role-list');
   var p2List = document.getElementById('p2-role-list');
@@ -2931,16 +3105,16 @@ function renderRoleSelection() {
     } else {
       btn1.className = 'role-btn' + (isSelected1 ? ' selected' : '') + (isDisabled1 ? ' disabled' : '');
       btn1.innerHTML = '<div class="role-name">' + role.emoji + ' ' + displayName + ' <span style="font-size:12px;color:#7a6a5a;">(' + factionDisplay + ')</span></div><div class="role-skill">' + (isEn ? 'Skill' : '技能') + '：' + skillNameDisplay + ' — <span>' + skillDescDisplay + '</span></div>';
-      btn1.onclick = (function(r) {
+      btn1.onclick = (function(r, dis) {
         return function() {
-          if (isDisabled1) return;
+          if (dis) return;
           var idx = selectedRoles.p1.indexOf(r.id);
           if (idx >= 0) selectedRoles.p1.splice(idx, 1);
           else if (selectedRoles.p1.length < 2) selectedRoles.p1.push(r.id);
           renderRoleSelection();
           updateConfirmButton();
         };
-      })(role);
+      })(role, isDisabled1);
     }
     p1List.appendChild(btn1);
 
@@ -2950,16 +3124,16 @@ function renderRoleSelection() {
       var isDisabled2 = !isSelected2 && selectedRoles.p2.length >= 2;
       btn2.className = 'role-btn' + (isSelected2 ? ' selected' : '') + (isDisabled2 ? ' disabled' : '');
       btn2.innerHTML = '<div class="role-name">' + role.emoji + ' ' + displayName + ' <span style="font-size:12px;color:#7a6a5a;">(' + factionDisplay + ')</span></div><div class="role-skill">' + (isEn ? 'Skill' : '技能') + '：' + skillNameDisplay + ' — <span>' + skillDescDisplay + '</span></div>';
-      btn2.onclick = (function(r) {
+      btn2.onclick = (function(r, dis) {
         return function() {
-          if (isDisabled2) return;
+          if (dis) return;
           var idx = selectedRoles.p2.indexOf(r.id);
           if (idx >= 0) selectedRoles.p2.splice(idx, 1);
           else if (selectedRoles.p2.length < 2) selectedRoles.p2.push(r.id);
           renderRoleSelection();
           updateConfirmButton();
         };
-      })(role);
+      })(role, isDisabled2);
       p2List.appendChild(btn2);
     }
   }
@@ -2983,7 +3157,6 @@ function updateConfirmButton() {
 }
 
 function startLocalGame(mode) {
-  console.log('🎮 启动模式:', mode);
   gameMode = mode;
   selectedRoles = { p1: [], p2: [] };
   document.getElementById('home-screen').classList.add('hidden');
@@ -3009,18 +3182,17 @@ function confirmLocalRoles() {
 }
 
 function startPVPGame() {
-  console.log('👥 启动双人模式');
   var isEn = LANG.current === 'en';
   var p1Selected = selectedRoles.p1 || [];
   var p2Selected = selectedRoles.p2 || [];
 
   var p1Roles = [];
   for (var i = 0; i < p1Selected.length; i++) {
-    p1Roles.push({ roleId: p1Selected[i], hp: 50, maxHp: 50, burn: 0, freeze: 0, shield: 0, chakra: 0, discarded: false, hand: [] });
+    p1Roles.push({ roleId: p1Selected[i], hp: 50, maxHp: 50, burn: 0, freeze: 0, shield: 0, chakra: 0, discarded: false, switched: false, hand: [] });
   }
   var p2Roles = [];
   for (var j = 0; j < p2Selected.length; j++) {
-    p2Roles.push({ roleId: p2Selected[j], hp: 50, maxHp: 50, burn: 0, freeze: 0, shield: 0, chakra: 0, discarded: false, hand: [] });
+    p2Roles.push({ roleId: p2Selected[j], hp: 50, maxHp: 50, burn: 0, freeze: 0, shield: 0, chakra: 0, discarded: false, switched: false, hand: [] });
   }
 
   state.teams.p1.members = p1Roles;
@@ -3035,6 +3207,7 @@ function startPVPGame() {
   state.totalDamage = { p1: 0, p2: 0 };
   state.totalHeal = { p1: 0, p2: 0 };
   state.totalBurnDamage = { p1: 0, p2: 0 };
+  state.totalReflect = { p1: 0, p2: 0 };
   state.skillTriggered = {
     p1: { shadow_clone: false, sharingan: false, mangekyo: false, samehada: false, summon: false, reflect: false },
     p2: { shadow_clone: false, sharingan: false, mangekyo: false, samehada: false, summon: false, reflect: false }
@@ -3050,9 +3223,9 @@ function startPVPGame() {
 
   var initialCards = [
     { name: '风刃斩', nameEn: 'Wind Slash', element: '🌀', atk: 5, heal: 0, level: 'base' },
-    { name: '冰刺破', nameEn: 'Ice Spike', element: '❄️', atk: 4, heal: 0, level: 'base' },
-    { name: '愈灵术', nameEn: 'Healing Touch', element: '🌿', atk: 0, heal: 6, level: 'base' },
-    { name: '雷光破', nameEn: 'Thunder Strike', element: '⚡', atk: 8, heal: 0, level: 'base' }
+    { name: '风刃斩', nameEn: 'Wind Slash', element: '🌀', atk: 5, heal: 0, level: 'base' },
+    { name: '风刃斩', nameEn: 'Wind Slash', element: '🌀', atk: 5, heal: 0, level: 'base' },
+    { name: '愈灵术', nameEn: 'Healing Touch', element: '🌿', atk: 0, heal: 6, level: 'base' }
   ];
   for (var pid = 1; pid <= 2; pid++) {
     var member = getCurrentMember(pid);
@@ -3081,30 +3254,55 @@ function startPVPGame() {
   }
   log('📊 ' + (isEn ? 'Round 1 begins' : '第 1 回合开始'));
   render();
+
+  setTimeout(function() { startTutorial(); }, 400);
 }
 
+// ============================================================
+//  初始化
+// ============================================================
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🟢 DOM 加载完成');
+
   var savedLang = null;
   try { savedLang = localStorage.getItem('ninja_lang'); } catch(e) {}
   if (savedLang && (savedLang === 'zh' || savedLang === 'en')) { LANG.current = savedLang; }
 
-  document.getElementById('lang-toggle').textContent = LANG.current === 'zh' ? '🌐 EN' : '🌐 中文';
+  var lt = document.getElementById('lang-toggle');
+  if (lt) {
+    lt.textContent = LANG.current === 'zh' ? '🌐 EN' : '🌐 中文';
+    lt.addEventListener('click', toggleLang);
+  }
   document.getElementById('game-screen').style.display = 'none';
 
   document.getElementById('btn-pvp').addEventListener('click', function() { startLocalGame('pvp'); });
   document.getElementById('btn-climb').addEventListener('click', function() { startLocalGame('climb'); });
   document.getElementById('role-confirm-btn').addEventListener('click', confirmLocalRoles);
-  document.getElementById('lang-toggle').addEventListener('click', toggleLang);
+
+  var tutNext = document.getElementById('tutorial-next');
+  if (tutNext) tutNext.addEventListener('click', nextTourStep);
+  var tutSkip = document.getElementById('tutorial-skip');
+  if (tutSkip) {
+    tutSkip.addEventListener('click', function() {
+      endTutorial();
+      log('⏭️ ' + (LANG.current === 'en' ? 'Tutorial skipped' : '已跳过教学'));
+      if (climbState.active && state.turn === 2 && !state.gameOver) {
+        state.aiThinking = true;
+        setTimeout(function() { aiAction(); }, 300);
+      }
+    });
+  }
 
   btnSynth.addEventListener('click', function() { synthesize(); });
 
   btnDiscard.addEventListener('click', function() {
     var isEn = LANG.current === 'en';
     if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+    if (tutorialBlocked('other')) return;
     if (state.aiMode && state.aiThinking) { log('⏳ ' + (isEn ? 'AI thinking...' : 'AI 正在思考...')); return; }
     var member = getCurrentMember(state.turn);
     if (!member) { log('⛔ ' + (isEn ? 'No active ninja' : '没有可用角色')); return; }
+    if (member.freeze > 0) { log('❄️ ' + (isEn ? 'Frozen' : '被冻结，无法换牌')); return; }
     if (member.discarded) { log('⛔ ' + (isEn ? 'Already swapped this turn' : '本回合已换过牌')); return; }
     syncHandFromDOM(state.turn);
     if (member.hand.length === 0) { log('🃏 ' + (isEn ? 'No cards to swap' : '没有手牌可换')); return; }
@@ -3128,13 +3326,39 @@ document.addEventListener('DOMContentLoaded', function() {
     endTurn();
   });
 
-  btnSubstitute.addEventListener('click', function() {
-    if (state.gameOver) { log('⛔ ' + (LANG.current === 'en' ? 'Game over' : '游戏已结束')); return; }
-    if (state.aiMode && state.aiThinking) { log('⏳ ' + (LANG.current === 'en' ? 'AI thinking...' : 'AI 正在思考...')); return; }
-    useSubstitute();
-  });
+  btnSubstitute.addEventListener('click', function() { useSubstitute(); });
+
+  if (btnSwitch) btnSwitch.addEventListener('click', function() { switchNinja(); });
+
+  var btnEnhanceEl = document.getElementById('btn-enhance');
+  if (btnEnhanceEl) {
+    btnEnhanceEl.addEventListener('click', function() {
+      var isEn = LANG.current === 'en';
+      if (state.gameOver) { log('⛔ ' + (isEn ? 'Game over' : '游戏已结束')); return; }
+      if (tutorialBlocked('other')) return;
+      if (state.aiMode && state.aiThinking) { log('⏳ ' + (isEn ? 'AI thinking...' : 'AI 正在思考...')); return; }
+      var member = getCurrentMember(state.turn);
+      if (!member) { log('⛔ ' + (isEn ? 'No active ninja' : '没有可用角色')); return; }
+      if (member.freeze > 0) { log('❄️ ' + (isEn ? 'Frozen' : '被冻结，无法强化')); return; }
+      if (member.chakra < 2) { log('⛔ ' + (isEn ? 'Not enough chakra (need 2)' : '忍力不足 (需要2点)')); return; }
+      state.enhancePending = !state.enhancePending;
+      if (state.enhancePending) {
+        log('💠 ' + (isEn ? 'Ninja Enhancement activated! (+5 effect)' : '忍术强化已激活！(+5效果)'));
+        triggerEnhanceEffect(state.turn);
+        if (state.discardMode) {
+          state.discardMode = false;
+          btnDiscard.textContent = '🔄 ' + (isEn ? 'Swap' : '换牌');
+          btnDiscard.classList.remove('active');
+        }
+      } else {
+        log('💬 ' + (isEn ? 'Enhancement cancelled' : '已取消强化'));
+      }
+      render();
+    });
+  }
 
   document.getElementById('btn-back-home').addEventListener('click', function() {
+    if (tutorial.active) endTutorial();
     document.getElementById('home-screen').classList.remove('hidden');
     document.getElementById('btn-back-home').classList.remove('show');
     document.getElementById('role-select-screen').style.display = 'none';
@@ -3177,6 +3401,11 @@ document.addEventListener('DOMContentLoaded', function() {
           var newCard = drawOne(1);
           if (newCard) addCardToDOM(1, newCard);
           else break;
+        }
+        for (var mi = 0; mi < state.teams.p1.members.length; mi++) {
+          var mm = state.teams.p1.members[mi];
+          mm.discarded = false;
+          mm.switched = false;
         }
       }
       var enemyMember = getCurrentMember(2);
@@ -3227,9 +3456,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   updateUI();
   render();
-  console.log('🟢 忍法对决 · 傀儡天梯加载完成（完整版）');
+  console.log('🟢 忍法对决 · 傀儡天梯 加载完成');
 });
-
 </script>
 </body>
 </html>
