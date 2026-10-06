@@ -18,7 +18,6 @@ body.shake{animation:shake .4s ease-in-out}
 #home-screen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,#1e1710 0%,#0a0806 75%);transition:opacity .6s ease,visibility .6s ease;padding:20px;overflow:hidden}
 #home-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
 #home-screen::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(212,168,84,.08) 0%,transparent 60%);pointer-events:none}
-/* 修复：去掉 max-height 和 overflow-y，让主页容器随内容自适应 */
 .scroll-container{max-width:820px;width:100%;background:linear-gradient(180deg,#241c15 0%,#1a1410 100%);border:1px solid #6a5028;border-radius:6px;padding:44px 52px;box-shadow:0 0 120px rgba(212,168,84,.12),0 30px 80px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,220,150,.08),inset 0 -1px 0 rgba(0,0,0,.6);position:relative;text-align:center}
 .scroll-container::before,.scroll-container::after{content:'';position:absolute;left:-14px;right:-14px;height:22px;background:linear-gradient(180deg,#8b5a2b 0%,#4a2a10 50%,#2a1608 100%);border-radius:11px;box-shadow:0 6px 24px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,200,120,.25);border:1px solid #6a4a2a}
 .scroll-container::before{top:-11px}
@@ -191,7 +190,7 @@ body.shake{animation:shake .4s ease-in-out}
 .freeze-effect{position:absolute;inset:-4px;border:2px solid #6bc8ff;border-radius:10px;pointer-events:none;z-index:4;background:radial-gradient(ellipse at center,rgba(107,200,255,.06),transparent 70%);box-shadow:0 0 30px rgba(107,200,255,.3),inset 0 0 30px rgba(107,200,255,.1)}
 .burn-effect{position:absolute;inset:-3px;border:2px solid #ff6b6b;border-radius:10px;pointer-events:none;z-index:4;background:radial-gradient(ellipse at center,rgba(255,107,107,.06),transparent 70%);box-shadow:0 0 30px rgba(255,107,107,.3),inset 0 0 30px rgba(255,107,107,.1)}
 
-/* ===== TUTORIAL BANNER (top guide) ===== */
+/* ===== TUTORIAL BANNER ===== */
 #tutorial-banner{
   position:fixed;
   top:14px;
@@ -1149,13 +1148,30 @@ var INTRO_SLIDES = [
 ];
 var introTutIndex = 0;
 
+/* ===== TUTORIAL STEPS (5 STEPS) =====
+   - Switch has been removed from the practice flow (only mentioned in slides).
+   - A dedicated step explains the Battle Log and the FOCUS counters. */
 var TUTORIAL_STEPS = [
-  { title: 'STEP 1 / 6 · PLAY A CARD', body: 'Each card carries one element. Click a card to play it — attacks hit the enemy, heals restore you.', action: 'Click any card in your hand', highlight: '#p1-hand' },
-  { title: 'STEP 2 / 6 · FORGE', body: 'Two base cards of the same element fuse into one advanced card. Wind + Wind → Scorch Wind Shuriken (10 dmg + Burn 2). Forging also grants +1 Focus.', action: 'Click FORGE ·2 to combine your two Wind Slashes', highlight: '#btn-synthesize' },
-  { title: 'STEP 3 / 6 · PLAY THE ADVANCED CARD', body: 'Advanced cards have a glowing colored border and stronger effects. Scorch Wind Shuriken deals 10 damage and applies Burn 2.', action: 'Click the glowing advanced card to play it', highlight: '#p1-hand' },
-  { title: 'STEP 4 / 6 · SWAP', body: 'Once per turn you may replace one card in hand with a random new one — useful for finding the element you need.', action: 'Click SWAP, then the X on a card', highlight: '#btn-discard' },
-  { title: 'STEP 5 / 6 · SWITCH WARDEN', body: 'Spend 1 Focus to send in your other Warden. Each Warden has their own hand and passive skill.', action: 'Click SWITCH to bring in your partner', highlight: '#btn-switch' },
-  { title: 'STEP 6 / 6 · END TURN', body: 'When you end your turn, the opponent acts. Burn resolves, Freeze ticks down, and the next turn starts with a heal and a draw.', action: 'Click END TURN to finish the tutorial', highlight: '#btn-end-turn' }
+  { title: 'STEP 1 / 5 · PLAY A CARD',
+    body: 'Each card carries one element. Click a card to play it — attacks hit the enemy, heals restore you.',
+    action: 'Click any card in your hand',
+    highlight: '#p1-hand' },
+  { title: 'STEP 2 / 5 · FORGE',
+    body: 'Two base cards of the same element fuse into one advanced card. Wind + Wind → Scorch Wind Shuriken (10 dmg + Burn 2). Forging also grants +1 Focus.',
+    action: 'Click FORGE ·2 to combine your two Wind Slashes',
+    highlight: '#btn-synthesize' },
+  { title: 'STEP 3 / 5 · PLAY THE ADVANCED CARD',
+    body: 'Advanced cards have a glowing colored border and stronger effects. Scorch Wind Shuriken deals 10 damage and applies Burn 2.',
+    action: 'Click the glowing advanced card to play it',
+    highlight: '#p1-hand' },
+  { title: 'STEP 4 / 5 · SWAP',
+    body: 'Once per turn you may replace one card in hand with a random new one — useful for finding the element you need.',
+    action: 'Click SWAP, then the X on a card',
+    highlight: '#btn-discard' },
+  { title: 'STEP 5 / 5 · THE LOG & FOCUS',
+    body: 'Down here is your <b>Battle Log</b> — every play, hit, and heal shows up here, so scroll it to see what happened. Up top, the two <b>FOCUS</b> counters track each side\'s Focus — the resource you spend on Enhance, Switch and Thaw.',
+    action: 'Click END TURN when you are ready',
+    highlight: '#log-area' }
 ];
 
 function statLine(atk, heal) {
@@ -1601,7 +1617,7 @@ function useSubstitute() {
 }
 function switchNinja() {
   if (state.gameOver) return;
-  if (tutorialState.active && tutorialState.step !== 4) { Audio.playSound('error'); log('Follow the tutorial step'); return; }
+  if (tutorialState.active) { Audio.playSound('error'); return; }
   var pid = state.turn;
   var t = getTeam(pid);
   if (t.members.length < 2) return;
@@ -1616,7 +1632,6 @@ function switchNinja() {
   t.currentIndex = nx;
   Audio.playSound('switch');
   log('Switched warden');
-  if (tutorialState.active && tutorialState.step === 4) { tutorialState.step = 5; updateTutorialBanner(); return; }
   render();
 }
 function applyBurnsFor(pid) {
@@ -1704,8 +1719,8 @@ function endTurn() {
   if (state.gameOver) return;
   if (state.aiMode && state.aiThinking) return;
   if (tutorialState.active) {
-    if (tutorialState.step !== 5) { Audio.playSound('error'); log('Follow the tutorial step'); return; }
-    state.enhancePending = false; state.discardMode = false; tutorialState.step = 6;
+    if (tutorialState.step !== 4) { Audio.playSound('error'); log('Follow the tutorial step'); return; }
+    state.enhancePending = false; state.discardMode = false; tutorialState.step = 5;
     render(); setTimeout(function() { tutorialComplete(); }, 400); return;
   }
   state.enhancePending = false;
@@ -1819,9 +1834,13 @@ function render() {
     if (tutorialState.active && tutorialState.step !== 3) btnDiscard.disabled = true;
   }
   if (btnSubstitute) { var f = cm && cm.freeze > 0; var ch = cm && cm.chakra >= 1; btnSubstitute.disabled = !(f && ch); }
-  if (btnSwitch) { var tt = getTeam(state.turn); var ac = tt ? getAliveCount(tt) : 0; btnSwitch.disabled = !(ac >= 2 && cm && cm.chakra >= 1 && !cm.switched && !cf && !state.gameOver) || (tutorialState.active && tutorialState.step !== 4); }
+  if (btnSwitch) {
+    var tt = getTeam(state.turn);
+    var ac = tt ? getAliveCount(tt) : 0;
+    btnSwitch.disabled = !(ac >= 2 && cm && cm.chakra >= 1 && !cm.switched && !cf && !state.gameOver) || tutorialState.active;
+  }
   if (btnSynth) { btnSynth.disabled = !!cf || state.gameOver; if (tutorialState.active && tutorialState.step !== 1) btnSynth.disabled = true; }
-  if (btnEnd) { btnEnd.disabled = state.gameOver; if (tutorialState.active && tutorialState.step !== 5) btnEnd.disabled = true; }
+  if (btnEnd) { btnEnd.disabled = state.gameOver; if (tutorialState.active && tutorialState.step !== 4) btnEnd.disabled = true; }
   var eb = document.getElementById('btn-enhance');
   if (eb) { eb.disabled = !!cf || state.gameOver || tutorialState.active; eb.classList.toggle('active', state.enhancePending); }
   updateEndlessHUD();
