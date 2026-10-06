@@ -190,10 +190,10 @@ body.shake{animation:shake .4s ease-in-out}
 .freeze-effect{position:absolute;inset:-4px;border:2px solid #6bc8ff;border-radius:10px;pointer-events:none;z-index:4;background:radial-gradient(ellipse at center,rgba(107,200,255,.06),transparent 70%);box-shadow:0 0 30px rgba(107,200,255,.3),inset 0 0 30px rgba(107,200,255,.1)}
 .burn-effect{position:absolute;inset:-3px;border:2px solid #ff6b6b;border-radius:10px;pointer-events:none;z-index:4;background:radial-gradient(ellipse at center,rgba(255,107,107,.06),transparent 70%);box-shadow:0 0 30px rgba(255,107,107,.3),inset 0 0 30px rgba(255,107,107,.1)}
 
-/* ===== TUTORIAL BANNER ===== */
+/* ===== TUTORIAL BANNER (compact, sits above FOCUS) ===== */
 #tutorial-banner{
   position:fixed;
-  top:14px;
+  top:2px;
   left:50%;
   transform:translateX(-50%);
   z-index:9999;
@@ -207,31 +207,31 @@ body.shake{animation:shake .4s ease-in-out}
   background:linear-gradient(180deg,#1c2a1f,#0e180f);
   border:2px solid #4ac78a;
   border-radius:10px;
-  padding:16px 26px 16px 56px;
+  padding:10px 20px 10px 46px;
   color:#d8ffd8;
-  font-size:14px;
+  font-size:13px;
   font-weight:500;
   letter-spacing:.4px;
   box-shadow:
     0 0 0 1px rgba(74,199,138,.25),
-    0 0 60px rgba(74,199,138,.45),
-    0 18px 40px rgba(0,0,0,.85),
+    0 0 50px rgba(74,199,138,.4),
+    0 14px 30px rgba(0,0,0,.85),
     inset 0 1px 0 rgba(200,255,200,.12),
     inset 0 -1px 0 rgba(0,0,0,.5);
   animation:tutFloat 3s ease-in-out infinite;
   text-align:left;
-  line-height:1.55;
+  line-height:1.45;
   word-break:break-word;
   overflow-wrap:break-word;
 }
 .tutorial-banner-text::before{
   content:'';
   position:absolute;
-  left:16px;
+  left:14px;
   top:50%;
-  width:22px;
-  height:22px;
-  margin-top:-11px;
+  width:20px;
+  height:20px;
+  margin-top:-10px;
   border:2px solid #a0ffa0;
   border-radius:50%;
   background:radial-gradient(circle,rgba(160,255,160,.35) 0%,transparent 65%);
@@ -240,7 +240,7 @@ body.shake{animation:shake .4s ease-in-out}
 .tutorial-banner-text::after{
   content:'';
   position:absolute;
-  left:22px;
+  left:19px;
   top:50%;
   width:10px;
   height:10px;
@@ -256,31 +256,31 @@ body.shake{animation:shake .4s ease-in-out}
 }
 @keyframes tutFloat{
   0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-4px)}
+  50%{transform:translateY(-2px)}
 }
 .tutorial-banner-text .tut-title{
   display:block;
   color:#a0ffa0;
-  font-size:10px;
-  letter-spacing:3px;
+  font-size:9px;
+  letter-spacing:2.5px;
   font-weight:700;
-  margin-bottom:6px;
+  margin-bottom:3px;
   text-shadow:0 0 12px rgba(160,255,160,.6);
 }
 .tutorial-banner-text .tut-body{
   display:block;
   color:#e8ffd8;
-  font-size:13px;
+  font-size:12px;
   font-weight:400;
-  margin-bottom:8px;
+  margin-bottom:4px;
 }
 .tutorial-banner-text .tut-action{
   display:block;
   color:#ffd966;
-  font-size:12px;
+  font-size:11px;
   font-weight:700;
-  letter-spacing:1px;
-  padding-left:14px;
+  letter-spacing:.5px;
+  padding-left:12px;
   position:relative;
 }
 .tutorial-banner-text .tut-action::before{
@@ -291,9 +291,9 @@ body.shake{animation:shake .4s ease-in-out}
   width:0;
   height:0;
   margin-top:-4px;
-  border-left:6px solid #ffd966;
-  border-top:4px solid transparent;
-  border-bottom:4px solid transparent;
+  border-left:5px solid #ffd966;
+  border-top:3px solid transparent;
+  border-bottom:3px solid transparent;
   filter:drop-shadow(0 0 4px rgba(255,217,102,.8));
 }
 .tutorial-highlight{position:relative;z-index:9998;box-shadow:0 0 0 3px #ffd700,0 0 40px #ffd700,0 0 80px rgba(255,215,0,.6)!important;border-radius:8px!important;animation:tutPulse 1.5s ease-in-out infinite;transition:box-shadow .2s}
@@ -557,13 +557,13 @@ body.shake{animation:shake .4s ease-in-out}
   .endless-hud .wave-label{ font-size: 11px; }
   #wave-banner .wave-big{ font-size: 48px; letter-spacing: 5px; }
   #wave-banner .wave-sub{ font-size: 12px; letter-spacing: 4px; }
-  #tutorial-banner{ top: 8px; max-width: 96vw; }
-  .tutorial-banner-text{ padding: 10px 16px 10px 44px; }
-  .tutorial-banner-text::before{ left: 14px; width: 18px; height: 18px; margin-top: -9px; }
-  .tutorial-banner-text::after{ left: 19px; width: 8px; height: 8px; margin-top: -4px; }
-  .tutorial-banner-text .tut-title{ font-size: 9px; letter-spacing: 2px; margin-bottom: 4px; }
-  .tutorial-banner-text .tut-body{ font-size: 11px; margin-bottom: 6px; }
-  .tutorial-banner-text .tut-action{ font-size: 11px; padding-left: 12px; }
+  #tutorial-banner{ top: 2px; max-width: 96vw; }
+  .tutorial-banner-text{ padding: 8px 14px 8px 40px; }
+  .tutorial-banner-text::before{ left: 12px; width: 18px; height: 18px; margin-top: -9px; }
+  .tutorial-banner-text::after{ left: 17px; width: 8px; height: 8px; margin-top: -4px; }
+  .tutorial-banner-text .tut-title{ font-size: 8px; letter-spacing: 2px; margin-bottom: 2px; }
+  .tutorial-banner-text .tut-body{ font-size: 11px; margin-bottom: 3px; }
+  .tutorial-banner-text .tut-action{ font-size: 10px; padding-left: 10px; }
   .codex-box{ padding: 22px 14px 20px; }
   .codex-title{ font-size: 18px; letter-spacing: 6px; }
   .codex-mini{ flex: 1 1 100%; max-width: none; }
@@ -1149,15 +1149,15 @@ var INTRO_SLIDES = [
 var introTutIndex = 0;
 
 /* ===== TUTORIAL STEPS (5 STEPS) =====
-   - Switch has been removed from the practice flow (only mentioned in slides).
-   - A dedicated step explains the Battle Log and the FOCUS counters. */
+   - Switch removed from practice flow (only in slides).
+   - Dedicated step for Battle Log + FOCUS counters. */
 var TUTORIAL_STEPS = [
   { title: 'STEP 1 / 5 · PLAY A CARD',
     body: 'Each card carries one element. Click a card to play it — attacks hit the enemy, heals restore you.',
     action: 'Click any card in your hand',
     highlight: '#p1-hand' },
   { title: 'STEP 2 / 5 · FORGE',
-    body: 'Two base cards of the same element fuse into one advanced card. Wind + Wind → Scorch Wind Shuriken (10 dmg + Burn 2). Forging also grants +1 Focus.',
+    body: 'Two same-element base cards fuse into an advanced card (Wind + Wind → Scorch Wind Shuriken). +1 Focus.',
     action: 'Click FORGE ·2 to combine your two Wind Slashes',
     highlight: '#btn-synthesize' },
   { title: 'STEP 3 / 5 · PLAY THE ADVANCED CARD',
@@ -1169,7 +1169,7 @@ var TUTORIAL_STEPS = [
     action: 'Click SWAP, then the X on a card',
     highlight: '#btn-discard' },
   { title: 'STEP 5 / 5 · THE LOG & FOCUS',
-    body: 'Down here is your <b>Battle Log</b> — every play, hit, and heal shows up here, so scroll it to see what happened. Up top, the two <b>FOCUS</b> counters track each side\'s Focus — the resource you spend on Enhance, Switch and Thaw.',
+    body: '<b>Battle Log</b> below shows every play. The two <b>FOCUS</b> counters up top track Enhance / Switch / Thaw.',
     action: 'Click END TURN when you are ready',
     highlight: '#log-area' }
 ];
