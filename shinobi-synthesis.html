@@ -885,71 +885,150 @@ var Audio = {
 };
 
 var MUSIC = {
-  BPM: 128, LOOKAHEAD: 0.55, SCHED_INTERVAL: 150,
+  BPM: 138, LOOKAHEAD: 0.6, SCHED_INTERVAL: 130,
   PROGRESSION: [
-    { root: 110.00, notes: [220.00, 261.63, 329.63] },{ root: 98.00, notes: [196.00, 246.94, 293.66] },
-    { root: 87.31, notes: [174.61, 220.00, 261.63] },{ root: 82.41, notes: [164.81, 207.65, 246.94] },
-    { root: 110.00, notes: [220.00, 261.63, 329.63] },{ root: 98.00, notes: [196.00, 246.94, 293.66] },
-    { root: 87.31, notes: [174.61, 220.00, 261.63] },{ root: 82.41, notes: [164.81, 207.65, 246.94] }
+    { root: 110.00, bass: 55.00, notes: [220.00, 261.63, 329.63, 493.88] },
+    { root: 87.31,  bass: 43.65, notes: [174.61, 220.00, 261.63, 329.63] },
+    { root: 130.81, bass: 65.41, notes: [261.63, 329.63, 392.00, 587.33] },
+    { root: 98.00,  bass: 49.00, notes: [196.00, 246.94, 293.66, 349.23] },
+    { root: 110.00, bass: 55.00, notes: [220.00, 261.63, 329.63, 493.88] },
+    { root: 87.31,  bass: 43.65, notes: [174.61, 220.00, 261.63, 329.63] },
+    { root: 73.42,  bass: 36.71, notes: [146.83, 174.61, 220.00, 261.63] },
+    { root: 82.41,  bass: 41.20, notes: [164.81, 207.65, 246.94, 329.63] }
   ],
-  ctx: null, bus: null, padBus: null, bassBus: null, arpBus: null, drumBus: null,
+  ctx: null, bus: null, padBus: null, bassBus: null, arpBus: null, leadBus: null, drumBus: null,
   playing: false, timer: null, step: 0, nextTime: 0,
+
   init: function() {
     if (this.ctx || !Audio.ctx) return;
     this.ctx = Audio.ctx; this.bus = Audio.musicBus;
-    this.padBus = this.ctx.createGain(); this.padBus.gain.value = 0; this.padBus.connect(this.bus);
+    this.padBus = this.ctx.createGain();  this.padBus.gain.value = 0;  this.padBus.connect(this.bus);
     this.bassBus = this.ctx.createGain(); this.bassBus.gain.value = 0; this.bassBus.connect(this.bus);
-    this.arpBus = this.ctx.createGain(); this.arpBus.gain.value = 0; this.arpBus.connect(this.bus);
+    this.arpBus = this.ctx.createGain();  this.arpBus.gain.value = 0;  this.arpBus.connect(this.bus);
+    this.leadBus = this.ctx.createGain(); this.leadBus.gain.value = 0; this.leadBus.connect(this.bus);
     this.drumBus = this.ctx.createGain(); this.drumBus.gain.value = 0; this.drumBus.connect(this.bus);
   },
+
   beatDur: function() { return 60 / this.BPM; },
   chordDur: function() { return this.beatDur() * 4; },
+
   start: function() {
     if (!this.ctx || this.playing || !soundEnabled) return;
     this.playing = true; this.step = 0;
     this.nextTime = this.ctx.currentTime + 0.15;
     var t = this.ctx.currentTime;
-    this.padBus.gain.cancelScheduledValues(t); this.padBus.gain.setValueAtTime(0, t); this.padBus.gain.linearRampToValueAtTime(0.7, t + 2.5);
-    this.bassBus.gain.cancelScheduledValues(t); this.bassBus.gain.setValueAtTime(0, t); this.bassBus.gain.linearRampToValueAtTime(0.85, t + 1.2);
-    this.arpBus.gain.cancelScheduledValues(t); this.arpBus.gain.setValueAtTime(0, t); this.arpBus.gain.linearRampToValueAtTime(0.6, t + 3.0);
-    this.drumBus.gain.cancelScheduledValues(t); this.drumBus.gain.setValueAtTime(0, t); this.drumBus.gain.linearRampToValueAtTime(0.8, t + 0.8);
+    this.padBus.gain.cancelScheduledValues(t); this.padBus.gain.setValueAtTime(0, t); this.padBus.gain.linearRampToValueAtTime(0.55, t + 2.2);
+    this.bassBus.gain.cancelScheduledValues(t); this.bassBus.gain.setValueAtTime(0, t); this.bassBus.gain.linearRampToValueAtTime(0.9, t + 1.0);
+    this.arpBus.gain.cancelScheduledValues(t); this.arpBus.gain.setValueAtTime(0, t); this.arpBus.gain.linearRampToValueAtTime(0.65, t + 2.8);
+    this.leadBus.gain.cancelScheduledValues(t); this.leadBus.gain.setValueAtTime(0, t); this.leadBus.gain.linearRampToValueAtTime(0.55, t + 4.0);
+    this.drumBus.gain.cancelScheduledValues(t); this.drumBus.gain.setValueAtTime(0, t); this.drumBus.gain.linearRampToValueAtTime(0.85, t + 0.6);
     this.schedule();
     var self = this;
     this.timer = setInterval(function() { self.schedule(); }, this.SCHED_INTERVAL);
   },
+
   stop: function() {
     if (!this.playing) return;
     this.playing = false;
     if (this.timer) { clearInterval(this.timer); this.timer = null; }
     if (!this.ctx) return;
     var t = this.ctx.currentTime;
-    [this.padBus, this.bassBus, this.arpBus, this.drumBus].forEach(function(bus) {
+    [this.padBus, this.bassBus, this.arpBus, this.leadBus, this.drumBus].forEach(function(bus) {
       if (!bus) return;
       bus.gain.cancelScheduledValues(t);
       bus.gain.setValueAtTime(bus.gain.value, t);
       bus.gain.linearRampToValueAtTime(0, t + 0.6);
     });
   },
+
+  /* Fix: forward to Audio.noise so scheduleChord's self.noise() works */
+  noise: function(o) { Audio.noise(o); },
+
   schedule: function() {
     if (!this.playing || !this.ctx) return;
     var horizon = this.ctx.currentTime + this.LOOKAHEAD; var guard = 0;
     while (this.nextTime < horizon && guard < 8) { this.scheduleChord(this.step, this.nextTime); this.step++; this.nextTime += this.chordDur(); guard++; }
   },
+
   scheduleChord: function(step, time) {
     var chord = this.PROGRESSION[step % this.PROGRESSION.length];
-    var beat = this.beatDur(); var chordDur = this.chordDur(); var self = this;
-    chord.notes.forEach(function(freq, i) { self.note({ freq: freq, type: 'sine', time: time + i * 0.02, attack: 0.5, sustain: chordDur - 1.0, release: 1.0, vol: 0.045, filter: 1400, bus: self.padBus }); });
-    for (var b = 0; b < 8; b++) { var t = time + b * beat / 2; var accent = (b % 4 === 0) ? 1.4 : (b % 2 === 0 ? 1.0 : 0.65); self.note({ freq: chord.root, type: 'triangle', time: t, attack: 0.004, sustain: 0.13, release: 0.09, vol: 0.16 * accent, filter: 520, bus: self.bassBus }); }
-    self.drum({ type: 'kick', time: time, vol: 0.55 }); self.drum({ type: 'kick', time: time + beat * 2, vol: 0.45 });
-    self.drum({ type: 'snare', time: time + beat, vol: 0.25 }); self.drum({ type: 'snare', time: time + beat * 3, vol: 0.3 });
-    for (var h = 0; h < 8; h++) self.drum({ type: 'hat', time: time + h * beat / 2, vol: (h % 2 === 0) ? 0.045 : 0.022 });
-    var arpPool = chord.notes.map(function(f) { return f * 2; }); arpPool.push(chord.notes[0] * 4);
-    for (var a = 0; a < 8; a++) { self.note({ freq: arpPool[a % arpPool.length], type: 'sine', time: time + a * beat / 2, attack: 0.005, sustain: 0.06, release: 0.14, vol: 0.04, filter: 4500, bus: self.arpBus }); }
+    var beat = this.beatDur();
+    var chordDur = this.chordDur();
+    var chordIndex = step % this.PROGRESSION.length;
+    var self = this;
+
+    chord.notes.forEach(function(freq, i) {
+      var tOff = time + i * 0.03;
+      self.note({ freq: freq * 1.003, type: 'sawtooth', time: tOff, attack: 0.7, sustain: chordDur - 1.4, release: 1.3, vol: 0.022, filter: 1100, filterQ: 3.5, bus: self.padBus });
+      self.note({ freq: freq * 0.997, type: 'sawtooth', time: tOff, attack: 0.7, sustain: chordDur - 1.4, release: 1.3, vol: 0.022, filter: 1100, filterQ: 3.5, bus: self.padBus });
+    });
+
+    var bassPattern = [0, 0.75, 1.5, 2, 2.5, 3, 3.5];
+    bassPattern.forEach(function(offset, i) {
+      var t = time + offset * beat;
+      var accent = (i % 2 === 0) ? 1.0 : 0.72;
+      self.note({ freq: chord.bass, type: 'triangle', time: t, attack: 0.002, sustain: 0.14, release: 0.09, vol: 0.24 * accent, filter: 360, filterQ: 1.2, bus: self.bassBus });
+      if (offset === 0 || offset === 2) {
+        self.note({ freq: chord.bass / 2, type: 'sine', time: t, attack: 0.002, sustain: 0.22, release: 0.14, vol: 0.20, filter: 180, filterQ: 0.9, bus: self.bassBus });
+      }
+    });
+
+    var arpPool = [chord.notes[0]*2, chord.notes[1]*2, chord.notes[2]*2, chord.notes[3]*2, chord.notes[0]*4, chord.notes[2]*4];
+    var arpPattern = [0, 1, 2, 3, 4, 3, 2, 1, 0, 2, 4, 5, 4, 2, 0, 1];
+    for (var a = 0; a < 16; a++) {
+      var tArp = time + a * beat / 4;
+      var poolIdx = arpPattern[a % arpPattern.length];
+      self.note({ freq: arpPool[poolIdx], type: 'sine', time: tArp, attack: 0.003, sustain: 0.04, release: 0.09, vol: 0.052, filter: 5200, bus: self.arpBus });
+    }
+
+    if (chordIndex % 2 === 0) {
+      var hookFreqs = [chord.notes[3] * 4, chord.notes[2] * 4, chord.notes[1] * 4, chord.notes[3] * 2];
+      if (chordIndex === 3 || chordIndex === 7) hookFreqs[2] = chord.notes[3] * 4;
+      self.note({ freq: hookFreqs[0], type: 'triangle', time: time + beat * 0.5, attack: 0.02, sustain: 0.28, release: 0.35, vol: 0.062, filter: 3800, filterQ: 1.5, bus: self.leadBus });
+      self.note({ freq: hookFreqs[1], type: 'triangle', time: time + beat * 1.5, attack: 0.02, sustain: 0.28, release: 0.35, vol: 0.062, filter: 3800, filterQ: 1.5, bus: self.leadBus });
+      self.note({ freq: hookFreqs[2], type: 'triangle', time: time + beat * 2.5, attack: 0.02, sustain: 0.45, release: 0.45, vol: 0.07, filter: 3800, filterQ: 1.5, bus: self.leadBus });
+    }
+
+    self.drum({ type: 'kick', time: time, vol: 0.75 });
+    self.drum({ type: 'kick', time: time + beat * 1.5, vol: 0.42 });
+    self.drum({ type: 'kick', time: time + beat * 2, vol: 0.62 });
+    self.drum({ type: 'kick', time: time + beat * 3.5, vol: 0.42 });
+
+    self.drum({ type: 'snare', time: time + beat, vol: 0.36 });
+    self.drum({ type: 'snare', time: time + beat * 3, vol: 0.42 });
+    self.drum({ type: 'snare', time: time + beat * 2.75, vol: 0.16 });
+
+    for (var h = 0; h < 16; h++) {
+      var tH = time + h * beat / 4;
+      if (h % 2 === 1) tH += beat * 0.045;
+      self.drum({ type: 'hat', time: tH, vol: (h % 4 === 0) ? 0.055 : (h % 2 === 0 ? 0.042 : 0.026) });
+    }
+    if (chordIndex % 2 === 1) {
+      self.drum({ type: 'openhat', time: time + beat * 3.5, vol: 0.11 });
+    }
+    if (chordIndex % 4 === 3) {
+      self.drum({ type: 'tom', freq: 190, time: time + beat * 3.5, vol: 0.38 });
+      self.drum({ type: 'tom', freq: 145, time: time + beat * 3.75, vol: 0.38 });
+    }
+
+    if (chordIndex % 4 === 0) {
+      self.noise({ dur: 0.8, vol: 0.14, filterType: 'highpass', filterFreq: 6500, q: 0.7 });
+      self.noise({ dur: 0.35, vol: 0.08, filterType: 'bandpass', filterFreq: 3200, q: 0.6 });
+    }
+    if (chordIndex === 7) {
+      var riserStart = time + beat * 2;
+      for (var r = 0; r < 8; r++) {
+        var tR = riserStart + r * beat / 4;
+        var pitch = 400 + r * 140;
+        self.note({ freq: pitch, type: 'sawtooth', time: tR, attack: 0.01, sustain: 0.08, release: 0.15, vol: 0.055, filter: 2500, filterQ: 5, bus: self.leadBus });
+      }
+    }
   },
+
   note: function(o) {
     var ctx = this.ctx; var t = o.time;
     var osc = ctx.createOscillator(); osc.type = o.type || 'sine'; osc.frequency.value = o.freq;
-    var flt = ctx.createBiquadFilter(); flt.type = 'lowpass'; flt.frequency.value = o.filter || 2000; flt.Q.value = 0.4;
+    var flt = ctx.createBiquadFilter(); flt.type = 'lowpass'; flt.frequency.value = o.filter || 2000; flt.Q.value = o.filterQ || 0.4;
     var gain = ctx.createGain(); var total = o.attack + o.sustain + o.release;
     gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(o.vol, t + o.attack);
     gain.gain.setValueAtTime(o.vol, t + o.attack + o.sustain);
@@ -957,11 +1036,12 @@ var MUSIC = {
     osc.connect(flt); flt.connect(gain); gain.connect(o.bus || this.bus);
     osc.start(t); osc.stop(t + total + 0.05);
   },
+
   drum: function(o) {
     var ctx = this.ctx; var t = o.time; var bus = this.drumBus;
     if (o.type === 'kick') {
       var osc = ctx.createOscillator(); osc.type = 'sine';
-      osc.frequency.setValueAtTime(160, t); osc.frequency.exponentialRampToValueAtTime(45, t + 0.1);
+      osc.frequency.setValueAtTime(170, t); osc.frequency.exponentialRampToValueAtTime(42, t + 0.1);
       var g = ctx.createGain(); g.gain.setValueAtTime(o.vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
       osc.connect(g); g.connect(bus); osc.start(t); osc.stop(t + 0.35);
     } else if (o.type === 'snare') {
@@ -970,7 +1050,7 @@ var MUSIC = {
       var d = buf.getChannelData(0);
       for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1);
       var src = ctx.createBufferSource(); src.buffer = buf;
-      var flt = ctx.createBiquadFilter(); flt.type = 'highpass'; flt.frequency.value = 1000;
+      var flt = ctx.createBiquadFilter(); flt.type = 'highpass'; flt.frequency.value = 1100;
       var g2 = ctx.createGain(); g2.gain.setValueAtTime(o.vol, t); g2.gain.exponentialRampToValueAtTime(0.001, t + 0.13);
       src.connect(flt); flt.connect(g2); g2.connect(bus); src.start(t); src.stop(t + 0.2);
     } else if (o.type === 'hat') {
@@ -979,9 +1059,24 @@ var MUSIC = {
       var d2 = buf2.getChannelData(0);
       for (var j = 0; j < len2; j++) d2[j] = (Math.random() * 2 - 1);
       var src2 = ctx.createBufferSource(); src2.buffer = buf2;
-      var flt2 = ctx.createBiquadFilter(); flt2.type = 'highpass'; flt2.frequency.value = 7000;
+      var flt2 = ctx.createBiquadFilter(); flt2.type = 'highpass'; flt2.frequency.value = 7500;
       var g4 = ctx.createGain(); g4.gain.setValueAtTime(o.vol, t); g4.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
       src2.connect(flt2); flt2.connect(g4); g4.connect(bus); src2.start(t); src2.stop(t + 0.06);
+    } else if (o.type === 'openhat') {
+      var len3 = Math.floor(ctx.sampleRate * 0.22);
+      var buf3 = ctx.createBuffer(1, len3, ctx.sampleRate);
+      var d3 = buf3.getChannelData(0);
+      for (var k = 0; k < len3; k++) d3[k] = (Math.random() * 2 - 1);
+      var src3 = ctx.createBufferSource(); src3.buffer = buf3;
+      var flt3 = ctx.createBiquadFilter(); flt3.type = 'highpass'; flt3.frequency.value = 7000;
+      var g5 = ctx.createGain(); g5.gain.setValueAtTime(o.vol, t); g5.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+      src3.connect(flt3); flt3.connect(g5); g5.connect(bus); src3.start(t); src3.stop(t + 0.25);
+    } else if (o.type === 'tom') {
+      var osc3 = ctx.createOscillator(); osc3.type = 'sine';
+      var f0 = o.freq || 180;
+      osc3.frequency.setValueAtTime(f0, t); osc3.frequency.exponentialRampToValueAtTime(f0 * 0.55, t + 0.15);
+      var g6 = ctx.createGain(); g6.gain.setValueAtTime(o.vol, t); g6.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+      osc3.connect(g6); g6.connect(bus); osc3.start(t); osc3.stop(t + 0.28);
     }
   }
 };
@@ -1148,9 +1243,6 @@ var INTRO_SLIDES = [
 ];
 var introTutIndex = 0;
 
-/* ===== TUTORIAL STEPS (5 STEPS) =====
-   - Switch removed from practice flow (only in slides).
-   - Dedicated step for Battle Log + FOCUS counters. */
 var TUTORIAL_STEPS = [
   { title: 'STEP 1 / 5 · PLAY A CARD',
     body: 'Each card carries one element. Click a card to play it — attacks hit the enemy, heals restore you.',
@@ -1171,7 +1263,7 @@ var TUTORIAL_STEPS = [
   { title: 'STEP 5 / 5 · THE LOG & FOCUS',
     body: '<b>Battle Log</b> below shows every play. The two <b>FOCUS</b> counters up top track Enhance / Switch / Thaw.',
     action: 'Click END TURN when you are ready',
-    highlight: '#log-area' }
+    highlight: '#log-area, .chakra-display' }
 ];
 
 function statLine(atk, heal) {
@@ -2006,7 +2098,12 @@ function showEnding(cb) {
   sl();
 }
 function clearTutorialHighlight() { var els = document.querySelectorAll('.tutorial-highlight'); for (var i = 0; i < els.length; i++) els[i].classList.remove('tutorial-highlight'); }
-function applyTutorialHighlight(selector) { clearTutorialHighlight(); if (!selector) return; var el = document.querySelector(selector); if (el) el.classList.add('tutorial-highlight'); }
+function applyTutorialHighlight(selector) {
+  clearTutorialHighlight();
+  if (!selector) return;
+  var els = document.querySelectorAll(selector);
+  for (var i = 0; i < els.length; i++) els[i].classList.add('tutorial-highlight');
+}
 function updateTutorialBanner() {
   var banner = document.getElementById('tutorial-banner'), text = document.getElementById('tutorial-banner-text');
   if (!banner || !text) return;
@@ -2015,9 +2112,9 @@ function updateTutorialBanner() {
   if (!step) { banner.style.display = 'none'; clearTutorialHighlight(); return; }
   text.innerHTML = '<span class="tut-title">' + step.title + '</span><span class="tut-body">' + step.body + '</span><span class="tut-action">' + step.action + '</span>';
   banner.style.display = 'block';
-  applyTutorialHighlight(step.highlight);
   Audio.playSound('tutStep');
   render();
+  applyTutorialHighlight(step.highlight);
 }
 function tutorialComplete() {
   tutorialState.active = false;
