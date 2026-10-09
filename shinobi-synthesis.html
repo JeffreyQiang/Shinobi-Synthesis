@@ -547,10 +547,22 @@ body.shake{animation:shake .4s ease-in-out}
   .tutorial-banner-text .tut-body{ display:none; }
   .tutorial-banner-text .tut-action{ font-size:10px; padding-left:9px; }
   .tutorial-banner-text .tut-action::before{ border-left-width:4px; border-top-width:2.5px; border-bottom-width:2.5px; margin-top:-2.5px; }
-  /* 首页 / 教学 / 弹窗压缩（继承自原 max-height:500px 查询） */
-  .scroll-title{font-size:34px;letter-spacing:8px}
-  .scroll-sub{font-size:12px;letter-spacing:6px}
-  .btn-start,.btn-endless,.btn-tutorial,.btn-codex{font-size:13px;padding:13px 22px;min-width:150px;letter-spacing:2px}
+
+  /* 主页横屏化 —— 标题 + 副标题 + 四个按钮同一行环绕 */
+  #home-screen{ padding:4px; }
+  .scroll-container{ max-width:96vw; padding:12px 24px; }
+  .scroll-container::before,.scroll-container::after{ height:8px; border-radius:4px; }
+  .scroll-container::before{ top:-4px; }
+  .scroll-container::after{ bottom:-4px; }
+  .scroll-container > div{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:6px 10px; }
+  .scroll-title{ font-size:24px; letter-spacing:8px; margin:0; }
+  .scroll-sub{ font-size:9px; letter-spacing:3px; margin:0; padding:3px 0; border-top:none; border-bottom:none; }
+  .hint-text{ display:none; }
+  .btn-row{ display:contents; }
+  .btn-start,.btn-endless,.btn-tutorial,.btn-codex{ font-size:11px; padding:8px 16px; min-width:0; letter-spacing:2px; }
+  .scroll-footer{ flex-basis:100%; font-size:8px; padding-top:6px; margin-top:2px; letter-spacing:2px; }
+
+  /* 教学 / 弹窗压缩 */
   .intro-tut-box{padding:22px 18px 14px}
   .intro-tut-title{font-size:15px;letter-spacing:4px;margin-bottom:10px}
   .intro-tut-icon{width:50px;height:50px;margin-bottom:8px}
@@ -620,7 +632,7 @@ body.shake{animation:shake .4s ease-in-out}
   .tutorial-banner-text .tut-title{ font-size:8px; letter-spacing:2px; margin-bottom:2px; }
   .tutorial-banner-text .tut-body{ font-size:10px; margin-bottom:2px; }
   .tutorial-banner-text .tut-action{ font-size:10px; padding-left:9px; }
-  /* Codex / 教学弹窗压缩（继承自原 max-aspect-ratio 查询） */
+  /* Codex / 教学弹窗压缩 */
   .codex-box{ padding:22px 14px 20px; }
   .codex-title{ font-size:18px; letter-spacing:6px; }
   .codex-mini{ flex:1 1 100%; max-width:none; }
@@ -999,7 +1011,6 @@ var MUSIC = {
     });
   },
 
-  /* Fix: forward to Audio.noise so scheduleChord's self.noise() works */
   noise: function(o) { Audio.noise(o); },
 
   schedule: function() {
